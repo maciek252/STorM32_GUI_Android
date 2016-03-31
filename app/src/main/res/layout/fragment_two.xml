@@ -1,0 +1,157 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="info.androidhive.materialtabs.fragments.TwoFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/two"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:id="@+id/textView3"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detect BTs"
+        android:id="@+id/buttonDetectBT"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/textView3"
+        android:layout_toStartOf="@+id/textView3"
+        android:layout_marginTop="39dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textViewDetectedBT"
+        android:layout_below="@+id/buttonDetectBT"
+        android:layout_alignRight="@+id/textView3"
+        android:layout_alignEnd="@+id/textView3"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textView_2_connectionStatus"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nowy tEkst:"
+        android:id="@+id/textView_2_rcvBt"
+        android:layout_below="@+id/textView_2_connectionStatus"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="39dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:nestedScrollingEnabled="true"
+        android:textIsSelectable="true"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Read version"
+        android:id="@+id/button_2_ReadVersion"
+        android:layout_above="@+id/textViewDetectedBT"
+        android:layout_toRightOf="@+id/buttonDetectBT"
+        android:layout_toEndOf="@+id/buttonDetectBT"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="name"
+        android:id="@+id/textView_2_name"
+        android:layout_below="@+id/textView_2_board"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Version:"
+        android:id="@+id/textView_2_version"
+        android:layout_below="@+id/textViewDetectedBT"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Board:"
+        android:id="@+id/textView_2_board"
+        android:layout_above="@+id/textView3"
+        android:layout_alignRight="@+id/textView_2_name"
+        android:layout_alignEnd="@+id/textView_2_name"
+        android:layout_marginBottom="55dp"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Name"
+        android:id="@+id/button_2_setName"
+        android:layout_alignTop="@+id/textViewDetectedBT"
+        android:layout_toRightOf="@+id/textViewDetectedBT"
+        android:layout_toEndOf="@+id/textViewDetectedBT"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Read Options"
+        android:id="@+id/button_2_readOptions"
+        android:layout_above="@+id/textView_2_board"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Options"
+        android:id="@+id/button_2_saveOptions"
+        android:layout_below="@+id/button_2_readOptions"
+        android:layout_alignLeft="@+id/button_2_readOptions"
+        android:layout_alignStart="@+id/button_2_readOptions"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Read Option"
+        android:id="@+id/button_2_ReadOption"
+        android:layout_alignBottom="@+id/textView_2_name"
+        android:layout_alignLeft="@+id/button_2_saveOptions"
+        android:layout_alignStart="@+id/button_2_saveOptions"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="changeOption"
+        android:id="@+id/button_2_ChangeOption"
+        android:layout_below="@+id/button_2_ReadOption"
+        android:layout_alignLeft="@+id/button_2_ReadOption"
+        android:layout_alignStart="@+id/button_2_ReadOption"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Disconnect BT"
+        android:id="@+id/button_2_disconnect"
+        android:layout_below="@+id/button_2_ChangeOption"
+        android:layout_alignRight="@+id/button_2_ReadOption"
+        android:layout_alignEnd="@+id/button_2_ReadOption"/>
+
+</RelativeLayout>
