@@ -26,6 +26,8 @@ import org.mavlink.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import info.androidhive.materialtabs.storm32.optionList;
+
 public class TwoFragment extends Fragment
         implements BluetoothSerialListener, BluetoothDeviceListDialog.OnDeviceSelectedListener,
         View.OnClickListener
@@ -146,6 +148,8 @@ public class TwoFragment extends Fragment
                 break;
             case R.id.button_2_ReadVersion:
                 //bluetoothSerial.getConnectedDeviceName().
+                optionList.voltageCorrection += 1;
+
                 messageBuffer = "";
                 bluetoothSerial.write("v", false);
                 //bluetoothSerial.writ
@@ -295,6 +299,8 @@ sub do_crc{
 
 
                 tv_receivedBt.setText("  " + String.format("%01X",options[36])  + "," + String.format("%01X",options[37]));
+                optionList.voltageCorrection = options[38];
+
 
                 break;
             case R.id.button_2_ChangeOption:

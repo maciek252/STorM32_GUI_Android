@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ import info.androidhive.materialtabs.R;
 import info.androidhive.materialtabs.fragments.EightFragment;
 import info.androidhive.materialtabs.fragments.FiveFragment;
 import info.androidhive.materialtabs.fragments.FourFragment;
+import info.androidhive.materialtabs.fragments.IntermediateFragment;
 import info.androidhive.materialtabs.fragments.NineFragment;
 import info.androidhive.materialtabs.fragments.OneFragment;
 import info.androidhive.materialtabs.fragments.SevenFragment;
@@ -29,6 +32,9 @@ public class ScrollableTabsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    private ThreeFragment three = new ThreeFragment();
+    private FourFragment four = new FourFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +56,8 @@ public class ScrollableTabsActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new OneFragment(), "ONE");
         adapter.addFrag(new TwoFragment(), "TWO");
-        adapter.addFrag(new ThreeFragment(), "THREE");
-        adapter.addFrag(new FourFragment(), "FOUR");
+        adapter.addFrag(three, "THREE");
+        adapter.addFrag(four, "FOUR");
         adapter.addFrag(new FiveFragment(), "FIVE");
         adapter.addFrag(new SixFragment(), "SIX");
         adapter.addFrag(new SevenFragment(), "SEVEN");
@@ -82,6 +88,18 @@ public class ScrollableTabsActivity extends AppCompatActivity {
         public void addFrag(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position){
+            Object obj = super.instantiateItem(container, position);
+            //Toast toast = Toast.makeText(getApplicationContext(), "page instantiated:" + position, Toast.LENGTH_SHORT);
+            if(position == 3){
+                //three.
+                three.inv();
+            }
+            //toast.show();
+            return obj;
         }
 
         @Override

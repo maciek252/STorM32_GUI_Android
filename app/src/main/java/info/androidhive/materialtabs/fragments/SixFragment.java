@@ -7,9 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import info.androidhive.materialtabs.R;
+import info.androidhive.materialtabs.storm32.optionList;
 
 
-public class SixFragment extends Fragment{
+public class SixFragment extends IntermediateFragment{
 
     public SixFragment() {
         // Required empty public constructor
@@ -24,7 +25,11 @@ public class SixFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_six, container, false);
+        View v =  inflater.inflate(R.layout.fragment_six, container, false);
+
+
+        addPair(v, R.id.textView_6_pid, optionList.lowVoltageLimitInt);
+        return v;
     }
 
 }

@@ -7,9 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import info.androidhive.materialtabs.R;
+import info.androidhive.materialtabs.storm32.optionList;
 
 
-public class FiveFragment extends Fragment{
+public class FiveFragment extends IntermediateFragment{
 
     public FiveFragment() {
         // Required empty public constructor
@@ -24,7 +25,11 @@ public class FiveFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_five, container, false);
+        View v =  inflater.inflate(R.layout.fragment_five, container, false);
+        addPair(v, R.id.textView_5_pid, optionList.lowVoltageLimitInt);
+        addPair(v, R.id.textView_5_pid2, optionList.lowVoltageLimitInt);
+        addPair(v, R.id.textView_5_pid3, optionList.lowVoltageLimitInt);
+        return v;
     }
 
 }

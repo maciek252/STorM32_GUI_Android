@@ -7,24 +7,35 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import info.androidhive.materialtabs.R;
+import info.androidhive.materialtabs.storm32.optionList;
+//import info.androidhive.materialtabs.
 
-
-public class FourFragment extends Fragment{
+public class FourFragment extends IntermediateFragment{
+//Fragment{
 
     public FourFragment() {
         // Required empty public constructor
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
     }
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_four, container, false);
+        View v = inflater.inflate(R.layout.fragment_four, container, false);
+        addPair(v, R.id.textView_4_lowVoltageLimit, optionList.lowVoltageLimitInt);
+        addPair(v, R.id.textView_4_Pid, optionList.lowVoltageLimitInt);
+        return v;
     }
 
 }

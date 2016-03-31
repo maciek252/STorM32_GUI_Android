@@ -8,7 +8,34 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="false">
+        android:clickable="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="low voltage Limit"
+            android:id="@+id/textView6"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_4_Pid" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_4_lowVoltageLimit"
+            android:layout_gravity="center_vertical"
+            android:background="#d3e6be"
+            android:editable="true"
+            android:enabled="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textIsSelectable="false" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -17,6 +44,7 @@
             android:textSize="40dp"
             android:textStyle="bold"
             android:layout_centerInParent="true"/>
+
     </LinearLayout>
 
 </RelativeLayout>
