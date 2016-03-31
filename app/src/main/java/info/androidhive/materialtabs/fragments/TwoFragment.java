@@ -199,13 +199,11 @@ sub do_crc{
 
                  */
 
-                String wej = "sowaKocia";
+                String wej = "testName";
                 String o = String.format("%-20s", wej);
                 o = o.substring(0,16);
 
-                //String o = "rybachybarybaoko";
-                //String o = "sowasowa        ";
-//                bluetoothSerial.write("xn", false);
+                  bluetoothSerial.write("xn", false);
   //              bluetoothSerial.write(o, false);
                 /* //OK DZIAŁA
                 byte [] n = new byte[20];
