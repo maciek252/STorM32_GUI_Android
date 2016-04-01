@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import info.androidhive.materialtabs.R;
 import info.androidhive.materialtabs.storm32.optionList;
@@ -16,6 +19,9 @@ public class FiveFragment extends IntermediateFragment{
         // Required empty public constructor
     }
 
+    TextView tv_PitchMotorVmax = null;
+    Spinner sp_GyroLpf = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +32,23 @@ public class FiveFragment extends IntermediateFragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_five, container, false);
-        addPair(v, R.id.textView_5_pid, optionList.lowVoltageLimitInt);
-        addPair(v, R.id.textView_5_pid2, optionList.lowVoltageLimitInt);
-        addPair(v, R.id.textView_5_pid3, optionList.lowVoltageLimitInt);
+        tv_PitchMotorVmax = (TextView) v.findViewById(R.id.textView_5_pitchMotorVmax);
+        addPairTv(v, tv_PitchMotorVmax, 100);
+
+        sp_GyroLpf = (Spinner) v.findViewById((R.id.spinner_5_gyroLpf));
+
+        String [] opcje = new String[] {
+                "1", "2", "3", "4", "5"
+        };
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(  getContext(),
+                android.R.layout.simple_spinner_item, opcje);
+        sp_GyroLpf.setAdapter(adapter);
+
+
+        addPairSpinner(v, sp_GyroLpf, 3);
+
+
         return v;
     }
 

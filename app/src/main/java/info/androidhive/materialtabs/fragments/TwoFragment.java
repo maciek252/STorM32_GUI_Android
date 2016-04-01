@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import info.androidhive.materialtabs.R;
 
@@ -26,7 +27,8 @@ import org.mavlink.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import info.androidhive.materialtabs.storm32.optionList;
+import info.androidhive.materialtabs.storm32.*;
+
 
 public class TwoFragment extends Fragment
         implements BluetoothSerialListener, BluetoothDeviceListDialog.OnDeviceSelectedListener,
@@ -374,6 +376,7 @@ sub do_crc{
             if(options == null )
                 options = MAVLinkCRC.stringToByte(message);
             else {
+
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
                 try {
                     outputStream.write(options);
@@ -385,6 +388,15 @@ sub do_crc{
 
 
                 options = outputStream.toByteArray();
+
+                if(options.length >= 381 && options[380] == 'o'){
+                    Toast toast = Toast.makeText(getContext(), "options received!", Toast.LENGTH_SHORT);
+                    //toast.setDuration;
+                    toast.show();
+                    optionList.setOptions(options);
+                    optionList.decodeOptions();
+                }
+
             }
         }
 

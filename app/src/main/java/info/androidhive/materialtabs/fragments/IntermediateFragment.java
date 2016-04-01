@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import info.androidhive.materialtabs.R;
+import info.androidhive.materialtabs.storm32.Option;
 import info.androidhive.materialtabs.storm32.optionList;
 
 /**
@@ -25,9 +27,11 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
 
     public HashMap<TextView,Integer> mappingTextViewsOptions = new HashMap<>();
 
-    public void addPair(View v, int tvId, Integer i){
+    public HashMap<Integer, View> map_addr_control = new HashMap<>();
 
-        TextView tv = (TextView) v.findViewById(tvId);
+    public void addPairTv(View v, TextView tv, int addr){
+
+
 
         // PLUS SET editable and contextClicable!
 
@@ -38,8 +42,33 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
         tv.setFocusableInTouchMode(true);
         tv.setTextIsSelectable(false);
         //tv.setBackgroundColor(Color.blue(3));
+
+        map_addr_control.put(addr, tv);
+
     }
 
+    public void addPairSpinner(View v, Spinner sp, int addr){
+
+
+
+        // PLUS SET editable and contextClicable!
+
+        /*
+        tv.setCursorVisible(true);
+        tv.setFocusable(true);
+        tv.setEnabled(true);
+        tv.setClickable(true);
+        tv.setFocusableInTouchMode(true);
+        tv.setTextIsSelectable(false);
+        //tv.setBackgroundColor(Color.blue(3));
+*/
+        //map_addr_control.put(addr, tv);
+
+    }
+
+    public void updateAll(){
+
+    }
 
     public void inv(){
         //if(tv_voltageCorrection != null) {

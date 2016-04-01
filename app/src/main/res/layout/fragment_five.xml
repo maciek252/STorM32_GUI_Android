@@ -1,60 +1,138 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="info.androidhive.materialtabs.fragments.FiveFragment">
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/five"
-            android:textSize="40dp"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"
-            android:layout_row="0"
-            android:layout_column="0" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="PAN"
+            android:id="@+id/textView16"
+            android:layout_gravity="center_horizontal" />
 
         <TextView
-            android:layout_width="107dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textView_5_pid2"
-            android:layout_row="9"
-            android:layout_column="2"
+            android:text="Gyro LPF"
+            android:id="@+id/textView_5_gyroLpfLabel" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_5_gyroLpf"
+            android:layout_gravity="center_horizontal"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pitch Motor Vmax"
+            android:id="@+id/textView14" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_5_pitchMotorVmax"
             android:contextClickable="true"
-            android:enabled="true"
-            android:editable="true" />
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
 
-        <TextView
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 2" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 3" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 4" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 5" />
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textView_5_pid3"
-            android:layout_row="10"
-            android:layout_column="1"
-            android:editable="true"
-            android:contextClickable="true" />
+            android:text="RadioButton 1" />
 
-        <TextView
-            android:layout_width="117dp"
-            android:layout_height="228dp"
-            android:text="New Text"
-            android:id="@+id/textView_5_pid"
-            android:layout_row="11"
-            android:layout_column="3"
-            android:textIsSelectable="false"
-            android:editable="true"
-            android:enabled="true"
-            android:focusable="true"
-            android:focusableInTouchMode="false"
-            android:autoText="true"
-            android:clickable="true"
-            android:contextClickable="true" />
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RadioButton 2" />
 
-    </GridLayout>
+        <ToggleButton
+            android:id="@+id/toggleButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton" />
 
-</RelativeLayout>
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 6" />
+
+        <SeekBar
+            android:id="@+id/seekBar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 7" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 8" />
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CheckBox" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 9" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 10" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 11" />
+    </LinearLayout>
+
+</ScrollView>

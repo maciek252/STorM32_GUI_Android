@@ -28,7 +28,7 @@ public class SixFragment extends IntermediateFragment{
         View v =  inflater.inflate(R.layout.fragment_six, container, false);
 
 
-        addPair(v, R.id.textView_6_pid, optionList.lowVoltageLimitInt);
+        //addPair(v, R.id.textView_6_pid, optionList.lowVoltageLimitInt);
         return v;
     }
 

@@ -33,8 +33,8 @@ public class FourFragment extends IntermediateFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_four, container, false);
-        addPair(v, R.id.textView_4_lowVoltageLimit, optionList.lowVoltageLimitInt);
-        addPair(v, R.id.textView_4_Pid, optionList.lowVoltageLimitInt);
+        //addPairTv(v, R.id.textView_4_lowVoltageLimit, optionList.lowVoltageLimitInt);
+        //addPairTv(v, R.id.textView_4_Pid, optionList.lowVoltageLimitInt);
         return v;
     }
 
