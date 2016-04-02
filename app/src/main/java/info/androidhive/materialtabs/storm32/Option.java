@@ -14,4 +14,13 @@ public class Option {
 
     public int defaultValue = 1;
 
+
+    public boolean isRead(){
+        return hasBeenRead;
+    }
+
+
+    public int getValue(){
+        return value;
+    }
 }

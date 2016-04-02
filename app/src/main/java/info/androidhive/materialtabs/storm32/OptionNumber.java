@@ -23,7 +23,12 @@ public class OptionNumber extends Option {
                              int steps,
                              int size, int address,
                              String unit){
-
+        this.min = min;
+        this.max = max;
+        this.length = length;
+        value = defaultValue;
+        this.address = address;
+        this.unit = unit;
     }
 
 

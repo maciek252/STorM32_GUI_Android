@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="PAN"
+            android:text="PID"
             android:id="@+id/textView16"
             android:layout_gravity="center_horizontal" />
 
@@ -41,6 +41,36 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView_5_pitchMotorVmax"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Roll Motor Vmax"
+            android:id="@+id/textView15" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_5_rollMotorVmax"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yaw Motor Vmax"
+            android:id="@+id/textView18" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView19"
             android:contextClickable="true"
             android:editable="true"
             android:layout_gravity="center_horizontal" />

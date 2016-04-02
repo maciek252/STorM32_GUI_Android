@@ -141,6 +141,8 @@ public class TwoFragment extends Fragment
         switch (v.getId()) {
             case R.id.buttonDetectBT:
 
+                IntermediateFragment.setColorToAllControls();
+
                 BluetoothDeviceListDialog dialog = new BluetoothDeviceListDialog(getActivity());
                 dialog.setOnDeviceSelectedListener(this);
                 dialog.setTitle("urządzenia sparowane");
@@ -150,6 +152,9 @@ public class TwoFragment extends Fragment
                 break;
             case R.id.button_2_ReadVersion:
                 //bluetoothSerial.getConnectedDeviceName().
+
+
+
                 optionList.voltageCorrection += 1;
 
                 messageBuffer = "";

@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import info.androidhive.materialtabs.R;
+import info.androidhive.materialtabs.fragments.IntermediateFragment;
+import info.androidhive.materialtabs.storm32.optionList;
 
 /*
 import com.devpaul.bluetoothutillib.SimpleBluetooth;
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -68,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnCustomIconTextTabs.setOnClickListener(this);
 
         registerReceiver(mReceiver, filter); // Don't forget to unregister during onDestroy
+
     }
 
     @Override

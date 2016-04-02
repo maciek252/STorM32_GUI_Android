@@ -20,6 +20,7 @@ public class FiveFragment extends IntermediateFragment{
     }
 
     TextView tv_PitchMotorVmax = null;
+    TextView tv_RollMotorVmax = null;
     Spinner sp_GyroLpf = null;
 
     @Override
@@ -33,7 +34,9 @@ public class FiveFragment extends IntermediateFragment{
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_five, container, false);
         tv_PitchMotorVmax = (TextView) v.findViewById(R.id.textView_5_pitchMotorVmax);
-        addPairTv(v, tv_PitchMotorVmax, 100);
+        tv_RollMotorVmax = (TextView) v.findViewById(R.id.textView_5_rollMotorVmax);
+        addPairTv(v, tv_PitchMotorVmax, 3);
+        addPairTv(v, tv_RollMotorVmax, 9);
 
         sp_GyroLpf = (Spinner) v.findViewById((R.id.spinner_5_gyroLpf));
 
@@ -48,7 +51,8 @@ public class FiveFragment extends IntermediateFragment{
 
         addPairSpinner(v, sp_GyroLpf, 3);
 
-
+        updateAllControls();
+        //IntermediateFragment.setColorToAllControls();
         return v;
     }
 
