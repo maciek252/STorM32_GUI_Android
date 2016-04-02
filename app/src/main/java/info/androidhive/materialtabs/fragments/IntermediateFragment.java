@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import java.util.LinkedList;
 
 import info.androidhive.materialtabs.R;
 import info.androidhive.materialtabs.storm32.Option;
+import info.androidhive.materialtabs.storm32.OptionListA;
 import info.androidhive.materialtabs.storm32.OptionNumber;
 import info.androidhive.materialtabs.storm32.optionList;
 
@@ -108,6 +110,27 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
             if(!mappingSpinnerssOptions.containsKey(sp))
                 return;
             int addr = mappingSpinnerssOptions.get(sp);
+
+            OptionListA on = (OptionListA) optionList.getOptionForAddress(addr);
+
+            if(on != null) {
+                if(on.isRead())
+                    sp.setBackgroundColor(Color.GREEN);
+                else
+                    sp.setBackgroundColor(Color.GRAY);
+
+                //v.setTextColor(Color.parseColor("#bdbdbd"));
+
+                //v.setText("" + on.getValue());
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(  getContext(),
+                        android.R.layout.simple_spinner_item, on.choices);
+                sp.setAdapter(adapter);
+
+
+            } else
+                sp.setBackgroundColor(Color.CYAN);
+
         }
 
     }

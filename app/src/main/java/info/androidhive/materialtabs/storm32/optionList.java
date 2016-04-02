@@ -73,6 +73,39 @@ public class optionList {
                         5, 0,0,255,150,1,2,9, "")
         );
 
+        /*
+          name => 'Pan Mode Control',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  size => 1,
+  adr => 65,
+  choices => \@FunctionInputChoicesList,
+  column=> 1,
+  expert=> 2,
+
+         */
+/*
+        addOption(
+                new OptionListA("Pan Mode Control",
+                        0,0,0,
+                        5, 0,0,255,150,1,2,9, "")
+        );
+*/
+        /*
+          name => 'Pan Mode Default Setting',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 4, default => 0, steps => 1,
+  size => 1,
+  adr => 66,
+  choices => [ 'hold hold pan', 'hold hold hold', 'pan pan pan', 'pan hold hold', 'pan hold pan'],
+
+         */
+        String [] a = new String[]{"hold hold pan", "hold hold hold", "pan pan pan", "pan hold hold", "pan hold pan"};
+        addOption(
+                new OptionListA("Pan Mode Default Setting",
+                        0,0,0,4,0,1,66,
+                        a
+                        )
+        );
+
 
     }
 

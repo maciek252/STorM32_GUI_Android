@@ -6,9 +6,9 @@ package info.androidhive.materialtabs.storm32;
 public class OptionListA extends Option {
 
     public String description = null;
-    public String [] options = null;
+    public String [] choices = null;
 
-    void OptionListA(String description,
+    public OptionListA(String description,
                      int length,
                      int ppos,
                      int min, int max,
@@ -17,7 +17,7 @@ public class OptionListA extends Option {
                      String [] choices
                      ){
         this.description = description;
-        this.options = options;
+        this.choices = choices;
         this.address = address;
     }
 

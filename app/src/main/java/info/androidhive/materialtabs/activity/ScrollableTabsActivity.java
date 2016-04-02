@@ -57,11 +57,11 @@ public class ScrollableTabsActivity extends AppCompatActivity {
         adapter.addFrag(new OneFragment(), "ONE");
         adapter.addFrag(new TwoFragment(), "TWO");
         adapter.addFrag(three, "THREE");
-        adapter.addFrag(four, "PID");
-        adapter.addFrag(new FiveFragment(), "PAN");
-        adapter.addFrag(new SixFragment(), "RC INPUTS");
-        adapter.addFrag(new SevenFragment(), "FUNCTIONS");
-        adapter.addFrag(new EightFragment(), "EIGHT");
+        adapter.addFrag(four, "FOUR");
+        adapter.addFrag(new FiveFragment(), "PID");
+        adapter.addFrag(new SixFragment(), "PAN");
+        adapter.addFrag(new SevenFragment(), "RC INPUT");
+        adapter.addFrag(new EightFragment(), "FUNCTIONS");
         adapter.addFrag(new NineFragment(), "NINE");
         adapter.addFrag(new TenFragment(), "TEN");
         viewPager.setAdapter(adapter);

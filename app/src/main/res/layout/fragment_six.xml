@@ -1,102 +1,249 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="info.androidhive.materialtabs.fragments.SixFragment">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/six"
-            android:textSize="40dp"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"/>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="PAN"
+            android:id="@+id/textView16"
+            android:layout_gravity="center_horizontal" />
 
-        <TableRow
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pan Control Mode"
+            android:id="@+id/textView_6desc1" />
+
+        <Spinner
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_6_panControlMode"
+            android:layout_gravity="center_horizontal"
+            android:spinnerMode="dropdown" />
 
-        <TableRow
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pan Mode Default Setting"
+            android:id="@+id/textView7" />
+
+        <Spinner
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_6_panModeDefaultSetting"
+            android:spinnerMode="dropdown" />
 
-            <TextView
-                android:text="New Text"
-                android:id="@+id/textView7"
-                android:layout_column="19" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pitch Pan"
+            android:id="@+id/textView14" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/textView_6_pid"
-                android:layout_column="27"
-                android:contextClickable="true"
-                android:editable="true" />
-        </TableRow>
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_6_pitchPan"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
 
-        <TableRow
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pitch Pan Deadband"
+            android:id="@+id/textView15" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_6_pitchPanDeadband"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pitch Pan Expo"
+            android:id="@+id/textView18" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_6_pitchPanExpo"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Roll Pan"
+            android:id="@+id/textView8" />
+
+        <TextView
+            android:layout_width="47dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_6_rollPan"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView9"
+            android:contextClickable="true"
+            android:editable="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Roll Pan Deadband"
+            android:id="@+id/textView11" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView12"
+            android:contextClickable="true"
+            android:editable="true" />
+
+        <TextView
+            android:layout_width="46dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_6_rollPanDeadband"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Roll Pan Expo"
+            android:id="@+id/textView17" />
+
+        <TextView
+            android:layout_width="42dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_6_rollPanExpo"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView20"
+            android:contextClickable="true"
+            android:editable="true" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 2" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 3" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 4" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 5" />
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
+            android:layout_height="wrap_content" />
 
-        <TableRow
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RadioButton 1" />
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RadioButton 2" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
+            android:layout_height="wrap_content"
+            android:text="ToggleButton" />
 
-        <TableRow
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 6" />
+
+        <SeekBar
+            android:id="@+id/seekBar1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:text="New Text"
-                android:id="@+id/textView8"
-                android:layout_column="23" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/textView11"
-                android:layout_column="27" />
-        </TableRow>
-
-        <TableRow
+        <Button
+            android:id="@+id/button3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
+            android:layout_height="wrap_content"
+            android:text="Button 7" />
 
-        <TableRow
+        <Button
+            android:id="@+id/button4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
+            android:layout_height="wrap_content"
+            android:text="Button 8" />
 
-        <TableRow
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CheckBox" />
+
+        <Button
+            android:id="@+id/button2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:text="Button 9" />
 
-        </TableRow>
-
-        <TableRow
+        <Button
+            android:id="@+id/button1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:text="Button 10" />
 
-            <TextView
-                android:text="New Text"
-                android:id="@+id/textView9"
-                android:layout_column="27" />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 11" />
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/textView12"
-                android:layout_column="30" />
-        </TableRow>
-    </TableLayout>
-
-</RelativeLayout>
+</ScrollView>

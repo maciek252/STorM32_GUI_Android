@@ -49,7 +49,7 @@ public class FiveFragment extends IntermediateFragment{
         sp_GyroLpf.setAdapter(adapter);
 
 
-        addPairSpinner(v, sp_GyroLpf, 3);
+        //addPairSpinner(v, sp_GyroLpf, 3);
 
         updateAllControls();
         //IntermediateFragment.setColorToAllControls();
