@@ -5,15 +5,22 @@ import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import android.support.v7.app.ActionBarActivity;
 
 import info.androidhive.materialtabs.R;
 
@@ -26,8 +33,12 @@ import org.mavlink.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 import info.androidhive.materialtabs.storm32.*;
+import quadcopter.Bluetooth;
 
 
 public class TwoFragment extends Fragment
@@ -35,6 +46,12 @@ public class TwoFragment extends Fragment
         View.OnClickListener
 {
 
+    public final String TAG = "Main";
+
+    private SeekBar elevation;
+    private TextView debug;
+    private TextView status;
+    private Bluetooth bt;
 
 
     enum QueryMode {GET_OPTIONS, GET_VERSION, SET_OPTIONS, SET_VERSION, NONE};
@@ -86,6 +103,9 @@ public class TwoFragment extends Fragment
         bluetoothSerial = new BluetoothSerial(getContext(), this);
 
 
+
+
+
     }
 
     @Override
@@ -98,6 +118,16 @@ public class TwoFragment extends Fragment
         View v = inflater.inflate(R.layout.fragment_two, container, false);
         button = (Button) v.findViewById(R.id.buttonDetectBT);
         button.setOnClickListener(this);
+        bt = new Bluetooth(getContext(), mHandler);
+
+        debug = (TextView) v.findViewById(R.id.textDebug);
+        status = (TextView) v.findViewById(R.id.textStatus);
+
+        v.findViewById(R.id.restart).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                connectService();
+            }
+        });
 
         button_2_readVersion = (Button) v.findViewById(R.id.button_2_ReadVersion);
         button_2_readVersion.setOnClickListener(this);
@@ -158,11 +188,14 @@ public class TwoFragment extends Fragment
                 optionList.voltageCorrection += 1;
 
                 messageBuffer = "";
-                bluetoothSerial.write("v", false);
+                //bluetoothSerial.write("v", false);
+
+
+
                 //bluetoothSerial.writ
                 break;
             case R.id.button_2_setName:
-                //  my $res = ExecuteCmdwCrc( 'xn', $name, 0 );
+                //  my $res = ExecuteCmdwCrc( 'xn', %name, 0 );
                 /*
                 sub ExecuteCmdwCrc{
                       my $cmd= shift; my $params= shift; my $reslen= shift;
@@ -265,7 +298,8 @@ sub do_crc{
             case R.id.button_2_readOptions:
                 options = null;
                 queryMode = QueryMode.GET_OPTIONS;
-                bluetoothSerial.write("g");
+                //bluetoothSerial.write("g");
+                bt.sendMessage("g");
 
                 break;
             case R.id.button_2_saveOptions:
@@ -371,9 +405,42 @@ sub do_crc{
     }
 
     @Override
+    public void onBluetoothSerialRead(byte [] m) {
+        int i = m.length;
+        String s1 = String.format("%01X", m[0]);
+        String s2 = String.format("%01X", m[1]);
+        int i4 = (m[0] & 0x0F)  * 16 + (m[0] & 0xF0);
+        int i5 = (m[0] & 0xF0)  * 16 + (m[0] & 0x0F);
+
+
+    }
+
+    @Override
     public void onBluetoothSerialRead(String message) {
 
 
+        char[] charArray = message.toCharArray();
+        byte[] byteArray = message.getBytes();
+
+        //byte[] cookie = Base64.decode(message, Base64.DEFAULT);
+        byte[] b = message.getBytes(Charset.forName("UTF-8"));
+
+        //byte[] b2 = message.getBytes(StandardCharsets.UTF_8); // Java 7+ only
+
+
+        int a1 = (int) byteArray[0];
+        int a2 = (int) byteArray[1];
+/*
+        int i= (byteArray[0]<<24)&0xff000000|
+                (byteArray[1]<<16)&0x00ff0000|
+                (byteArray[2]<< 8)&0x0000ff00|
+                (byteArray[3]<< 0)&0x000000ff;
+*/
+        int i2 = byteArray[0] & 0xFF;
+        int i3 = byteArray[1] & 0xFF;
+
+        int i4 = (byteArray[0] & 0x0F)  * 16 + (byteArray[0] & 0xF0);
+        int i5 = (byteArray[0] & 0xF0)  * 16 + (byteArray[0] & 0x0F);
 
         tv_receivedBt.append("<" + message + ">");
 
@@ -395,7 +462,25 @@ sub do_crc{
                 options = outputStream.toByteArray();
 
                 if(options.length >= 381 && options[380] == 'o'){
-                    Toast toast = Toast.makeText(getContext(), "options received!", Toast.LENGTH_SHORT);
+
+                    // check CRC (?)
+                    /*
+                    byte [] subArray = Arrays.copyOfRange(options, 0, 377);
+
+                    int crc = MAVLinkCRC.crc_calculate(subArray);
+                    int crc2 = MAVLinkCRC.hexVaxToInt(options[378], options[379]);
+                    if(crc2 != crc){
+
+                        Toast toast = Toast.makeText(getContext(), "options received but bad CRC!", Toast.LENGTH_SHORT);
+                        //toast.setDuration;
+                        toast.show();
+
+                        return;
+                    }
+                    */
+
+
+                    Toast toast = Toast.makeText(getContext(), "options received, CRC OK!", Toast.LENGTH_SHORT);
                     //toast.setDuration;
                     toast.show();
                     optionList.setOptions(options);
@@ -458,5 +543,52 @@ sub do_crc{
 
 
 
+    public void connectService(){
+        try {
+            status.setText("Connecting...");
+            BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            if (bluetoothAdapter.isEnabled()) {
+                bt.start();
+                bt.connectDevice("HC-06");
+                Log.d(TAG, "Btservice started - listening");
+                status.setText("Connected");
+            } else {
+                Log.w(TAG, "Btservice started - bluetooth is not enabled");
+                status.setText("Bluetooth Not enabled");
+            }
+        } catch(Exception e){
+            Log.e(TAG, "Unable to start bt ",e);
+            status.setText("Unable to connect " +e);
+        }
+    }
+
+
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case Bluetooth.MESSAGE_STATE_CHANGE:
+                    Log.d(TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
+                    break;
+                case Bluetooth.MESSAGE_WRITE:
+                    Log.d(TAG, "MESSAGE_WRITE ");
+                    break;
+                case Bluetooth.MESSAGE_READ:
+                    Log.d(TAG, "MESSAGE_READ " + msg.arg1 + " " + msg.arg2);
+                    if(msg.arg2 == 1){
+                        Toast toast = Toast.makeText(getContext(), "options received CRC OK!", Toast.LENGTH_SHORT);
+                        //toast.setDuration;
+                        toast.show();
+                    }
+                    break;
+                case Bluetooth.MESSAGE_DEVICE_NAME:
+                    Log.d(TAG, "MESSAGE_DEVICE_NAME "+msg);
+                    break;
+                case Bluetooth.MESSAGE_TOAST:
+                    Log.d(TAG, "MESSAGE_TOAST "+msg);
+                    break;
+            }
+        }
+    };
 
 }

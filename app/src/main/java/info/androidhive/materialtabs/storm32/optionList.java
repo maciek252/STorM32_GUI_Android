@@ -1,5 +1,13 @@
 package info.androidhive.materialtabs.storm32;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import org.mavlink.MAVLinkCRC;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -27,7 +35,99 @@ public class optionList {
     }
 
     static public boolean decodeOptions(){
+
+        for(Integer i: map_address_Option.keySet()){
+            Option o = map_address_Option.get(i);
+            if( o instanceof OptionNumber){
+                Log.i("Storm32", "optionNumber");
+                o.value = readFromOptions(o.address, 2);
+                o.setRead();
+            } else if( o instanceof OptionListA){
+                Log.i("Storm32", "optionListA");
+                o.value = readFromOptions(o.address, 2);
+                o.setRead();
+            }
+        }
+
         return true;
+    }
+
+    static public void resetTempBuffer(){
+        options = null;
+
+    }
+
+    static public void addToTempBuffer(String message) {
+
+        if (options == null)
+            options = MAVLinkCRC.stringToByte(message);
+        else {
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            try {
+                outputStream.write(options);
+                outputStream.write(MAVLinkCRC.stringToByte(message));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            options = outputStream.toByteArray();
+
+
+        }
+    }
+
+    static public void addToTempBuffer(byte [] o, int num) {
+
+
+            //byte [] oo = System.arraycopy(o, 0, num);
+            byte [] oo = Arrays.copyOfRange(o, 0, num);
+
+        if( options == null)
+            options = oo;
+
+        else {
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            try {
+                outputStream.write(options);
+                outputStream.write(oo);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            options = outputStream.toByteArray();
+            Log.d("optionList", "message buffer " + writeStringAsHex(options));
+        }
+    }
+
+
+    static public boolean checkMessage(){
+
+        if(options.length >= 381 && options[380] == 'o'){
+            Log.d("optionList", "options read OK");
+        } else
+            return false;
+
+        if(true){
+            byte [] subArray = Arrays.copyOfRange(options, 0, 377);
+
+            int crc = MAVLinkCRC.crc_calculate(subArray);
+            int crc2 = MAVLinkCRC.hexVaxToInt(options[378], options[379]);
+            if(crc2 != crc){
+
+                //Toast toast = Toast.makeText(, "options received but bad CRC!", Toast.LENGTH_SHORT);
+                //toast.setDuration;
+                //toast.show();
+                Log.d("optionList", "RCV CRC OK!");
+                return true;
+            }
+        }
+        return true;
+
+
+
+
     }
 
     static public Option getOptionForAddress(int address){
@@ -36,6 +136,13 @@ public class optionList {
 
         return null;
 
+    }
+
+    static public String writeStringAsHex(byte [] b){
+        String result = "";
+        for(byte bb : b)
+            result += String.format("%01X", bb) + " ";
+        return result;
     }
 
     static public void populateOptions(){
@@ -109,6 +216,14 @@ public class optionList {
 
     }
 
+    static int readFromOptions(int address, int length){
+
+        int result = 0;
+        result = options[2*address];
+        result += 16*options[2*address+1];
+        return result;
+
+    }
 
 }
 

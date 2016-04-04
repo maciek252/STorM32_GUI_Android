@@ -139,4 +139,12 @@ public class MAVLinkCRC {
         result[1] = (byte) second;
         return result;
     }
+
+    public static int  hexVaxToInt(byte b1, byte b2){
+
+        int result = (byte) b1;
+        result += 256 * (byte) b2;
+        return result;
+    }
+
 }

@@ -23,4 +23,8 @@ public class Option {
     public int getValue(){
         return value;
     }
+
+    public void setRead(){
+        hasBeenRead = true;
+    }
 }

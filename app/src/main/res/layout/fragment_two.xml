@@ -48,10 +48,8 @@
         android:layout_height="wrap_content"
         android:text="Nowy tEkst:"
         android:id="@+id/textView_2_rcvBt"
-        android:layout_below="@+id/textView_2_connectionStatus"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="39dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -153,5 +151,47 @@
         android:layout_below="@+id/button_2_ChangeOption"
         android:layout_alignRight="@+id/button_2_ReadOption"
         android:layout_alignEnd="@+id/button_2_ReadOption"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Disconnected"
+        android:id="@+id/textStatus"
+        android:textAlignment="center"
+        android:layout_marginTop="72dp"
+        android:layout_below="@+id/button_2_disconnect"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar2"
+        android:max="254"
+        android:indeterminate="false"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/textStatus"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/textDebug"
+        android:textAlignment="center"
+        android:layout_below="@+id/textStatus"
+        android:layout_alignLeft="@+id/textViewDetectedBT"
+        android:layout_alignStart="@+id/textViewDetectedBT" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Restart connection"
+        android:id="@+id/restart"
+        android:layout_below="@+id/button_2_disconnect"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -127,7 +127,6 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
                         android.R.layout.simple_spinner_item, on.choices);
                 sp.setAdapter(adapter);
 
-
             } else
                 sp.setBackgroundColor(Color.CYAN);
 
