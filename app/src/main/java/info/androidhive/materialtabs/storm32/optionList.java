@@ -44,12 +44,12 @@ public class optionList {
             Option o = map_address_Option.get(i);
             if( o instanceof OptionNumber){
 
-                o.value += 1;
+                //o.value += 1;
                 saveToOptions(o.address, 2, o.value);
                 Log.i("Storm32", "optionNumber encode val=" + o.value);
 
             } else if( o instanceof OptionListA){
-                o.value += 1;
+                //o.value += 1;
                 saveToOptions(o.address, 2, o.value);
                 Log.i("Storm32", "optionNumber encode val=" + o.value);
 
@@ -65,12 +65,14 @@ public class optionList {
             Option o = map_address_Option.get(i);
             if( o instanceof OptionNumber){
 
-                o.value = readFromOptions(o.address, 2);
+                //o.value = readFromOptions(o.address, 2);
+                o.setValueRead(readFromOptions(o.address, 2));
                 Log.i("Storm32", "optionNumber decode val=" + o.value);
                 o.setRead();
             } else if( o instanceof OptionListA){
 
-                o.value = readFromOptions(o.address, 2);
+                //o.value = readFromOptions(o.address, 2);
+                o.setValueRead(readFromOptions(o.address, 2));
                 Log.i("Storm32", "optionListA decode val=" + o.value);
                 o.setRead();
             }

@@ -101,7 +101,7 @@ public class TwoFragment extends Fragment
 
         // Create a new instance of BluetoothSerial
         bluetoothSerial = new BluetoothSerial(getContext(), this);
-
+        bt = new Bluetooth(getContext(), mHandler);
 
 
 
@@ -118,7 +118,7 @@ public class TwoFragment extends Fragment
         View v = inflater.inflate(R.layout.fragment_two, container, false);
         button = (Button) v.findViewById(R.id.buttonDetectBT);
         button.setOnClickListener(this);
-        bt = new Bluetooth(getContext(), mHandler);
+
 
         debug = (TextView) v.findViewById(R.id.textDebug);
         status = (TextView) v.findViewById(R.id.textStatus);

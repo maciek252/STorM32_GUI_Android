@@ -6,6 +6,7 @@ package info.androidhive.materialtabs.storm32;
 public class Option {
 
     int value = 0;
+    int valueRead = 0;
     public boolean hasBeenRead = false;
     public boolean hasBeenChanged = false;
     public int address = -1;
@@ -19,9 +20,21 @@ public class Option {
         return hasBeenRead;
     }
 
+    public int getValueRead(){
+        return valueRead;
+    }
 
     public int getValue(){
         return value;
+    }
+
+    public void setValueRead(int v){
+        value = v;
+        valueRead = v;
+    }
+
+    public void setValue(int v){
+        value = v;
     }
 
     public void setRead(){

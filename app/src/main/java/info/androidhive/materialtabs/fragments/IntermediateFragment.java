@@ -51,15 +51,54 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
     //creating runnable
     final Runnable runnable_interact = new Runnable() {
         public void run() {
+
+
+
             for(TextView tv: mappingTextViewsOptions.keySet()){
-                if(tv.getText().length() > 2)
-                    tv.setBackgroundColor(Color.MAGENTA);
-                else
+
+                int addr = mappingTextViewsOptions.get(tv);
+                OptionNumber o = (OptionNumber) optionList.getOptionForAddress(addr);
+
+                if(tv.getText().length() == 0 || !isNumeric(tv.getText().toString()))
                     tv.setBackgroundColor(Color.YELLOW);
+                else {
+                    o.setValue((int)gettNumber(tv.getText().toString()));
+                    if(o.getValueRead() != o.getValue())
+                        tv.setBackgroundColor(Color.RED);
+                    else
+                        tv.setBackgroundColor(Color.GREEN);
+                }
             }
 
         }
     };
+
+    private static boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private static double gettNumber(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+            return d;
+        }
+        catch(NumberFormatException nfe)
+        {
+
+        }
+        return 0;
+    }
 
     public void addPairTv(View v, final TextView tv, int addr){
 
@@ -168,9 +207,13 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
             OptionNumber on = (OptionNumber) optionList.getOptionForAddress(addr);
 
             if(on != null) {
-                if(on.isRead())
-                    v.setBackgroundColor(Color.GREEN);
-                else
+                if(on.isRead()) {
+                    //v.setBackgroundColor(Color.GREEN);
+                    if(on.getValueRead() != on.getValue())
+                        v.setBackgroundColor(Color.RED);
+                    else
+                        v.setBackgroundColor(Color.GREEN);
+                }else
                     v.setBackgroundColor(Color.GRAY);
 
                 v.setTextColor(Color.parseColor("#bdbdbd"));
