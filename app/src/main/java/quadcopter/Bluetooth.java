@@ -566,6 +566,20 @@ public class Bluetooth {
         }
     }
 
+	public void write2(byte [] w) {
+		// Check that we're actually connected before trying anything
+		if (this.getState() != Bluetooth.STATE_CONNECTED) {
+			Log.w(TAG, "bluetooth is not connected");
+			return;
+		}
+
+		// Check that there's actually something to send
+		if (w.length > 0) {
+
+			this.write(w);
+		}
+	}
+
     public void connectDevice(String deviceName) {
         // Get the device MAC address
         String address = null;

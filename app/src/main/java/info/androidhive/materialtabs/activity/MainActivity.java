@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         registerReceiver(mReceiver, filter); // Don't forget to unregister during onDestroy
 
+        startActivity(new Intent(MainActivity.this, ScrollableTabsActivity.class));
+
     }
 
     @Override

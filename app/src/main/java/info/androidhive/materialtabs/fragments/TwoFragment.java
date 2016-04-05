@@ -303,6 +303,9 @@ sub do_crc{
 
                 break;
             case R.id.button_2_saveOptions:
+                //options = optionList.getOptions();
+                options = optionList.options;
+                optionList.encodeOptions();
                 if(options != null)
                     tv_receivedBt.setText("size of opTions = " + options.length);
                 else
@@ -330,7 +333,8 @@ sub do_crc{
 
                 tv_receivedBt.append("crc=" + String.format("%01X",crcArray2[0])  + "," + String.format("%01X",crcArray2[1]));
 
-                bluetoothSerial.write(optionsFull);
+                //bluetoothSerial.write(optionsFull);
+                bt.write2(optionsFull);
 
 
 

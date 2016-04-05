@@ -3,9 +3,11 @@ package info.androidhive.materialtabs.fragments;
 
 
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +17,8 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import info.androidhive.materialtabs.R;
 import info.androidhive.materialtabs.storm32.Option;
@@ -37,9 +41,27 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
     static public HashMap<Spinner,Integer> mappingSpinnersOptionsAll = new HashMap<>();
     public HashMap<Spinner,Integer> mappingSpinnerssOptions = new HashMap<>();
 
+    final Handler handler_interact=new Handler();//not defined as final variable. may cause problem
 
 
-    public void addPairTv(View v, TextView tv, int addr){
+    private void updateGUI(){
+        handler_interact.post(runnable_interact);
+
+    }
+    //creating runnable
+    final Runnable runnable_interact = new Runnable() {
+        public void run() {
+            for(TextView tv: mappingTextViewsOptions.keySet()){
+                if(tv.getText().length() > 2)
+                    tv.setBackgroundColor(Color.MAGENTA);
+                else
+                    tv.setBackgroundColor(Color.YELLOW);
+            }
+
+        }
+    };
+
+    public void addPairTv(View v, final TextView tv, int addr){
 
 
 
@@ -52,6 +74,58 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
         tv.setFocusableInTouchMode(true);
         tv.setTextIsSelectable(false);
         //tv.setBackgroundColor(Color.blue(3));
+
+        tv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+    /* When focus is lost check that the text field
+    * has valid values.
+    */
+                if (!hasFocus) {
+                    int addr = mappingTextViewsOptions.get(tv);
+                    Log.i("Storm32", "option changed: TextView addr=" + addr);
+                }
+            }
+        });
+
+//        tv.addTextChangedListener(this);
+        tv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        // TODO: do what you need here (refresh list)
+                        // you will probably need to use
+                        // runOnUiThread(Runnable action) for some specific
+                        // actions
+                        updateGUI();
+                    }
+
+                }, 2000);
+
+                // TODO Auto-generated method stub
+                s.length();
+                int addr = mappingTextViewsOptions.get(tv);
+                Log.i("Storm32", "option changed: TextView addr=" + addr);
+
+            }
+        });
 
         mappingTextViewsOptions.put(tv,addr);
         IntermediateFragment.mappingTextViewsOptionsAll.put(tv,addr);
@@ -175,6 +249,13 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
     public void afterTextChanged(Editable editable) {
 
         //optionList.voltageCorrection = Integer.parseInt(tv_voltageCorrection.getText().toString());
+
+        if(editable instanceof  TextView){
+            TextView tv = (TextView) editable;
+            int addr = mappingTextViewsOptions.get(tv);
+            Log.i("Storm32", "option changed: TextView addr=" + addr);
+        }
+
 
     }
 

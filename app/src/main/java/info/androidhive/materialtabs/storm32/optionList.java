@@ -18,7 +18,7 @@ public class optionList {
 
     static public int pitchP;
 
-    static private byte[] options = null;
+    static public byte[] options = null;
 
     static public int voltageCorrection = 0;
     static public Integer voltageCorrectionInt = 0;
@@ -34,17 +34,44 @@ public class optionList {
         optionList.options = options;
     }
 
+    static public byte[] getOptions(){
+        return options;
+    }
+
+    static public boolean encodeOptions(){
+
+        for(Integer i: map_address_Option.keySet()){
+            Option o = map_address_Option.get(i);
+            if( o instanceof OptionNumber){
+
+                o.value += 1;
+                saveToOptions(o.address, 2, o.value);
+                Log.i("Storm32", "optionNumber encode val=" + o.value);
+
+            } else if( o instanceof OptionListA){
+                o.value += 1;
+                saveToOptions(o.address, 2, o.value);
+                Log.i("Storm32", "optionNumber encode val=" + o.value);
+
+            }
+        }
+
+        return true;
+    }
+
     static public boolean decodeOptions(){
 
         for(Integer i: map_address_Option.keySet()){
             Option o = map_address_Option.get(i);
             if( o instanceof OptionNumber){
-                Log.i("Storm32", "optionNumber");
+
                 o.value = readFromOptions(o.address, 2);
+                Log.i("Storm32", "optionNumber decode val=" + o.value);
                 o.setRead();
             } else if( o instanceof OptionListA){
-                Log.i("Storm32", "optionListA");
+
                 o.value = readFromOptions(o.address, 2);
+                Log.i("Storm32", "optionListA decode val=" + o.value);
                 o.setRead();
             }
         }
@@ -145,6 +172,9 @@ public class optionList {
         return result;
     }
 
+
+
+
     static public void populateOptions(){
 
         if(!map_address_Option.isEmpty())
@@ -229,6 +259,17 @@ public class optionList {
         result = decodeByte(options[2*address]);
         result += 256*decodeByte(options[2*address+1]);
         return result;
+
+    }
+
+    static void saveToOptions(int address, int length, int value){
+
+
+        //result = decodeByte(options[2*address]);
+        //result += 256*decodeByte(options[2*address+1]);
+        options[2*address] = (byte) (value % 256);
+        options[2*address+1] = (byte) (value / 256);
+
 
     }
 
