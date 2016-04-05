@@ -491,9 +491,10 @@ public class Bluetooth {
 					// Read from the InputStream
 					bytes = mmInStream.read(buffer);
 					optionList.addToTempBuffer(buffer, bytes);
-					if(optionList.checkMessage())
+					if(optionList.checkMessage()) {
 						arg2 = 1;
-					else
+						optionList.decodeOptions();
+					} else
 						arg2 = 2;
 
 

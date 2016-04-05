@@ -216,11 +216,18 @@ public class optionList {
 
     }
 
+    static private int decodeByte(byte b){
+        int result = 0;
+        int b0 = (int) b;
+        int b3 = (int)(b & 0xFF);
+        return b3;
+    }
+
     static int readFromOptions(int address, int length){
 
         int result = 0;
-        result = options[2*address];
-        result += 16*options[2*address+1];
+        result = decodeByte(options[2*address]);
+        result += 256*decodeByte(options[2*address+1]);
         return result;
 
     }
