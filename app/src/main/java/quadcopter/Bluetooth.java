@@ -29,6 +29,9 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
 import java.util.UUID;
 
 import info.androidhive.materialtabs.storm32.optionList;
@@ -604,5 +607,31 @@ public class Bluetooth {
             Log.e("Unbl conn to dev adr "+ address,e.getMessage());
         }
     }
+
+	public Set<BluetoothDevice> getPairedDevicesName() {
+
+		HashSet<BluetoothDevice> devices = new HashSet<>();
+		BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+		for(BluetoothDevice d: adapter.getBondedDevices()) {
+			//String name = d.getName();
+			devices.add(d);
+
+			//devices.add(name);
+
+		}
+		return devices;
+		/*
+		if (mPairedDevices != null) {
+			String[] name = new String[mPairedDevices.size()];
+			int i = 0;
+			for (BluetoothDevice d : mPairedDevices) {
+				name[i] = d.getName();
+				i++;
+			}
+			return name;
+		}*/
+
+
+	}
 
 }

@@ -1,197 +1,289 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="info.androidhive.materialtabs.fragments.TwoFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/two"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        android:id="@+id/textView3"/>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Detect BTs"
-        android:id="@+id/buttonDetectBT"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/textView3"
-        android:layout_toStartOf="@+id/textView3"
-        android:layout_marginTop="39dp"/>
+    <LinearLayout
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textViewDetectedBT"
-        android:layout_below="@+id/buttonDetectBT"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3"/>
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/textView_2_connectionStatus"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detect BT devices"
+            android:id="@+id/button_2_ReadOption"
+            android:layout_alignBaseline="@+id/textView_2_version"
+            android:layout_alignBottom="@+id/textView_2_version"
+            android:layout_toLeftOf="@+id/textViewDetectedBT"
+            android:layout_toStartOf="@+id/textViewDetectedBT" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nowy tEkst:"
-        android:id="@+id/textView_2_rcvBt"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:nestedScrollingEnabled="true"
-        android:textIsSelectable="true"/>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Read version"
-        android:id="@+id/button_2_ReadVersion"
-        android:layout_above="@+id/textViewDetectedBT"
-        android:layout_toRightOf="@+id/buttonDetectBT"
-        android:layout_toEndOf="@+id/buttonDetectBT"
-        android:layout_marginLeft="45dp"
-        android:layout_marginStart="45dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Read Options"
+            android:id="@+id/button_2_readOptions"
+            android:layout_above="@+id/textView_2_board"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="name"
-        android:id="@+id/textView_2_name"
-        android:layout_below="@+id/textView_2_board"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Options"
+            android:id="@+id/button_2_saveOptions"
+            android:layout_below="@+id/button_2_readOptions"
+            android:layout_alignLeft="@+id/button_2_readOptions"
+            android:layout_alignStart="@+id/button_2_readOptions"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Version:"
-        android:id="@+id/textView_2_version"
-        android:layout_below="@+id/textViewDetectedBT"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Board:"
-        android:id="@+id/textView_2_board"
-        android:layout_above="@+id/textView3"
-        android:layout_alignRight="@+id/textView_2_name"
-        android:layout_alignEnd="@+id/textView_2_name"
-        android:layout_marginBottom="55dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connect to HC-06"
+            android:id="@+id/restart"
+            android:layout_below="@+id/button_2_disconnect"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set Name"
-        android:id="@+id/button_2_setName"
-        android:layout_alignTop="@+id/textViewDetectedBT"
-        android:layout_toRightOf="@+id/textViewDetectedBT"
-        android:layout_toEndOf="@+id/textViewDetectedBT"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disconnect BT"
+            android:id="@+id/button_2_disconnect"
+            android:layout_below="@+id/button_2_ChangeOption"
+            android:layout_alignRight="@+id/button_2_ReadOption"
+            android:layout_alignEnd="@+id/button_2_ReadOption"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Read Options"
-        android:id="@+id/button_2_readOptions"
-        android:layout_above="@+id/textView_2_board"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Options"
-        android:id="@+id/button_2_saveOptions"
-        android:layout_below="@+id/button_2_readOptions"
-        android:layout_alignLeft="@+id/button_2_readOptions"
-        android:layout_alignStart="@+id/button_2_readOptions"/>
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Name"
+            android:id="@+id/button_2_setName"
+            android:layout_alignTop="@+id/textViewDetectedBT"
+            android:layout_toRightOf="@+id/textViewDetectedBT"
+            android:layout_toEndOf="@+id/textViewDetectedBT"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Read Option"
-        android:id="@+id/button_2_ReadOption"
-        android:layout_alignBottom="@+id/textView_2_name"
-        android:layout_alignLeft="@+id/button_2_saveOptions"
-        android:layout_alignStart="@+id/button_2_saveOptions"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="changeOption"
-        android:id="@+id/button_2_ChangeOption"
-        android:layout_below="@+id/button_2_ReadOption"
-        android:layout_alignLeft="@+id/button_2_ReadOption"
-        android:layout_alignStart="@+id/button_2_ReadOption"/>
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Read version"
+            android:id="@+id/button_2_ReadVersion"
+            android:layout_above="@+id/textViewDetectedBT"
+            android:layout_toRightOf="@+id/buttonDetectBT"
+            android:layout_toEndOf="@+id/buttonDetectBT"
+            android:layout_marginLeft="45dp"
+            android:layout_marginStart="45dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Disconnect BT"
-        android:id="@+id/button_2_disconnect"
-        android:layout_below="@+id/button_2_ChangeOption"
-        android:layout_alignRight="@+id/button_2_ReadOption"
-        android:layout_alignEnd="@+id/button_2_ReadOption"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Disconnected"
-        android:id="@+id/textStatus"
-        android:textAlignment="center"
-        android:layout_marginTop="72dp"
-        android:layout_below="@+id/button_2_disconnect"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:layout_width="321dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/textStatus"
+            android:layout_gravity="right" />
 
-    <SeekBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/seekBar2"
-        android:max="254"
-        android:indeterminate="false"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/textStatus"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textDebug" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:id="@+id/textDebug"
-        android:textAlignment="center"
-        android:layout_below="@+id/textStatus"
-        android:layout_alignLeft="@+id/textViewDetectedBT"
-        android:layout_alignStart="@+id/textViewDetectedBT" />
+        <TextView
+            android:layout_width="129dp"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textView_2_connectionStatus"
+            android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Restart connection"
-        android:id="@+id/restart"
-        android:layout_below="@+id/button_2_disconnect"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/textView_2_rcvBt"
+            android:layout_gravity="right" />
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/textView_2_name"
+            android:layout_gravity="right" />
+
+        <TextView
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="PID"
+            android:id="@+id/textView16"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gyro LPF"
+            android:id="@+id/textView_5_gyroLpfLabel" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_5_gyroLpf"
+            android:layout_gravity="center_horizontal"
+            android:spinnerMode="dropdown" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detect BTs"
+            android:id="@+id/buttonDetectBT"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/textDebug"
+            android:layout_toStartOf="@+id/textDebug"
+            android:layout_marginTop="39dp"
+            android:layout_gravity="right" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pitch Motor Vmax"
+            android:id="@+id/textView14" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_5_pitchMotorVmax"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Roll Motor Vmax"
+            android:id="@+id/textView15" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_5_rollMotorVmax"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yaw Motor Vmax"
+            android:id="@+id/textView18" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView19"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 2" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 3" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 4" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 5" />
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RadioButton 1" />
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RadioButton 2" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 6" />
+
+        <SeekBar
+            android:id="@+id/seekBar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 7" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 8" />
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CheckBox" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 9" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 10" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Button 11" />
+    </LinearLayout>
+
+</ScrollView>

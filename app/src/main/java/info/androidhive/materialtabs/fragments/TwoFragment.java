@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.method.ScrollingMovementMethod;
@@ -45,6 +46,8 @@ public class TwoFragment extends Fragment
         implements BluetoothSerialListener, BluetoothDeviceListDialog.OnDeviceSelectedListener,
         View.OnClickListener
 {
+
+    private String statusStr = "";
 
     public final String TAG = "Main";
 
@@ -142,8 +145,6 @@ public class TwoFragment extends Fragment
 
         button_2_readOption = (Button) v.findViewById(R.id.button_2_ReadOption);
         button_2_readOption.setOnClickListener(this);
-        button_2_changeOption = (Button) v.findViewById(R.id.button_2_ChangeOption);
-        button_2_changeOption.setOnClickListener(this);
 
         button_2_disconnect = (Button) v.findViewById(R.id.button_2_disconnect);
         button_2_disconnect.setOnClickListener(this);
@@ -161,6 +162,20 @@ public class TwoFragment extends Fragment
 
 
         return v;
+    }
+
+    public void onResume() {
+        super.onResume();
+
+        status.setText(statusStr);
+//        updateAllControls();
+
+    }
+
+    private void readOptions(){
+        queryMode = QueryMode.GET_OPTIONS;
+        //bluetoothSerial.write("g");
+        bt.sendMessage("g");
     }
 
     @Override
@@ -297,9 +312,7 @@ sub do_crc{
                 break;
             case R.id.button_2_readOptions:
                 options = null;
-                queryMode = QueryMode.GET_OPTIONS;
-                //bluetoothSerial.write("g");
-                bt.sendMessage("g");
+                readOptions();
 
                 break;
             case R.id.button_2_saveOptions:
@@ -336,6 +349,16 @@ sub do_crc{
                 //bluetoothSerial.write(optionsFull);
                 bt.write2(optionsFull);
 
+                //SystemClock.sleep(1000);
+
+                // Execute some code after 2 seconds have passed
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        readOptions();
+                    }
+                }, 1000);
+
 
 
                 break;
@@ -343,23 +366,17 @@ sub do_crc{
 
 
 
-                tv_receivedBt.setText("  " + String.format("%01X",options[36])  + "," + String.format("%01X",options[37]));
-                optionList.voltageCorrection = options[38];
+                //tv_receivedBt.setText("  " + String.format("%01X",options[36])  + "," + String.format("%01X",options[37]));
+                //optionList.voltageCorrection = options[38];
+                showDeviceListDialog();
 
-
-                break;
-            case R.id.button_2_ChangeOption:
-
-
-                if(options != null){
-                    options[36] = (byte) 0x04;
-                }
 
                 break;
 
             case R.id.button_2_disconnect:
 
-                bluetoothSerial.stop();
+                //bluetoothSerial.stop();
+                bt.stop();
                 break;
         }
     }
@@ -540,7 +557,25 @@ sub do_crc{
     @Override
     public void onBluetoothDeviceSelected(BluetoothDevice device) {
         // Connect to the selected remote Bluetooth device
-        bluetoothSerial.connect(device);
+        //bluetoothSerial.connect(device);
+
+        try {
+            status.setText("Connecting...");
+            BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            if (bluetoothAdapter.isEnabled()) {
+                bt.start();
+                bt.connectDevice("HC-06");
+                Log.d(TAG, "Btservice started - listening");
+                status.setText("Connected");
+            } else {
+                Log.w(TAG, "Btservice started - bluetooth is not enabled");
+                status.setText("Bluetooth Not enabled");
+            }
+        } catch(Exception e){
+            Log.e(TAG, "Unable to start bt ",e);
+            status.setText("Unable to connect " +e);
+        }
+
     }
 
     /* End of the implementation of listeners */
@@ -573,6 +608,33 @@ sub do_crc{
             switch (msg.what) {
                 case Bluetooth.MESSAGE_STATE_CHANGE:
                     Log.d(TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
+                    switch(msg.arg1){
+                        case 0:
+                            statusStr = "disconnected";
+                            break;
+                        case 1:
+                            statusStr = "listening for incoming";
+                            break;
+                        case 2:
+                            statusStr = "listening for incoming";
+                            break;
+                        case 3:
+                            statusStr = "CONNECTED!";
+                            break;
+                        default:
+                            statusStr = "??";
+                            break;
+                    }
+                    status.setText(statusStr);
+
+                    /*
+
+                    public static final int STATE_NONE = 0; // we're doing nothing
+                    public static final int STATE_LISTEN = 1; // now listening for incoming connections
+                    public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
+                    public static final int STATE_CONNECTED = 3; // now connected to a remote device
+                    */
+
                     break;
                 case Bluetooth.MESSAGE_WRITE:
                     Log.d(TAG, "MESSAGE_WRITE ");
@@ -594,5 +656,17 @@ sub do_crc{
             }
         }
     };
+
+    private void showDeviceListDialog() {
+        // Display dialog for selecting a remote Bluetooth device
+        BluetoothDeviceListDialog dialog = new BluetoothDeviceListDialog(getContext());
+        dialog.setOnDeviceSelectedListener(this);
+        //dialog.setTitle(R.string.paired_devices);
+        dialog.setTitle("paired devices");
+        //dialog.setDevices(bluetoothSerial.getPairedDevices());
+        dialog.setDevices(bt.getPairedDevicesName());
+        dialog.showAddress(true);
+        dialog.show();
+    }
 
 }

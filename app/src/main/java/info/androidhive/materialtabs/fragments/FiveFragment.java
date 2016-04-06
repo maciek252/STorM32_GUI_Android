@@ -2,6 +2,7 @@ package info.androidhive.materialtabs.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public class FiveFragment extends IntermediateFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.i("Storm32", "Frag5: onCreateView");
+        removeControlsFromTables();
         View v =  inflater.inflate(R.layout.fragment_five, container, false);
         tv_PitchMotorVmax = (TextView) v.findViewById(R.id.textView_5_pitchMotorVmax);
         tv_RollMotorVmax = (TextView) v.findViewById(R.id.textView_5_rollMotorVmax);
@@ -51,9 +54,16 @@ public class FiveFragment extends IntermediateFragment{
 
         //addPairSpinner(v, sp_GyroLpf, 3);
 
-        updateAllControls();
+        //updateAllControls();
         //IntermediateFragment.setColorToAllControls();
         return v;
+    }
+
+    public void onResume() {
+        super.onResume();
+
+        updateAllControls();
+
     }
 
 }

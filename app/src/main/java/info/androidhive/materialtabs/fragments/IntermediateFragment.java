@@ -43,35 +43,48 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
 
     final Handler handler_interact=new Handler();//not defined as final variable. may cause problem
 
+    public void removeControlsFromTables(){
+        for(TextView tv: mappingTextViewsOptions.keySet()){
+            mappingTextViewsOptionsAll.remove(tv);
+        }
+        mappingTextViewsOptions.clear();
+    }
 
     private void updateGUI(){
         handler_interact.post(runnable_interact);
-
+        //updateMy();
     }
     //creating runnable
     final Runnable runnable_interact = new Runnable() {
         public void run() {
+            updateMy();
 
-
-
-            for(TextView tv: mappingTextViewsOptions.keySet()){
-
-                int addr = mappingTextViewsOptions.get(tv);
-                OptionNumber o = (OptionNumber) optionList.getOptionForAddress(addr);
-
-                if(tv.getText().length() == 0 || !isNumeric(tv.getText().toString()))
-                    tv.setBackgroundColor(Color.YELLOW);
-                else {
-                    o.setValue((int)gettNumber(tv.getText().toString()));
-                    if(o.getValueRead() != o.getValue())
-                        tv.setBackgroundColor(Color.RED);
-                    else
-                        tv.setBackgroundColor(Color.GREEN);
-                }
-            }
 
         }
     };
+
+    private void updateMy(){
+
+
+        for(TextView tv: mappingTextViewsOptions.keySet()){
+
+            int addr = mappingTextViewsOptions.get(tv);
+            OptionNumber o = (OptionNumber) optionList.getOptionForAddress(addr);
+
+            if(tv.getText().length() == 0 || !isNumeric(tv.getText().toString()))
+                tv.setBackgroundColor(Color.YELLOW);
+            else {
+                int v = (int)gettNumber(tv.getText().toString());
+                o.setValue(v);
+                Log.e("IntermediateFrag", "setting value of addr" + addr + " to " +  v);
+                if(o.getValueRead() != o.getValue())
+                    tv.setBackgroundColor(Color.RED);
+                else
+                    tv.setBackgroundColor(Color.GREEN);
+            }
+        }
+
+    }
 
     private static boolean isNumeric(String str)
     {
@@ -102,7 +115,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
 
     public void addPairTv(View v, final TextView tv, int addr){
 
-
+        Log.i("Storm32", "addPairTv");
 
         // PLUS SET editable and contextClicable!
 
@@ -166,7 +179,14 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
             }
         });
 
-        mappingTextViewsOptions.put(tv,addr);
+
+        //if(mappingTextViewsOptions.containsKey(tv))
+
+        //    mappingTextViewsOptions.remove(tv);
+        //if(mappingTextViewsOptions.values().contains(addr))
+            mappingTextViewsOptions.put(tv,addr);
+        //if(mappingTextViewsOptionsAll.containsKey(tv))
+            //IntermediateFragment.mappingTextViewsOptionsAll.remove(tv);
         IntermediateFragment.mappingTextViewsOptionsAll.put(tv,addr);
 
     }
@@ -200,8 +220,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
     public void updateAllControls(){
 
         for(TextView v: mappingTextViewsOptions.keySet()){
-            if(!mappingTextViewsOptions.containsKey(v))
-                return;
+
             int addr = mappingTextViewsOptions.get(v);
 
             OptionNumber on = (OptionNumber) optionList.getOptionForAddress(addr);
