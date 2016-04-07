@@ -42,6 +42,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="SAVE TO EEPROM"
+            android:id="@+id/button_2_saveToEeprom" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Connect to HC-06"
             android:id="@+id/restart"
             android:layout_below="@+id/button_2_disconnect"

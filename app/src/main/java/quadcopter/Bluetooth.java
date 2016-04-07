@@ -63,6 +63,10 @@ public class Bluetooth {
     public static final int MESSAGE_DEVICE_NAME = 4;
     public static final int MESSAGE_TOAST = 5;
 
+	public enum QueryMode {GET_OPTIONS, GET_VERSION, SET_OPTIONS, SET_VERSION, SAVE_TO_EEPROM, NONE};
+
+	public Bluetooth.QueryMode queryMode = Bluetooth.QueryMode.NONE;
+
 	// Member fields
 	private final BluetoothAdapter mAdapter;
 	private final Handler mHandler;
@@ -491,16 +495,36 @@ public class Bluetooth {
 			while (true) {
 				try {
 
+
+
 					int arg2 = 0;
+					byte[] optionso = optionList.getOptions();
 					// Read from the InputStream
 					bytes = mmInStream.read(buffer);
-					optionList.addToTempBuffer(buffer, bytes);
-					if(optionList.checkMessage()) {
-						arg2 = 1;
-						optionList.decodeOptions();
-					} else
-						arg2 = 2;
+					if(queryMode == QueryMode.GET_OPTIONS) {
+						optionList.addToTempBuffer(buffer, bytes);
+						if (optionList.checkMessage()) {
+							arg2 = 1;
+							optionList.decodeOptions();
+						} else
+							arg2 = 2;
 
+
+
+					} else if(queryMode == QueryMode.SAVE_TO_EEPROM){
+						if(bytes == 1 && buffer[0] == 'o')
+							arg2 = 1;
+						else
+							arg2 = 0;
+
+
+					} else if(queryMode == QueryMode.SET_OPTIONS){
+
+						if(bytes == 1 && buffer[0] == 'o')
+							arg2 = 1;
+						else
+							arg2 = 0;
+					}
 
 					Log.d(TAG, "message bytes " + bytes);
 					Log.d(TAG, "message string bytes " + String.valueOf(bytes));
@@ -584,13 +608,32 @@ public class Bluetooth {
 		}
 	}
 
-    public void connectDevice(String deviceName) {
+	public void connectDeviceByAddress(String address) {
+		// Get the device MAC address
+
+		BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+
+		// 98:D3:31:60:0A:7B
+		// 80:B0:8A:24:C6:9E
+
+		//address = "98:D3:31:60:0A:7B"; // ten OK!!!
+
+		try {
+			BluetoothDevice device = adapter.getRemoteDevice(address); // Get the BluetoothDevice object
+			this.connect(device); // Attempt to connect to the device
+		} catch (Exception e){
+			Log.e("Unbl conn to dev adr "+ address,e.getMessage());
+		}
+	}
+
+
+	public void connectDevice(String deviceName) {
         // Get the device MAC address
         String address = null;
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
         for(BluetoothDevice d: adapter.getBondedDevices()){
 			String name = d.getName();
-			name = "HC-06";
+			//name = "HC-06";
             if (name.equals(deviceName)) {
 				address = d.getAddress();
 			}
@@ -598,7 +641,7 @@ public class Bluetooth {
 		// 98:D3:31:60:0A:7B
 		// 80:B0:8A:24:C6:9E
 
-		address = "98:D3:31:60:0A:7B"; // ten OK!!!
+		//address = "98:D3:31:60:0A:7B"; // ten OK!!!
 
         try {
             BluetoothDevice device = adapter.getRemoteDevice(address); // Get the BluetoothDevice object

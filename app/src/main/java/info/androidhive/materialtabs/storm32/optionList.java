@@ -18,7 +18,7 @@ public class optionList {
 
     static public int pitchP;
 
-    static public byte[] options = null;
+    static protected byte[] options = null;
 
     static public int voltageCorrection = 0;
     static public Integer voltageCorrectionInt = 0;
@@ -30,13 +30,17 @@ public class optionList {
         map_address_Option.put(o.address, o);
     }
 
+
+    /*
     static public void setOptions(byte [] options){
         optionList.options = options;
     }
+    */
 
     static public byte[] getOptions(){
         return options;
     }
+
 
     static public boolean encodeOptions(){
 

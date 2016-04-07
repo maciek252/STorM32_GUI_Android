@@ -57,12 +57,12 @@ public class TwoFragment extends Fragment
     private Bluetooth bt;
 
 
-    enum QueryMode {GET_OPTIONS, GET_VERSION, SET_OPTIONS, SET_VERSION, NONE};
-    QueryMode queryMode = QueryMode.NONE;
+
+
 
     String messageBuffer = "";
 
-    byte [] options = null;
+    //byte [] options = null;
 
     Button button = null;
     Button button_2_readVersion = null;
@@ -73,6 +73,7 @@ public class TwoFragment extends Fragment
     Button button_2_readOption = null;
     Button button_2_changeOption = null;
     Button button_2_disconnect = null;
+    Button button_2_saveToEeprom = null;
     TextView tv = null;
     TextView tv_connectionStatus = null;
     TextView tv_receivedBt = null;
@@ -149,6 +150,9 @@ public class TwoFragment extends Fragment
         button_2_disconnect = (Button) v.findViewById(R.id.button_2_disconnect);
         button_2_disconnect.setOnClickListener(this);
 
+        button_2_saveToEeprom = (Button) v.findViewById(R.id.button_2_saveToEeprom);
+        button_2_saveToEeprom.setOnClickListener(this);
+
         tv = (TextView) v.findViewById(R.id.textViewDetectedBT);
         tv_connectionStatus = (TextView) v.findViewById(R.id.textView_2_connectionStatus);
         tv_receivedBt =  (TextView) v.findViewById(R.id.textView_2_rcvBt);
@@ -173,7 +177,7 @@ public class TwoFragment extends Fragment
     }
 
     private void readOptions(){
-        queryMode = QueryMode.GET_OPTIONS;
+        bt.queryMode = Bluetooth.QueryMode.GET_OPTIONS;
         //bluetoothSerial.write("g");
         bt.sendMessage("g");
     }
@@ -181,7 +185,7 @@ public class TwoFragment extends Fragment
     @Override
     public void onClick(View v) {
 
-        queryMode = QueryMode.NONE;
+        bt.queryMode = Bluetooth.QueryMode.NONE;
 
         switch (v.getId()) {
             case R.id.buttonDetectBT:
@@ -190,7 +194,7 @@ public class TwoFragment extends Fragment
 
                 BluetoothDeviceListDialog dialog = new BluetoothDeviceListDialog(getActivity());
                 dialog.setOnDeviceSelectedListener(this);
-                dialog.setTitle("urządzenia sparowane");
+                dialog.setTitle("paired devices");
                 dialog.setDevices(bluetoothSerial.getPairedDevices());
                 dialog.showAddress(true);
                 dialog.show();
@@ -209,52 +213,21 @@ public class TwoFragment extends Fragment
 
                 //bluetoothSerial.writ
                 break;
+            case R.id.button_2_saveToEeprom:
+
+
+
+                bt.queryMode = Bluetooth.QueryMode.SAVE_TO_EEPROM;
+                String saveToEeprom = "xs";
+                bt.write2(saveToEeprom.getBytes());
+                break;
+
             case R.id.button_2_setName:
                 //  my $res = ExecuteCmdwCrc( 'xn', %name, 0 );
                 /*
                 sub ExecuteCmdwCrc{
                       my $cmd= shift; my $params= shift; my $reslen= shift;
                         return ExecuteCmd( $cmd.add_crc_to_data($params), $reslen );
-                }
-
-                sub ExecuteCmd{
-                ## this doesn't help a lot against the heartbeat
-                ##  my $cmd = shift;
-                ##  WritePort( substr($cmd,0,1) ); # write first char
-                ##  $p_Serial->purge_all();
-                ##  WritePort( substr($cmd,1) ); # write remaining chars
-                ##XXX  $p_Serial->purge_all(); #this helps a bit against the heartbeat!
-                    WritePort( shift ); #consumes first parameter, is the command!
-                    return ReadPort( shift ); #consumes second parameter, is the length of expected values!
-                }
-
-sub add_crc_to_data{
-  my $datafield= shift;
-  my $crc= do_crc( $datafield, length($datafield) );
-  #TextOut( " CRC:".UIntToHexstr($crc) );
-  $datafield.= pack( "v", $crc );
-  #substr($data,1,1) = 'a'; #test to check if error is detected
-  return $datafield;
-}
-
-
-#uses MAVLINK's x25 checksum
-#https://github.com/mavlink/pymavlink/blob/master/mavutil.py
-sub do_crc{
-  my $bufstr= shift; my $len= shift;
-  my @buf= unpack( "C".$len, $bufstr );
-  my $crc= 0xFFFF;
-  foreach my $b (@buf){
-     my $tmp= $b ^ ($crc & 0xFF );
-     $tmp= ($tmp ^ ($tmp<<4)) & 0xFF;
-     $crc= ($crc>>8) ^ ($tmp<<8) ^ ($tmp<<3) ^ ($tmp>>4);
-     $crc= $crc & 0xFFFF;
-  }
-##TextOut( " CRC:0x".UIntToHexstr($crc)."!" );
-  return $crc;
-}
-
-
 
                  */
 
@@ -265,27 +238,6 @@ sub do_crc{
                   bluetoothSerial.write("xn", false);
   //              bluetoothSerial.write(o, false);
                 /* //OK DZIAŁA
-                byte [] n = new byte[20];
-                n[0] = (byte) 0x78;
-                n[1] = (byte) 0x6e;
-                n[2] = (byte) 0x73;
-                n[3] = (byte) 0x6f;
-                n[4] = (byte) 0x77;
-                n[5] = (byte) 0x61;
-                n[6] = (byte) 0x73;
-                n[7] = (byte) 0x6f;
-                n[8] = (byte) 0x77;
-                n[9] = (byte) 0x61;
-                n[10] = (byte) 0x20;
-                n[11] = (byte) 0x20;
-                n[12] = (byte) 0x20;
-                n[13] = (byte) 0x20;
-                n[14] = (byte) 0x20;
-                n[15] = (byte) 0x20;
-                n[16] = (byte) 0x20;
-                n[17] = (byte) 0x20;
-                n[18] = (byte) 0xce;
-                n[19] = (byte) 0x86;
                 bluetoothSerial.write(n);
 */
                 byte [] i = MAVLinkCRC.stringToByte("xn" + o + "cc");
@@ -298,31 +250,25 @@ sub do_crc{
                 i[18] = crcArray[0];
                 i[19] = crcArray[1];
                 bluetoothSerial.write(i);
-                /*
-                crcArray[0] = 0x9;
-                crcArray[1] = 0x3;
-                crcArray[2] = 0xe;
-                crcArray[3] = 0x6;
-                */
-                //crcArray[0] = (byte) 0x93;
-                //crcArray[1] = (byte) 0x6e;
-
-                //bluetoothSerial.write(crcArray);
 
                 break;
             case R.id.button_2_readOptions:
-                options = null;
+
                 readOptions();
 
                 break;
             case R.id.button_2_saveOptions:
                 //options = optionList.getOptions();
-                options = optionList.options;
-                optionList.encodeOptions();
-                if(options != null)
-                    tv_receivedBt.setText("size of opTions = " + options.length);
-                else
+                bt.queryMode = Bluetooth.QueryMode.SET_OPTIONS;
+                ;
+
+                if(optionList.getOptions() != null) {
+                    optionList.encodeOptions();
+                    tv_receivedBt.setText("size of opTions = " + optionList.getOptions().length);
+                }else {
                     tv_receivedBt.setText("optins = null");
+                    return;
+                }
 
                 byte [] optionsFull = new byte[381];
                 optionsFull[0] = 'p';
@@ -331,8 +277,9 @@ sub do_crc{
                 byte [] optionsWrite = new byte [125*2 + 128 ];
                 for(int ii = 0; ii < 125*2 + 128 ; ii++){
 
-                    optionsWrite[ii] = options[ii];
-                    optionsFull[ii+1] = options[ii];
+                    byte b = optionList.getOptions()[ii];
+                    optionsWrite[ii] = b;
+                    optionsFull[ii+1] = b;
                 }
                 int crc2 = MAVLinkCRC.crc_calculate(optionsWrite);
                 byte[] crcArray2 = MAVLinkCRC.intToHexVax(crc2);
@@ -352,15 +299,6 @@ sub do_crc{
                 //SystemClock.sleep(1000);
 
                 // Execute some code after 2 seconds have passed
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        readOptions();
-                    }
-                }, 1000);
-
-
-
                 break;
             case R.id.button_2_ReadOption:
 
@@ -438,34 +376,10 @@ sub do_crc{
 
     @Override
     public void onBluetoothSerialRead(String message) {
-
-
-        char[] charArray = message.toCharArray();
-        byte[] byteArray = message.getBytes();
-
-        //byte[] cookie = Base64.decode(message, Base64.DEFAULT);
-        byte[] b = message.getBytes(Charset.forName("UTF-8"));
-
-        //byte[] b2 = message.getBytes(StandardCharsets.UTF_8); // Java 7+ only
-
-
-        int a1 = (int) byteArray[0];
-        int a2 = (int) byteArray[1];
-/*
-        int i= (byteArray[0]<<24)&0xff000000|
-                (byteArray[1]<<16)&0x00ff0000|
-                (byteArray[2]<< 8)&0x0000ff00|
-                (byteArray[3]<< 0)&0x000000ff;
-*/
-        int i2 = byteArray[0] & 0xFF;
-        int i3 = byteArray[1] & 0xFF;
-
-        int i4 = (byteArray[0] & 0x0F)  * 16 + (byteArray[0] & 0xF0);
-        int i5 = (byteArray[0] & 0xF0)  * 16 + (byteArray[0] & 0x0F);
-
+        /*
         tv_receivedBt.append("<" + message + ">");
 
-        if(queryMode == QueryMode.GET_OPTIONS){
+        if(bt.queryMode == Bluetooth.QueryMode.GET_OPTIONS){
             if(options == null )
                 options = MAVLinkCRC.stringToByte(message);
             else {
@@ -478,27 +392,11 @@ sub do_crc{
                     e.printStackTrace();
                 }
 
-
-
                 options = outputStream.toByteArray();
 
                 if(options.length >= 381 && options[380] == 'o'){
 
                     // check CRC (?)
-                    /*
-                    byte [] subArray = Arrays.copyOfRange(options, 0, 377);
-
-                    int crc = MAVLinkCRC.crc_calculate(subArray);
-                    int crc2 = MAVLinkCRC.hexVaxToInt(options[378], options[379]);
-                    if(crc2 != crc){
-
-                        Toast toast = Toast.makeText(getContext(), "options received but bad CRC!", Toast.LENGTH_SHORT);
-                        //toast.setDuration;
-                        toast.show();
-
-                        return;
-                    }
-                    */
 
 
                     Toast toast = Toast.makeText(getContext(), "options received, CRC OK!", Toast.LENGTH_SHORT);
@@ -527,7 +425,7 @@ sub do_crc{
             tv_board.append("ff");
             tv_version.append(version);
         }
-
+*/
         // Print the incoming message on the terminal screen
         /*
         tvTerminal.append(getString(R.string.terminal_message_template,
@@ -564,7 +462,11 @@ sub do_crc{
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             if (bluetoothAdapter.isEnabled()) {
                 bt.start();
-                bt.connectDevice("HC-06");
+                //bt.connectDevice("HC-06");
+                //bt.connectDevice(device.getName());
+                bt.connectDeviceByAddress(device.getAddress());
+
+
                 Log.d(TAG, "Btservice started - listening");
                 status.setText("Connected");
             } else {
@@ -641,10 +543,26 @@ sub do_crc{
                     break;
                 case Bluetooth.MESSAGE_READ:
                     Log.d(TAG, "MESSAGE_READ " + msg.arg1 + " " + msg.arg2);
-                    if(msg.arg2 == 1){
+                    if(bt.queryMode == Bluetooth.QueryMode.GET_OPTIONS && msg.arg2 == 1){
                         Toast toast = Toast.makeText(getContext(), "options received CRC OK!", Toast.LENGTH_SHORT);
                         //toast.setDuration;
                         toast.show();
+                    } else if(bt.queryMode == Bluetooth.QueryMode.SAVE_TO_EEPROM){
+
+                        if(msg.arg2 == 1){
+                            Toast toast = Toast.makeText(getContext(), "SAVE TO EEPROM OK, will re-read", Toast.LENGTH_SHORT);
+                            //toast.setDuration;
+                            toast.show();
+                            rereadOptions();
+                        }
+                    } else if(bt.queryMode == Bluetooth.QueryMode.SET_OPTIONS){
+
+                        if(msg.arg2 == 1){
+                            Toast toast = Toast.makeText(getContext(), "SAVE OK, will re-read", Toast.LENGTH_SHORT);
+                            //toast.setDuration;
+                            toast.show();
+                            rereadOptions();
+                        }
                     }
                     break;
                 case Bluetooth.MESSAGE_DEVICE_NAME:
@@ -656,6 +574,18 @@ sub do_crc{
             }
         }
     };
+
+    private void rereadOptions(){
+        SystemClock.sleep(1000);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                readOptions();
+            }
+        }, 1000);
+
+    }
 
     private void showDeviceListDialog() {
         // Display dialog for selecting a remote Bluetooth device
