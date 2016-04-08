@@ -312,6 +312,40 @@ public class optionList {
         );
 
         /*
+        name => 'Rc Roll',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  size => 1,
+  adr => 51,
+  choices => \@FunctionInputChoicesList,
+  column => 3,
+},
+*/
+        addOption(
+                new OptionListA("Rc Roll",
+                        0,0,0,functionInputChoicesList.length-1,0,1,1,51,
+                        functionInputChoicesList
+                )
+        );
+
+
+        /*
+{
+  name => 'Rc Roll Mode',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 0, steps => 1,
+  size => 1,
+  adr => 52,
+  choices => [ 'absolute', 'relative', 'absolute centered'],
+},
+         */
+
+        addOption(
+                new OptionListA("Rc Roll Mode",
+                        0,0,0,2,0,1,1,52,
+                        new String[]{"absolute", "relative", "absolute centered"}
+                )
+        );
+
+        /*
         {
   name => 'Rc Dead Band',
   type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 0, max => 50, default => 10, steps => 1,
@@ -321,6 +355,14 @@ public class optionList {
   expert=> 3,
 },
 */
+        addOption(
+                new OptionNumber("Rc Dead Band",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 0,0,50,10,1,2,43, "us")
+        );
+
+
+
 /*
 name => 'Rc Pitch',
   type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
@@ -335,6 +377,21 @@ name => 'Rc Pitch',
                 new OptionListA("44 Rc Pitch",
                         0,0,0,functionInputChoicesList.length-1,0,1,1,44,
                         functionInputChoicesList
+                )
+        );
+/*
+{  name => 'Rc Pitch Mode',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 0, steps => 1,
+  size => 1,
+  adr => 45,
+  choices => [ 'absolute', 'relative', 'absolute centered'],
+}
+ */
+
+        addOption(
+                new OptionListA("Rc Pitch Mode",
+                        0,0,0,2,0,1,1,45,
+                        new String[] {"absolute", "relative", "absolute centered"}
                 )
         );
 

@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="PAN"
+            android:text="RC INPUT"
             android:id="@+id/textView16"
             android:layout_gravity="center_horizontal" />
 
@@ -41,6 +41,31 @@
             android:layout_height="wrap_content"
             android:id="@+id/spinner_rcInput_rcPitchMode"
             android:spinnerMode="dropdown" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rc Roll"
+            android:id="@+id/textView_rcRoll" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_rcInput_rcRoll"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rc Roll Mode"
+            android:id="@+id/textView_rollMode" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_rcInput_rcRollMode"
+            android:spinnerMode="dropdown" />
+
 
         <TextView
             android:layout_width="wrap_content"
