@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Base64;
@@ -46,6 +47,8 @@ public class TwoFragment extends Fragment
         implements BluetoothSerialListener, BluetoothDeviceListDialog.OnDeviceSelectedListener,
         View.OnClickListener
 {
+
+    ViewPager vp = null;
 
     private String statusStr = "";
 
@@ -547,6 +550,9 @@ public class TwoFragment extends Fragment
                         Toast toast = Toast.makeText(getContext(), "options received CRC OK!", Toast.LENGTH_SHORT);
                         //toast.setDuration;
                         toast.show();
+
+
+
                     } else if(bt.queryMode == Bluetooth.QueryMode.SAVE_TO_EEPROM){
 
                         if(msg.arg2 == 1){

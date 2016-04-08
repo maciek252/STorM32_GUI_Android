@@ -46,33 +46,25 @@ public class FiveFragment extends IntermediateFragment{
 
         sp_GyroLpf = (Spinner) v.findViewById((R.id.spinner_5_gyroLpf));
         sp_Imu2FeedForwardLpf = (Spinner) v.findViewById((R.id.spinner_5_imu2_feedForward_lpf));
-        //sp_LowVoltageLimit = (Spinner) v.findViewById((R.id.spinner_5_lowVoltageLimit));
+        sp_LowVoltageLimit = (Spinner) v.findViewById((R.id.spinner_5_lowVoltageLimit));
 
-        /*
-        String [] opcje = new String[] {
-                "1", "2", "3", "4", "5"
-        };
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(  getContext(),
-                android.R.layout.simple_spinner_item, opcje);
-        sp_GyroLpf.setAdapter(adapter);
-*/
-
-        addPairSpinner(v, sp_GyroLpf, 66);
+        addPairSpinner(v, sp_GyroLpf, 100);
         addPairSpinner(v, sp_Imu2FeedForwardLpf, 99);
-  //      addPairSpinner(v, sp_LowVoltageLimit, 18);
+        addPairSpinner(v, sp_LowVoltageLimit, 18);
 
+        //updateGUI();
         updateAllControlsAccordingToOptionList();
         return v;
     }
 
-    /*
+
     public void onResume() {
         Log.i("Storm32 FF5", "onResume");
         super.onResume();
 
-        updateAllControlsAccordingToOptionList();
+        //updateAllControlsAccordingToOptionList();
 
-    }*/
+    }
 
 }

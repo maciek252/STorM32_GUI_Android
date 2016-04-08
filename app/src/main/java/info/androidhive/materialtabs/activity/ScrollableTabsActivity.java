@@ -35,6 +35,7 @@ public class ScrollableTabsActivity extends AppCompatActivity {
 
     private ThreeFragment three = new ThreeFragment();
     private FourFragment four = new FourFragment();
+    private TwoFragment two = new TwoFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +55,18 @@ public class ScrollableTabsActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new TwoFragment(), "TWO");
-        adapter.addFrag(new FiveFragment(), "PID");
+
+
+
+        adapter.addFrag(two, "CONN");
+        adapter.addFrag(new OneFragment(), "DATA");
         adapter.addFrag(new SixFragment(), "PAN");
+        adapter.addFrag(new FiveFragment(), "PID");
         adapter.addFrag(new SevenFragment(), "RC INPUT");
         adapter.addFrag(new EightFragment(), "FUNCTIONS");
         adapter.addFrag(new NineFragment(), "NINE");
         adapter.addFrag(new TenFragment(), "TEN");
-        adapter.addFrag(new OneFragment(), "ONE");
+
         adapter.addFrag(three, "THREE");
         adapter.addFrag(four, "FOUR");
         viewPager.setAdapter(adapter);

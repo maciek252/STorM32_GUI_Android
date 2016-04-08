@@ -67,6 +67,7 @@ public class optionList {
 
         for(Integer i: map_address_Option.keySet()){
             Option o = map_address_Option.get(i);
+            o.needUpdate = true;
             if( o instanceof OptionNumber){
 
                 //o.value = readFromOptions(o.address, 2);
@@ -216,7 +217,7 @@ public class optionList {
          */
 
         addOption(
-        new OptionNumber("Pitch Motor Vmax",
+        new OptionNumber("150 Pitch Motor Vmax",
                 OptionNumber.NumberType.UnsignedInt,
                 5, 0,0,255,150,1,2,3, "")
         );
@@ -233,7 +234,7 @@ public class optionList {
          */
         String [] alvl = new String[]{"off", "2.9 V/cell", "3.0 V/cell", "3.1 V/cell", "3.2 V/cell", "3.3 V/cell", "3.4 V/cell", "3.5 V/cell"};
         addOption(
-                new OptionListA("Imu2 FeedForward LPF",
+                new OptionListA("18 Imu2 FeedForward LPF",
                         0,0,0,7,1,1,1,18,
                         alvl
                 )
@@ -241,7 +242,7 @@ public class optionList {
 
 
         addOption(
-                new OptionNumber("Roll Motor Vmax",
+                new OptionNumber("9 Roll Motor Vmax",
                         OptionNumber.NumberType.UnsignedInt,
                         5, 0,0,255,150,1,2,9, "")
         );
@@ -264,12 +265,34 @@ public class optionList {
 
         String [] a1 = new String[]{"off", "1.5 ms", "4 ms", "10 ms", "22 ms", "46 ms", "94 ms"};
         addOption(
-                new OptionListA("Imu2 FeedForward LPF",
+                new OptionListA("99 Imu2 FeedForward LPF",
                         0,0,0,6,1,1,2,99,
                         a1
                 )
         );
-        
+
+/*
+    },{
+        name => 'Gyro LPF',
+                type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 6, default => 1, steps => 1,
+                size => 1,
+                adr => 100,
+                choices => [ 'off', '1.5 ms', '3.0 ms', '4.5 ms', '6.0 ms', '7.5 ms', '9 ms' ],
+            pos=>[1,1],
+            expert=> 1,
+    },{
+*/
+
+
+        addOption(
+                new OptionListA("Gyro LPF",
+                        0,0,0,6,1,1,1,100,
+                        new String[]{"off", "1.5 ms", "3.0 ms", "4.5 ms", "6.0 ms", "7.5 ms", "9 ms" }
+                )
+        );
+
+
+
         /*
           name => "Pan Mode Control",
   type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
@@ -282,10 +305,52 @@ public class optionList {
          */
 
         addOption(
-                new OptionListA("Pan Mode Control",
+                new OptionListA("65 Pan Mode Control",
                         0,0,0,functionInputChoicesList.length-1,0,1,2,65,
                         functionInputChoicesList
                 )
+        );
+
+        /*
+        {
+  name => 'Rc Dead Band',
+  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 0, max => 50, default => 10, steps => 1,
+  size => 2,
+  adr => 43,
+  unit => 'us',
+  expert=> 3,
+},
+*/
+/*
+name => 'Rc Pitch',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  size => 1,
+  adr => 44,
+  choices => \@FunctionInputChoicesList,
+  column => 2,
+},
+ */
+
+        addOption(
+                new OptionListA("44 Rc Pitch",
+                        0,0,0,functionInputChoicesList.length-1,0,1,1,44,
+                        functionInputChoicesList
+                )
+        );
+
+/*{
+  name => 'Rc Hysteresis',
+  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 0, max => 50, default => 5, steps => 1,
+  size => 2,
+  adr => 105,
+  unit => 'us',
+
+         */
+
+        addOption(
+                new OptionNumber("105 Rc Hysteresis",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 0,0,50,5,1,2,105, "us")
         );
 
 /*
@@ -305,7 +370,7 @@ public class optionList {
          */
         String [] a = new String[]{"hold hold pan", "hold hold hold", "pan pan pan", "pan hold hold", "pan hold pan"};
         addOption(
-                new OptionListA("Pan Mode Default Setting",
+                new OptionListA("66 Pan Mode Default Setting",
                         0,0,0,4,0,1,1,66,
                         a
                         )

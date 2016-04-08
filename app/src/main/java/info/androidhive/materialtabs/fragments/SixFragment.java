@@ -1,6 +1,7 @@
 package info.androidhive.materialtabs.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import info.androidhive.materialtabs.R;
 
 
 public class SixFragment extends IntermediateFragment{
+
 
     Spinner spinner_panControlMode;
     Spinner spinner_panModeDefaultSetting;
@@ -27,6 +29,7 @@ public class SixFragment extends IntermediateFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i("Storm32", "FF6: onCreateView! ");
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_six, container, false);
 
@@ -42,7 +45,7 @@ public class SixFragment extends IntermediateFragment{
 
         //addPair(v, R.id.textView_6_pid, optionList.lowVoltageLimitInt);
 
-
+        //updateGUI();
         updateAllControlsAccordingToOptionList();
 
         return v;

@@ -12,6 +12,7 @@ public class Option {
     public int address = -1;
     public int size = -1;
     public int ppos = -1;
+    public boolean needUpdate = false;
 
     public int defaultValue = 1;
 

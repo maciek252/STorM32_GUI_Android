@@ -56,7 +56,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
         mappingSpinnerssOptions.clear();
     }
 
-    private void updateGUI(){
+    protected void updateGUI(){
         handler_interact.post(runnable_interact);
         //updateMy();
     }
@@ -69,32 +69,48 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
         }
     };
 
-    private void updateMy(){
+    /*
+    does not read option values from optionList
+    sets vals in optionList
+     */
+    protected void updateMy(){
 
+        if(getView() == null)
+            return;
+        if(!getView().isShown())
+            return;
+
+        Log.i("Storm32", "IntermFrag: updateMy");
 
         for(TextView tv: mappingTextViewsOptions.keySet()){
 
             int addr = mappingTextViewsOptions.get(tv);
             OptionNumber o = (OptionNumber) optionList.getOptionForAddress(addr);
-            if(!o.isRead())
+            if(o.needUpdate){
+                Log.i("Storm32", "IF o needed update");
+                o.needUpdate = false;
+                tv.setText("" + o.getValueRead());
+                tv.setBackgroundColor(Color.GREEN);
+            } else if(!o.isRead())
                 tv.setBackgroundColor(Color.GRAY);
-            if(tv.getText().length() == 0 || !isNumeric(tv.getText().toString()))
-                tv.setBackgroundColor(Color.YELLOW);
             else {
-
-
-
-                int v = (int)gettNumber(tv.getText().toString());
-
-
-                o.setValue(v);
-                Log.e("IntermediateFrag", "setting value of addr" + addr + " to " +  v);
-                if(v < o.min || v > o.max){
+                if (tv.getText().length() == 0 || !isNumeric(tv.getText().toString()))
                     tv.setBackgroundColor(Color.YELLOW);
-                } else if(o.getValueRead() != o.getValue())
-                    tv.setBackgroundColor(Color.RED);
-                else
-                    tv.setBackgroundColor(Color.GREEN);
+                else {
+
+
+                    int v = (int) gettNumber(tv.getText().toString());
+
+
+                    o.setValue(v);
+                    Log.e("IntermediateFrag", "setting value of addr" + addr + " to " + v);
+                    if (v < o.min || v > o.max) {
+                        tv.setBackgroundColor(Color.YELLOW);
+                    } else if (o.getValueRead() != o.getValue())
+                        tv.setBackgroundColor(Color.RED);
+                    else
+                        tv.setBackgroundColor(Color.GREEN);
+                }
             }
         }
 
@@ -102,16 +118,26 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
         for(Spinner sp: mappingSpinnerssOptions.keySet()) {
 
             int addr = mappingSpinnerssOptions.get(sp);
-            Log.e("IntermediateFrag", "spinner addr" + addr);
-            OptionListA o = (OptionListA) optionList.getOptionForAddress(addr);
 
+            OptionListA o = (OptionListA) optionList.getOptionForAddress(addr);
+            o.setValue((int)sp.getSelectedItemId());
+
+            if(o.needUpdate){
+                Log.i("Storm32", "IF o needed update");
+                o.needUpdate = false;
+                sp.setSelection(o.getValueRead());
+                sp.setBackgroundColor(Color.GREEN);
+            } else
             if(!o.isRead())
                 sp.setBackgroundColor(Color.GRAY);
             else {
-                if (sp.getSelectedItemId() != o.getValueRead())
+                if (sp.getSelectedItemId() != o.getValueRead()) {
                     sp.setBackgroundColor(Color.RED);
-                else
+                    Log.e("IF updateMy", "spinner addr" + addr + "R");
+                }else {
                     sp.setBackgroundColor(Color.GREEN);
+                    Log.e("IF updateMy", "spinner addr" + addr + "G");
+                }
             }
 
 
@@ -276,7 +302,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
                                                      updateGUI();
                                                  }
 
-                                             }, 500);
+                                             }, 100);
 
                                              oa.setValue((int)sp.getSelectedItemId());
                                              // TODO Auto-generated method stub
@@ -317,8 +343,27 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
     }
 
     // on the basis of optionList
+
+    /*
+    protected void updateGui_ReadFromOptionList_RunFromOutside(){
+        handler_interact.post(runnable_interact_2);
+        //updateMy();
+    }
+    //creating runnable
+    final Runnable runnable_interact_2 = new Runnable() {
+        public void run() {
+            //updateAllControlsAccordingToOptionList();
+
+
+        }
+    };
+*/
+
+
     public void updateAllControlsAccordingToOptionList(){
 
+        Log.i("Storm32", "IntermFrag: updateAllControlsAccordingToOptionList" +
+                "");
         for(TextView v: mappingTextViewsOptions.keySet()){
 
             int addr = mappingTextViewsOptions.get(v);
@@ -327,6 +372,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
 
             if(on != null) {
                 if(on.isRead()) {
+
                     //v.setBackgroundColor(Color.GREEN);
                     if(on.getValueRead() != on.getValue())
                         v.setBackgroundColor(Color.RED);
@@ -357,23 +403,21 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
                 sp.setAdapter(adapter);
 
                 if(on.isRead()) {
+
                     sp.setSelection(on.getValue());
-                    if(sp.getSelectedItemId() == on.getValueRead())
+
+                    if(sp.getSelectedItemId() == on.getValueRead()) {
                         sp.setBackgroundColor(Color.GREEN);
-                    else
+                        Log.e("IF updateAllContr", "spinner addr" + addr + "G");
+                    }else {
                         sp.setBackgroundColor(Color.RED);
+                        Log.e("IF updateAllContr", "spinner addr" + addr + "R");
+                    }
 
                 }else {
                     sp.setBackgroundColor(Color.GRAY);
                     sp.setSelection(on.defaultValue);
                 }
-
-                //v.setTextColor(Color.parseColor("#bdbdbd"));
-
-                //v.setText("" + on.getValue());
-
-
-
 
                 Log.e("IntermediateFrag", "setting value of (spinner) addr" + addr + " to " +  on.getValue());
             } else
@@ -382,6 +426,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
         }
 
     }
+
 
     static public void setColorToAllControls(){
 
@@ -456,4 +501,5 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
 //                break;
         }
     }
+
 }
