@@ -241,6 +241,15 @@ public class optionList {
         );
 
 
+        /*
+        },{
+  name => 'Roll Motor Vmax',
+  type => 'OPTTYPE_UI', len => 5, ppos => 0, min => 0, max => 255, default => 150, steps => 1,
+  size => 2,
+  adr => 9,
+
+         */
+
         addOption(
                 new OptionNumber("9 Roll Motor Vmax",
                         OptionNumber.NumberType.UnsignedInt,
@@ -310,6 +319,65 @@ public class optionList {
                         functionInputChoicesList
                 )
         );
+
+        /*
+        {
+  name => 'Rc Pitch Min',
+  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -1200, max => 1200, default => -250, steps => 5,
+  size => 2,
+  adr => 47,
+  unit => '�',
+}*/
+        addOption(
+                new OptionNumber("Rc Pitch Min",
+                        OptionNumber.NumberType.SignedInt,
+                        5, 1,-1200,1200,-250,5,2,47, "deg")
+        );
+
+/*,{
+  name => 'Rc Pitch Max',
+  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -1200, max => 1200, default => 250, steps => 5,
+  size => 2,
+  adr => 48,
+  unit => '�',
+}*/
+        addOption(
+                new OptionNumber("Rc Pitch Max",
+                        OptionNumber.NumberType.SignedInt,
+                        5, 1,-1200,1200,250,5,2,48, "deg")
+        );
+
+
+
+        /*{
+  name => 'Rc Pitch Speed Limit (0 = off)',
+  type => 'OPTTYPE_UI', len => 0, ppos => 1, min => 0, max => 1000, default => 400, steps => 5,
+  size => 2,
+  adr => 49,
+  unit => '�/s',
+}*/
+        addOption(
+                new OptionNumber("Rc Pitch Speed Limit",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 1,0,1000,400,5,2,49, "deg/s")
+        );
+
+
+        /*{
+  name => 'Rc Pitch Accel Limit (0 = off)',
+  type => 'OPTTYPE_UI', len => 0, ppos => 3, min => 0, max => 1000, default => 300, steps => 10,
+  size => 2,
+  adr => 50,
+}*/
+        addOption(
+                new OptionNumber("Rc Pitch Accel Limit",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 3,0,1000,300,10,2,50, "")
+        );
+
+
+
+
 
         /*
         name => 'Rc Roll',

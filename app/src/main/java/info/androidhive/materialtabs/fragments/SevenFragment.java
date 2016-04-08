@@ -16,6 +16,12 @@ public class SevenFragment extends IntermediateFragment{
 
     TextView tv_deadBand = null;
     TextView tv_rcHysteresis = null;
+
+    TextView tv_rcPitchMin = null;
+    TextView tv_rcPitchMax = null;
+    TextView tv_rcPitchSpeedLimit = null;
+    TextView tv_rcPitchAccelLimit = null;
+
     Spinner sp_rcPitch = null;
     Spinner sp_rcPitchMode = null;
     Spinner sp_rcRoll = null;
@@ -41,6 +47,13 @@ public class SevenFragment extends IntermediateFragment{
 
          tv_rcHysteresis = (TextView) v.findViewById(R.id.textView_rcInput_rcHysteresis);
         tv_deadBand = (TextView) v.findViewById(R.id.textView_rcInput_rcDeadBand);
+
+        tv_rcPitchMin = (TextView) v.findViewById(R.id.textView_rcInput_rcPitchMin);
+        tv_rcPitchMax = (TextView) v.findViewById(R.id.textView_rcInput_rcPitchMax);
+
+        tv_rcPitchSpeedLimit = (TextView) v.findViewById(R.id.textView_rcInput_rcPitchSpeedLimit);
+        tv_rcPitchAccelLimit = (TextView) v.findViewById(R.id.textView_rcInput_rcPitchAccelLimit);
+
         sp_rcPitch = (Spinner) v.findViewById(R.id.spinner_RcInput_rcPitch);
         sp_rcPitchMode = (Spinner) v.findViewById(R.id.spinner_rcInput_rcPitchMode);
 
@@ -53,6 +66,12 @@ public class SevenFragment extends IntermediateFragment{
         //addPair(v, R.id.textView_6_pid, optionList.lowVoltageLimitInt);
         addPairTv(v, tv_rcHysteresis, 105);
         addPairTv(v, tv_deadBand, 43);
+
+        addPairTv(v, tv_rcPitchMin, 47);
+        addPairTv(v, tv_rcPitchMax, 48);
+        addPairTv(v, tv_rcPitchSpeedLimit, 49);
+        addPairTv(v, tv_rcPitchAccelLimit, 50);
+
         addPairSpinner(v, sp_rcPitch, 44);
         addPairSpinner(v, sp_rcPitchMode, 45);
         addPairSpinner(v, sp_rcRoll, 51);

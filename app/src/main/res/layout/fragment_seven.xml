@@ -45,6 +45,72 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="RC Pitch Min"
+            android:id="@+id/textView_rcPitchMin" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_rcInput_rcPitchMin"
+            android:contextClickable="true"
+            android:layout_gravity="center_horizontal"
+            android:editable="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RC Pitch Max"
+            android:id="@+id/textView_rcPitchMax" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_rcInput_rcPitchMax"
+            android:contextClickable="true"
+            android:layout_gravity="center_horizontal"
+            android:editable="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RC Pitch Speed Limit"
+            android:id="@+id/textView_rcPitchSpeedLimit" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_rcInput_rcPitchSpeedLimit"
+            android:contextClickable="true"
+            android:layout_gravity="center_horizontal"
+            android:editable="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RC Pitch Accel Limit"
+            android:id="@+id/textView_rcPitchAccelLimit" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_rcInput_rcPitchAccelLimit"
+            android:contextClickable="true"
+            android:layout_gravity="center_horizontal"
+            android:editable="true" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:foreground="#c10606" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Rc Roll"
             android:id="@+id/textView_rcRoll" />
 
