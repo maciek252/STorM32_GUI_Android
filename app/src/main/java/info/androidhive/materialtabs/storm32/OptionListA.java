@@ -7,11 +7,12 @@ public class OptionListA extends Option {
 
     public String description = null;
     public String [] choices = null;
+    public int min, max;
 
     public OptionListA(String description,
                      int length,
                      int ppos,
-                     int min, int max,
+                     int min, int max,int defaultV,
                      int steps,
                      int size, int address,
                      String [] choices
@@ -19,6 +20,9 @@ public class OptionListA extends Option {
         this.description = description;
         this.choices = choices;
         this.address = address;
+        this.defaultValue = defaultV;
+        this.min = min;
+        this.max = max;
     }
 
 }

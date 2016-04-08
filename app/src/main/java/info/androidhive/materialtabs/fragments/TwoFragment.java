@@ -172,7 +172,7 @@ public class TwoFragment extends Fragment
         super.onResume();
 
         status.setText(statusStr);
-//        updateAllControls();
+//        updateAllControlsAccordingToOptionList();
 
     }
 

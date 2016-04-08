@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -21,6 +22,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import info.androidhive.materialtabs.R;
+import info.androidhive.materialtabs.activity.MainActivity;
 import info.androidhive.materialtabs.storm32.Option;
 import info.androidhive.materialtabs.storm32.OptionListA;
 import info.androidhive.materialtabs.storm32.OptionNumber;
@@ -48,6 +50,10 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
             mappingTextViewsOptionsAll.remove(tv);
         }
         mappingTextViewsOptions.clear();
+        for(Spinner sp: mappingSpinnerssOptions.keySet()){
+            mappingSpinnersOptionsAll.remove(sp);
+        }
+        mappingSpinnerssOptions.clear();
     }
 
     private void updateGUI(){
@@ -70,21 +76,50 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
 
             int addr = mappingTextViewsOptions.get(tv);
             OptionNumber o = (OptionNumber) optionList.getOptionForAddress(addr);
-
+            if(!o.isRead())
+                tv.setBackgroundColor(Color.GRAY);
             if(tv.getText().length() == 0 || !isNumeric(tv.getText().toString()))
                 tv.setBackgroundColor(Color.YELLOW);
             else {
+
+
+
                 int v = (int)gettNumber(tv.getText().toString());
+
+
                 o.setValue(v);
                 Log.e("IntermediateFrag", "setting value of addr" + addr + " to " +  v);
-                if(o.getValueRead() != o.getValue())
+                if(v < o.min || v > o.max){
+                    tv.setBackgroundColor(Color.YELLOW);
+                } else if(o.getValueRead() != o.getValue())
                     tv.setBackgroundColor(Color.RED);
                 else
                     tv.setBackgroundColor(Color.GREEN);
             }
         }
 
+
+        for(Spinner sp: mappingSpinnerssOptions.keySet()) {
+
+            int addr = mappingSpinnerssOptions.get(sp);
+            Log.e("IntermediateFrag", "spinner addr" + addr);
+            OptionListA o = (OptionListA) optionList.getOptionForAddress(addr);
+
+            if(!o.isRead())
+                sp.setBackgroundColor(Color.GRAY);
+            else {
+                if (sp.getSelectedItemId() != o.getValueRead())
+                    sp.setBackgroundColor(Color.RED);
+                else
+                    sp.setBackgroundColor(Color.GREEN);
+            }
+
+
+
+        }
     }
+
+
 
     private static boolean isNumeric(String str)
     {
@@ -191,25 +226,89 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
 
     }
 
-    public void addPairSpinner(View v, Spinner sp, int addr){
-
+    public void addPairSpinner(View v, final Spinner sp, int addr){
 
 
         // PLUS SET editable and contextClicable!
 
-        /*
-        tv.setCursorVisible(true);
-        tv.setFocusable(true);
-        tv.setEnabled(true);
-        tv.setClickable(true);
-        tv.setFocusableInTouchMode(true);
-        tv.setTextIsSelectable(false);
-        //tv.setBackgroundColor(Color.blue(3));
-*/
-        //map_addr_control.put(addr, tv);
+        sp.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+    /* When focus is lost check that the text field
+    * has valid values.
+    */
+                if (!hasFocus) {
+                    int addr = mappingSpinnerssOptions.get(sp);
+                    Log.i("Storm32", "option changed: TextView addr=" + addr);
+                }
+            }
+        });
+
+//        tv.addTextChangedListener(this);
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                                         @Override
+                                         public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                                                    int arg2, long arg3) {
+                                             // TODO Auto-generated method stub
+                                             int addr = mappingSpinnerssOptions.get(sp);
+                                             OptionListA oa = (OptionListA) optionList.getOptionForAddress(addr);
+
+
+                                             Object item = arg0.getItemAtPosition(arg2);
+                                             /*
+                                             if (item != null) {
+                                                 Toast.makeText(getContext(), item.toString(),
+                                                         Toast.LENGTH_SHORT).show();
+                                             }
+                                             Toast.makeText(getContext(), "Selected:" + sp.getSelectedItemId(),
+                                                     Toast.LENGTH_SHORT).show();
+                                            */
+                                             Timer timer = new Timer();
+                                             timer.schedule(new TimerTask() {
+                                                 @Override
+                                                 public void run() {
+                                                     // TODO: do what you need here (refresh list)
+                                                     // you will probably need to use
+                                                     // runOnUiThread(Runnable action) for some specific
+                                                     // actions
+                                                     updateGUI();
+                                                 }
+
+                                             }, 500);
+
+                                             oa.setValue((int)sp.getSelectedItemId());
+                                             // TODO Auto-generated method stub
+
+
+                                             Log.i("Storm32", "option changed: TextView addr=" + addr);
+
+
+                                         }
+
+                                         @Override
+                                         public void onNothingSelected(AdapterView<?> arg0) {
+                                             // TODO Auto-generated method stub
+
+                                         }
+
+                                     });
+
+
+
+        //if(mappingTextViewsOptions.containsKey(tv))
+
+        //    mappingTextViewsOptions.remove(tv);
+        //if(mappingTextViewsOptions.values().contains(addr))
         mappingSpinnerssOptions.put(sp,addr);
+        //if(mappingTextViewsOptionsAll.containsKey(tv))
+        //IntermediateFragment.mappingTextViewsOptionsAll.remove(tv);
         IntermediateFragment.mappingSpinnersOptionsAll.put(sp,addr);
+
+        ///-----------------------------------------------
+        //mappingSpinnerssOptions.put(sp,addr);
+        //IntermediateFragment.mappingSpinnersOptionsAll.put(sp,addr);
 
     }
 
@@ -217,7 +316,8 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
 
     }
 
-    public void updateAllControls(){
+    // on the basis of optionList
+    public void updateAllControlsAccordingToOptionList(){
 
         for(TextView v: mappingTextViewsOptions.keySet()){
 
@@ -246,23 +346,36 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
             if(!mappingSpinnerssOptions.containsKey(sp))
                 return;
             int addr = mappingSpinnerssOptions.get(sp);
-
+            Log.i("Storm32", "getting listA for addr=" + addr);
             OptionListA on = (OptionListA) optionList.getOptionForAddress(addr);
 
+
             if(on != null) {
-                if(on.isRead())
-                    sp.setBackgroundColor(Color.GREEN);
-                else
-                    sp.setBackgroundColor(Color.GRAY);
-
-                //v.setTextColor(Color.parseColor("#bdbdbd"));
-
-                //v.setText("" + on.getValue());
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(  getContext(),
                         android.R.layout.simple_spinner_item, on.choices);
                 sp.setAdapter(adapter);
 
+                if(on.isRead()) {
+                    sp.setSelection(on.getValue());
+                    if(sp.getSelectedItemId() == on.getValueRead())
+                        sp.setBackgroundColor(Color.GREEN);
+                    else
+                        sp.setBackgroundColor(Color.RED);
+
+                }else {
+                    sp.setBackgroundColor(Color.GRAY);
+                    sp.setSelection(on.defaultValue);
+                }
+
+                //v.setTextColor(Color.parseColor("#bdbdbd"));
+
+                //v.setText("" + on.getValue());
+
+
+
+
+                Log.e("IntermediateFrag", "setting value of (spinner) addr" + addr + " to " +  on.getValue());
             } else
                 sp.setBackgroundColor(Color.CYAN);
 

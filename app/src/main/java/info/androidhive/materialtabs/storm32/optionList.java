@@ -71,13 +71,13 @@ public class optionList {
 
                 //o.value = readFromOptions(o.address, 2);
                 o.setValueRead(readFromOptions(o.address, 2));
-                Log.i("Storm32", "optionNumber decode val=" + o.value);
+                Log.i("Storm32", "optionNumber decode addr=" + o.address + " val=" + o.value);
                 o.setRead();
             } else if( o instanceof OptionListA){
 
                 //o.value = readFromOptions(o.address, 2);
                 o.setValueRead(readFromOptions(o.address, 2));
-                Log.i("Storm32", "optionListA decode val=" + o.value);
+                Log.i("Storm32", "optionListA decode addr=" + o.address + " val=" + o.value);
                 o.setRead();
             }
         }
@@ -182,14 +182,25 @@ public class optionList {
 
 
     static public void populateOptions(){
+        
+        String [] functionInputChoicesList= {
+                "off", "Rc-0", "Rc-1", "Rc-2", "Rc2-0", "Rc2-1", "Rc2-2", "Rc2-3", "Pot-0", "Pot-1", "Pot-2",
+                "Virtual-1", "Virtual-2", "Virtual-3", "Virtual-4", "Virtual-5", "Virtual-6", "Virtual-7", "Virtual-8",
+                "Virtual-9", "Virtual-10", "Virtual-11", "Virtual-12", "Virtual-13", "Virtual-14", "Virtual-15", "Virtual-16",
+                "But switch", "But latch", "But step",
+                "Aux-0 switch", "Aux-1 switch", "Aux-2 switch", "Aux-01 switch", "Aux-012 switch",
+                "Aux-0 latch", "Aux-1 latch", "Aux-2 latch", "Aux-01 latch", "Aux-012 latch",
+                "Aux-0 step", "Aux-1 step", "Aux-2 step"};
+        
+
 
         if(!map_address_Option.isEmpty())
             return;
-        /*name => 'Voltage Correction',
-  type => 'OPTTYPE_UI', len => 7, ppos => 0, min => 0, max => 200, default => 0, steps => 1,
+        /*name => "Voltage Correction",
+  type => "OPTTYPE_UI", len => 7, ppos => 0, min => 0, max => 200, default => 0, steps => 1,
   size => 2,
   adr => 19,
-  unit => '%',
+  unit => "%",
 */
         OptionNumber voltageCorrection = new OptionNumber("Voltage Correction",
                 OptionNumber.NumberType.UnsignedInt,
@@ -197,8 +208,8 @@ public class optionList {
         addOption(voltageCorrection);
 
         /*
-          name => 'Pitch Motor Vmax',
-  type => 'OPTTYPE_UI', len => 5, ppos => 0, min => 0, max => 255, default => 150, steps => 1,
+          name => "Pitch Motor Vmax",
+  type => "OPTTYPE_UI", len => 5, ppos => 0, min => 0, max => 255, default => 150, steps => 1,
   size => 2,
   adr => 3,
 
@@ -210,15 +221,58 @@ public class optionList {
                 5, 0,0,255,150,1,2,3, "")
         );
 
+        /*
+        },{
+  name => "Low Voltage Limit",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 7, default => 1, steps => 1,
+  size => 1,
+  adr => 18,
+  choices => [ "off", "2.9 V/cell", "3.0 V/cell", "3.1 V/cell", "3.2 V/cell", "3.3 V/cell", "3.4 V/cell", "3.5 V/cell" ],
+  pos=>[1,4],
+},{
+         */
+        String [] alvl = new String[]{"off", "2.9 V/cell", "3.0 V/cell", "3.1 V/cell", "3.2 V/cell", "3.3 V/cell", "3.4 V/cell", "3.5 V/cell"};
+        addOption(
+                new OptionListA("Imu2 FeedForward LPF",
+                        0,0,0,7,1,1,1,18,
+                        alvl
+                )
+        );
+
+
         addOption(
                 new OptionNumber("Roll Motor Vmax",
                         OptionNumber.NumberType.UnsignedInt,
                         5, 0,0,255,150,1,2,9, "")
         );
+/*
+        {
+        int length,
+                     int ppos,
+                     int min, int max, int default
+                     int steps,
+                     int size, int address,
 
+            name => "Imu2 FeedForward LPF",
+                type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 6, default => 1, steps => 1,
+                size => 2,
+                adr => 99,
+                choices => [ "off", "1.5 ms", "4 ms", "10 ms", "22 ms", "46 ms", "94 ms" ],
+
+        },        
+  */
+
+        String [] a1 = new String[]{"off", "1.5 ms", "4 ms", "10 ms", "22 ms", "46 ms", "94 ms"};
+        addOption(
+                new OptionListA("Imu2 FeedForward LPF",
+                        0,0,0,6,1,1,2,99,
+                        a1
+                )
+        );
+        
         /*
-          name => 'Pan Mode Control',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+          name => "Pan Mode Control",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
   size => 1,
   adr => 65,
   choices => \@FunctionInputChoicesList,
@@ -226,6 +280,14 @@ public class optionList {
   expert=> 2,
 
          */
+
+        addOption(
+                new OptionListA("Pan Mode Control",
+                        0,0,0,functionInputChoicesList.length-1,0,1,2,65,
+                        functionInputChoicesList
+                )
+        );
+
 /*
         addOption(
                 new OptionListA("Pan Mode Control",
@@ -234,17 +296,17 @@ public class optionList {
         );
 */
         /*
-          name => 'Pan Mode Default Setting',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 4, default => 0, steps => 1,
+          name => "Pan Mode Default Setting",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 4, default => 0, steps => 1,
   size => 1,
   adr => 66,
-  choices => [ 'hold hold pan', 'hold hold hold', 'pan pan pan', 'pan hold hold', 'pan hold pan'],
+  choices => [ "hold hold pan", "hold hold hold", "pan pan pan", "pan hold hold", "pan hold pan"],
 
          */
         String [] a = new String[]{"hold hold pan", "hold hold hold", "pan pan pan", "pan hold hold", "pan hold pan"};
         addOption(
                 new OptionListA("Pan Mode Default Setting",
-                        0,0,0,4,0,1,66,
+                        0,0,0,4,0,1,1,66,
                         a
                         )
         );
