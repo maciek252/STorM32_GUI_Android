@@ -349,6 +349,7 @@ public class optionList {
 
 
 
+
         /*{
   name => 'Rc Pitch Speed Limit (0 = off)',
   type => 'OPTTYPE_UI', len => 0, ppos => 1, min => 0, max => 1000, default => 400, steps => 5,
@@ -499,6 +500,195 @@ name => 'Rc Pitch',
                         0,0,0,4,0,1,1,66,
                         a
                         )
+        );
+
+        /*
+        ##--- FUNCTIONS tab --------------------
+},{
+  name => 'Standby',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  size => 1,
+  adr => 70,
+  choices => \@FunctionInputChoicesList,
+  expert=> 4,
+  column=> 1,
+},
+*/
+
+        addOption(
+                new OptionListA("Standby",
+                        0,0,0,functionInputChoicesList.length,0,1,1,70,
+                        functionInputChoicesList
+                )
+        );
+
+        /*
+{
+
+  name => 'Re-center Camera',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  size => 1,
+  adr => 76,
+  choices => \@FunctionInputChoicesList,
+  pos=>[1,3],
+
+}*/
+        addOption(
+                new OptionListA("Re-center Camera",
+                        0,0,0,functionInputChoicesList.length,0,1,1,76,
+                        functionInputChoicesList
+                )
+        );
+
+        /*{
+  name => 'IR Camera Control',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  size => 1,
+  adr => 71,
+  choices => \@FunctionInputChoicesList,
+  column=> 2, #3,
+}*/
+
+        addOption(
+                new OptionListA("IR Camera Control",
+                        0,0,0,functionInputChoicesList.length,0,1,1,71,
+                        functionInputChoicesList
+                )
+        );
+
+        /*{
+  name => 'Camera Model',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 3, default => 0, steps => 1,
+  size => 1,
+  adr => 72,
+  choices => [ 'Sony Nex', 'Canon', 'Panasonic', 'Nikon' ],
+},*/
+        String [] cameras = new String[] {"Sony Nex", "Canon", "Panasonic", "Nikon"};
+        addOption(
+                new OptionListA("Standby",
+                        0,0,0,cameras.length,0,1,1,72,
+cameras
+                )
+        );
+
+        /*{
+  name => 'IR Camera Setting #1',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 0, steps => 1,
+  size => 1,
+  adr => 73,
+  choices => [ 'shutter', 'shutter delay', 'video on/off' ],
+}*/
+
+        String [] irCamSetting1 = new String[] {"shutter", "shutter delay", "video on/off"};
+        addOption(
+                new OptionListA("IR Camera Setting #1",
+                        0,0,0,irCamSetting1.length,0,1,1,73,
+                        irCamSetting1
+                )
+        );
+        
+        
+/*        {
+  name => 'IR Camera Setting #2',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 3, default => 2, steps => 1,
+  size => 1,
+  adr => 74,
+  choices => [ 'shutter', 'shutter delay', 'video on/off', 'off' ],
+}*/
+
+        String [] irCamSetting2 = new String[] {"shutter", "shutter delay", "video on/off", "off"};
+        addOption(
+                new OptionListA("IR Camera Setting #2",
+                        0,0,0,irCamSetting2.length,0,1,1,74,
+                        irCamSetting2
+                )
+        );
+
+        /*{
+  name => 'Time Interval (0 = off)',
+  type => 'OPTTYPE_UI', len => 0, ppos => 1, min => 0, max => 150, default => 0, steps => 1,
+  size => 2,
+  adr => 75,
+  unit => 's',
+
+}*/
+
+        addOption(
+                new OptionNumber("Time Interval (0 = off)",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 0,0,150,0,1,2,75, "s")
+        );
+        
+        /*{
+  name => 'Pwm Out Control',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  size => 1,
+  adr => 113,
+  choices => \@FunctionInputChoicesList,
+  column=> 3,
+}*/
+
+        addOption(
+                new OptionListA("Pwm Out Control",
+                        0,0,0,functionInputChoicesList.length,0,1,1,113,
+                        functionInputChoicesList
+                )
+        );
+
+        
+        /*{
+  name => 'Pwm Out Mid',
+  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 900, max => 2100, default => 1500, steps => 1,
+  size => 2,
+  adr => 114,
+  unit => 'us',
+}*/
+        addOption(
+                new OptionNumber("Pwm Out Mid",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 0,900,2100,1500,10,2,114, "us")
+        );
+
+
+        /*{
+  name => 'Pwm Out Min',
+  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 900, max => 2100, default => 1100, steps => 10,
+  size => 2,
+  adr => 115,
+  unit => 'us',
+}*/
+
+        addOption(
+                new OptionNumber("Pwm Out Min",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 0,900,2100,1100,10,2,115, "us")
+        );
+
+        /*{
+  name => 'Pwm Out Max',
+  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 900, max => 2100, default => 1900, steps => 10,
+  size => 2,
+  adr => 116,
+  unit => 'us',
+}*/
+        addOption(
+                new OptionNumber("Pwm Out Mid",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 0,900,2100,1900,10,2,116, "us")
+        );
+
+        /*{
+  name => 'Pwm Out Speed Limit (0 = off)',
+  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 0, max => 1000, default => 0, steps => 5,
+  size => 2,
+  adr => 117,
+  unit => 'us/s',
+         */
+
+        addOption(
+                new OptionNumber("Pwm Out Speed Limit (0 = off)",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 0,0,1000,0,5,2,117, "us/s")
         );
 
 
