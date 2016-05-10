@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$USER_HOME$/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/STorM32_GUI_Android.iml" filepath="$USER_HOME$/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/STorM32_GUI_Android.iml" />
+      <module fileurl="file://$USER_HOME$/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/app.iml" filepath="$USER_HOME$/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/app.iml" />
+    </modules>
+  </component>
+</project>

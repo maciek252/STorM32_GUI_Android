@@ -18,6 +18,10 @@ import info.androidhive.materialtabs.R;
 import info.androidhive.materialtabs.fragments.EightFragment;
 import info.androidhive.materialtabs.fragments.FiveFragment;
 import info.androidhive.materialtabs.fragments.FourFragment;
+import info.androidhive.materialtabs.fragments.FragmentCalibrateAcc;
+import info.androidhive.materialtabs.fragments.FragmentGimbalConfiguration;
+import info.androidhive.materialtabs.fragments.FragmentScripts;
+import info.androidhive.materialtabs.fragments.FragmentSetup;
 import info.androidhive.materialtabs.fragments.IntermediateFragment;
 import info.androidhive.materialtabs.fragments.NineFragment;
 import info.androidhive.materialtabs.fragments.OneFragment;
@@ -36,6 +40,11 @@ public class ScrollableTabsActivity extends AppCompatActivity {
     private ThreeFragment three = new ThreeFragment();
     private FourFragment four = new FourFragment();
     private TwoFragment two = new TwoFragment();
+
+    private FragmentScripts fragmentScripts = new FragmentScripts();
+    private FragmentSetup fragmentSetup = new FragmentSetup();
+    private FragmentGimbalConfiguration fragmentGimbalConfiguration = new FragmentGimbalConfiguration();
+    private FragmentCalibrateAcc fragmentCalibrateAcc = new FragmentCalibrateAcc();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +73,15 @@ public class ScrollableTabsActivity extends AppCompatActivity {
         adapter.addFrag(new FiveFragment(), "PID");
         adapter.addFrag(new SevenFragment(), "RC INPUT");
         adapter.addFrag(new EightFragment(), "FUNCTIONS");
+        adapter.addFrag(new FragmentScripts(), "SCRIPTS");
+        adapter.addFrag(new FragmentSetup(), "SETUP");
+        adapter.addFrag(new FragmentGimbalConfiguration(), "GIMBAL CONF.");
+        adapter.addFrag(new FragmentCalibrateAcc(), "CALIBRATE ACC");
+
         adapter.addFrag(new NineFragment(), "NINE");
         adapter.addFrag(new TenFragment(), "TEN");
+
+
 
         adapter.addFrag(three, "THREE");
         adapter.addFrag(four, "FOUR");

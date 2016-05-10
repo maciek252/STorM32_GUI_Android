@@ -604,6 +604,55 @@ cameras
                 )
         );
 
+
+        /*
+        {
+  name => 'Imu AHRS',
+  type => 'OPTTYPE_UI', len => 5, ppos => 2, min => 0, max => 2500, default => 1000, steps => 100,
+  size => 2,
+  adr => 81,
+  unit => 's',
+         */
+
+        addOption(
+                new OptionNumber("Imu AHRS",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 2,0,2500,1000,100,2,81, "s")
+        );
+
+/*
+name => 'Rc Pitch Offset',
+  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -1200, max => 1200, default => 0, steps => 5,
+  size => 2,
+  adr => 106,
+  unit => '°',
+  pos=> [2,4],
+ */
+
+        /*
+        addOption(
+                new OptionNumber("Rc Pitch Offset",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 1,-1200,1200,0,5,2,106, "°")
+        );
+        */
+
+        /*name => 'Imu2 Configuration',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 4, default => 0, steps => 1,
+  size => 1,
+  adr => 94,
+  choices => [ 'off', 'full', 'full xy', 'full v1', 'full v1 xy' ],
+  expert=> 5,*/
+
+
+        String [] imu2configuration = new String[] { "off", "full", "full xy", "full v1", "full v1 xy" };
+        addOption(
+                new OptionListA("Imu2 Configuration",
+                        0,0,0,imu2configuration.length,0,1,1,94,
+                        imu2configuration
+                )
+        );
+
         /*{
   name => 'Time Interval (0 = off)',
   type => 'OPTTYPE_UI', len => 0, ppos => 1, min => 0, max => 150, default => 0, steps => 1,
