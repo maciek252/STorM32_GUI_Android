@@ -12,7 +12,7 @@ import android.widget.TextView;
 import info.androidhive.materialtabs.R;
 
 
-public class SevenFragment extends IntermediateFragment{
+public class FragmentRcInput extends IntermediateFragment{
 
     TextView tv_deadBand = null;
     TextView tv_rcHysteresis = null;
@@ -22,12 +22,24 @@ public class SevenFragment extends IntermediateFragment{
     TextView tv_rcPitchSpeedLimit = null;
     TextView tv_rcPitchAccelLimit = null;
 
+    TextView tv_rcRollMin = null;
+    TextView tv_rcRollMax = null;
+    TextView tv_rcRollSpeedLimit = null;
+    TextView tv_rcRollAccelLimit = null;
+
+    TextView tv_rcYawMin = null;
+    TextView tv_rcYawMax = null;
+    TextView tv_rcYawSpeedLimit = null;
+    TextView tv_rcYawAccelLimit = null;
+
+
+
     Spinner sp_rcPitch = null;
     Spinner sp_rcPitchMode = null;
     Spinner sp_rcRoll = null;
     Spinner sp_rcRollMode = null;
 
-    public SevenFragment() {
+    public FragmentRcInput() {
         // Required empty public constructor
     }
 
@@ -41,7 +53,7 @@ public class SevenFragment extends IntermediateFragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.i("Storm32", "FF7: onCreateView: ");
-        View v =  inflater.inflate(R.layout.fragment_seven, container, false);
+        View v =  inflater.inflate(R.layout.fragment_rc_input, container, false);
 
         removeControlsFromTables();
 
@@ -54,6 +66,19 @@ public class SevenFragment extends IntermediateFragment{
         tv_rcPitchSpeedLimit = (TextView) v.findViewById(R.id.textView_rcInput_rcPitchSpeedLimit);
         tv_rcPitchAccelLimit = (TextView) v.findViewById(R.id.textView_rcInput_rcPitchAccelLimit);
 
+        tv_rcRollMin = (TextView) v.findViewById(R.id.textView_rcInput_rcRollMin);
+        tv_rcRollMax = (TextView) v.findViewById(R.id.textView_rcInput_rcRollMax);
+
+        tv_rcRollSpeedLimit = (TextView) v.findViewById(R.id.textView_rcInput_rcRollSpeedLimit);
+        tv_rcRollAccelLimit = (TextView) v.findViewById(R.id.textView_rcInput_rcRollAccelLimit);
+
+        tv_rcYawMin = (TextView) v.findViewById(R.id.textView_rcInput_rcYawMin);
+        tv_rcYawMax = (TextView) v.findViewById(R.id.textView_rcInput_rcYawMax);
+
+        tv_rcYawSpeedLimit = (TextView) v.findViewById(R.id.textView_rcInput_rcYawSpeedLimit);
+        tv_rcYawAccelLimit = (TextView) v.findViewById(R.id.textView_rcInput_rcYawAccelLimit);
+        
+        
         sp_rcPitch = (Spinner) v.findViewById(R.id.spinner_RcInput_rcPitch);
         sp_rcPitchMode = (Spinner) v.findViewById(R.id.spinner_rcInput_rcPitchMode);
 
@@ -72,6 +97,18 @@ public class SevenFragment extends IntermediateFragment{
         addPairTv(v, tv_rcPitchSpeedLimit, 49);
         addPairTv(v, tv_rcPitchAccelLimit, 50);
 
+        addPairTv(v, tv_rcRollMin, 54);
+        addPairTv(v, tv_rcRollMax, 55);
+        addPairTv(v, tv_rcRollSpeedLimit, 56);
+        addPairTv(v, tv_rcRollAccelLimit, 57);
+
+        //addPairTv(v, tv_rcYawMin, 47);
+        //addPairTv(v, tv_rcYawMax, 48);
+        //addPairTv(v, tv_rcYawSpeedLimit, 49);
+        //addPairTv(v, tv_rcYawAccelLimit, 50);
+
+        
+        
         addPairSpinner(v, sp_rcPitch, 44);
         addPairSpinner(v, sp_rcPitchMode, 45);
         addPairSpinner(v, sp_rcRoll, 51);

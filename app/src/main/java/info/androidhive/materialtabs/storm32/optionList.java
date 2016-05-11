@@ -1,7 +1,7 @@
 package info.androidhive.materialtabs.storm32;
 
+import android.content.res.Configuration;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.mavlink.MAVLinkCRC;
 
@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Created by maciek on 31.03.16.
@@ -49,12 +50,12 @@ public class optionList {
             if( o instanceof OptionNumber){
 
                 //o.value += 1;
-                saveToOptions(o.address, 2, o.value);
+                saveToOptions(o, 2, o.value);
                 Log.i("Storm32", "optionNumber encode val=" + o.value);
 
             } else if( o instanceof OptionListA){
                 //o.value += 1;
-                saveToOptions(o.address, 2, o.value);
+                saveToOptions(o, 2, o.value);
                 Log.i("Storm32", "optionNumber encode val=" + o.value);
 
             }
@@ -71,13 +72,13 @@ public class optionList {
             if( o instanceof OptionNumber){
 
                 //o.value = readFromOptions(o.address, 2);
-                o.setValueRead(readFromOptions(o.address, 2));
+                o.setValueRead(readOptionFromOptions(o, 2));
                 Log.i("Storm32", "optionNumber decode addr=" + o.address + " val=" + o.value);
                 o.setRead();
             } else if( o instanceof OptionListA){
 
                 //o.value = readFromOptions(o.address, 2);
-                o.setValueRead(readFromOptions(o.address, 2));
+                o.setValueRead(readOptionFromOptions(o, 2));
                 Log.i("Storm32", "optionListA decode addr=" + o.address + " val=" + o.value);
                 o.setRead();
             }
@@ -334,6 +335,7 @@ public class optionList {
                         5, 1,-1200,1200,-250,5,2,47, "deg")
         );
 
+
 /*,{
   name => 'Rc Pitch Max',
   type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -1200, max => 1200, default => 250, steps => 5,
@@ -413,6 +415,69 @@ public class optionList {
                         new String[]{"absolute", "relative", "absolute centered"}
                 )
         );
+
+
+          /*
+        {
+  name => 'Rc Roll Min',
+  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -450, max => 450, default => -250, steps => 5,
+  size => 2,
+  adr => 54,
+  unit => '°',
+         */
+
+        addOption(
+                new OptionNumber("Rc Roll Min",
+                        OptionNumber.NumberType.SignedInt,
+                        0, 1,-450,450,-250,5,2,54, "deg")
+        );
+
+        /*
+          name => 'Rc Roll Max',
+  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -450, max => 450, default => 250, steps => 5,
+  size => 2,
+  adr => 55,
+  unit => '°',
+         */
+
+        addOption(
+                new OptionNumber("Rc Roll Max",
+                        OptionNumber.NumberType.SignedInt,
+                        0, 1,-450,450,250,5,2,55, "deg")
+        );
+
+/*
+},{
+  name => 'Rc Roll Speed Limit (0 = off)',
+  type => 'OPTTYPE_UI', len => 0, ppos => 1, min => 0, max => 1000, default => 400, steps => 5,
+  size => 2,
+  adr => 56,
+  unit => '°/s',
+ */
+        addOption(
+                new OptionNumber("Rc Roll Speed Limit",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 1,0,1000,400,5,2,56, "deg/s")
+        );
+
+        /*
+        ,{
+  name => 'Rc Roll Accel Limit (0 = off)',
+  type => 'OPTTYPE_UI', len => 0, ppos => 3, min => 0, max => 1000, default => 300, steps => 10,
+  size => 2,
+  adr => 57,
+
+},{
+         */
+
+
+        addOption(
+                new OptionNumber("Rc Roll Accel Limit (0=off)",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 3,0,1000,300,10,2,57, "")
+        );
+
+
 
         /*
         {
@@ -604,7 +669,309 @@ cameras
                 )
         );
 
+/*
+    },{
+        name => 'Imu Orientation',
+                type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 23, default => 0, steps => 1,
+                size => 1,
+                adr => 39,
+                choices => \@ImuChoicesList,
+            expert=> 7,
+                    pos=>[1,1],
+    }*/
 
+        class Orientation{
+            String name;
+            String [] axes = new String[3];
+            int value;
+            public Orientation(String name, String ax0, String ax1, String ax2, int val){
+                this.name = name;
+                axes[0] = ax0;
+                axes[1] = ax1;
+                axes[2] = ax2;
+                this.value = val;
+            }
+            public String stringRepresentation(){
+                String result = name + axes[0] + " " + axes[1] + " " + axes[2] + " " + value;
+                return result;
+            }
+        }
+
+/*
+        my @ImuOrientationList=(
+        { name => 'z0°',     axes => '+x +y +z',  value => 0, },
+        { name => 'z90°',    axes => '-y +x +z',  value => 1, },
+        { name => 'z180°',   axes => '-x -y +z',  value => 2, },
+        { name => 'z270°',   axes => '+y -x +z',  value => 3, },
+
+        { name => 'x0°',     axes => '+y +z +x',  value => 4, },
+        { name => 'x90°',    axes => '-z +y +x',  value => 5, },
+        { name => 'x180°',   axes => '-y -z +x',  value => 6, },
+        { name => 'x270°',   axes => '+z -y +x',  value => 7, },
+
+        { name => 'y0°',     axes => '+z +x +y',  value => 8, },
+        { name => 'y90°',    axes => '-x +z +y',  value => 9, },
+        { name => 'y180°',   axes => '-z -x +y',  value => 10, },
+        { name => 'y270°',   axes => '+x -z +y',  value => 11, },
+
+        { name => '-z0°',    axes => '+y +x -z',  value => 16, },
+        { name => '-z90°',   axes => '-x +y -z',  value => 17, },
+        { name => '-z180°',  axes => '-y -x -z',  value => 18, },
+        { name => '-z270°',  axes => '+x -y -z',  value => 19, },
+
+        { name => '-x0°',    axes => '+z +y -x',  value => 20, },
+        { name => '-x90°',   axes => '-y +z -x',  value => 21, },
+        { name => '-x180°',  axes => '-z -y -x',  value => 22, },
+        { name => '-x270°',  axes => '+y -z -x',  value => 23, },
+
+        { name => '-y0°',    axes => '+x +z -y',  value => 24, },
+        { name => '-y90°',   axes => '-z +x -y',  value => 25, },
+        { name => '-y180°',  axes => '-x -z -y',  value => 26, },
+        { name => '-y270°',  axes => '+z -x -y',  value => 27, },
+        );
+  */
+        LinkedList<Orientation> orientations = new LinkedList<>();
+        orientations.add(new Orientation("z0°", "+x", "+y", "+z", 0));
+        orientations.add(new Orientation("z90°", "-y", "+x", "+z", 1));
+        orientations.add(new Orientation("z180°", "-x", "-y", "+z", 2));
+        orientations.add(new Orientation("z270°", "+y", "-x", "+z", 3));
+
+        orientations.add(new Orientation("z0°", "+x", "+y", "+z", 4));
+        orientations.add(new Orientation("z90°", "-y", "+x", "+z", 5));
+        orientations.add(new Orientation("z180°", "-x", "-y", "+z", 6));
+        orientations.add(new Orientation("z270°", "+y", "-x", "+z", 7));
+
+        orientations.add(new Orientation("z0°", "+x", "+y", "+z", 8));
+        orientations.add(new Orientation("z90°", "-y", "+x", "+z", 9));
+        orientations.add(new Orientation("z180°", "-x", "-y", "+z", 10));
+        orientations.add(new Orientation("z270°", "+y", "-x", "+z", 11));
+
+
+        orientations.add(new Orientation("z0°", "+x", "+y", "+z", 16));
+        orientations.add(new Orientation("z90°", "-y", "+x", "+z", 17));
+        orientations.add(new Orientation("z180°", "-x", "-y", "+z", 18));
+        orientations.add(new Orientation("z270°", "+y", "-x", "+z", 19));
+
+        orientations.add(new Orientation("z0°", "+x", "+y", "+z", 20));
+        orientations.add(new Orientation("z90°", "-y", "+x", "+z", 21));
+        orientations.add(new Orientation("z180°", "-x", "-y", "+z", 22));
+        orientations.add(new Orientation("z270°", "+y", "-x", "+z", 23));
+
+        orientations.add(new Orientation("z0°", "+x", "+y", "+z", 24));
+        orientations.add(new Orientation("z90°", "-y", "+x", "+z", 25));
+        orientations.add(new Orientation("z180°", "-x", "-y", "+z", 26));
+        orientations.add(new Orientation("z270°", "+y", "-x", "+z", 27));
+
+        LinkedList<String> orientationsNames = new LinkedList<>();
+        for( Orientation o: orientations){
+            orientationsNames.add(o.stringRepresentation());
+        }
+
+
+
+        addOption(
+                new OptionListA("Imu Orientation",
+                        0,0,0,orientationsNames.size(),0,1,1,39,
+                        orientationsNames.toArray(new String[orientationsNames.size()])
+                )
+        );
+
+        addOption(
+                new OptionListA("Imu2 Orientation",
+                        0,0,0,orientationsNames.size(),0,1,1,95,
+                        orientationsNames.toArray(new String[orientationsNames.size()])
+                )
+        );
+
+
+        /*
+        name => 'Imu2 Orientation',
+                type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 23, default => 0, steps => 1,
+                size => 1,
+                adr => 95,
+                choices => \@ImuChoicesList,
+
+    },{*/
+
+
+
+ /*
+  name => 'Pitch Motor Poles',
+  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 12, max => 28, default => 14, steps => 2,
+  size => 2,
+  adr => 20,
+  pos=> [2,1],
+*/
+
+        addOption(
+                new OptionNumber("Pitch Motor Poles",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 0,12,28,14,2,2,20, "")
+        );
+
+
+        /*
+  name => 'Pitch Motor Direction',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 2, steps => 1,
+  size => 1,
+  adr => 21,
+  choices => [ 'normal',  'reversed', 'auto' ],
+*/
+
+        String [] motorDirection = new String[] {"normal", "reversed", "auto"};
+        addOption(
+                new OptionListA("Pitch Motor Direction",
+                        0,0,0,2,2,1,1,21,
+            motorDirection
+                )
+        );
+
+
+        /*
+  name => 'Pitch Startup Motor Pos',
+  type => 'OPTTYPE_UI', len => 5, ppos => 0, min => 0, max => 1008, default => 504, steps => 1,
+  size => 2,
+  adr => 23,
+*/
+
+        addOption(
+                new OptionNumber("Pitch Startup Motor pos",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 0,0,1008,504,1,2,23, "")
+        );
+
+         /*
+  name => 'Pitch Offset',
+  type => 'OPTTYPE_SI', len => 5, ppos => 2, min => -300, max => 300, default => 0, steps => 5,
+  size => 2,
+  adr => 22,
+  unit=> '°',
+*/
+
+        addOption(
+                new OptionNumber("Pitch Offset",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 2,-300,300,0,5,2,22, "")
+        );
+
+         /*
+  name => 'Roll Motor Poles',
+  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 12, max => 28, default => 14, steps => 2,
+  size => 2,
+  adr => 26,
+  pos=> [3,1],
+*/
+        addOption(
+                new OptionNumber("Roll Motor Poles",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 0,12,28,14,2,2,26, "")
+        );
+
+
+        /*
+  name => 'Roll Motor Direction',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 2, steps => 1,
+  size => 1,
+  adr => 27,
+  choices => [ 'normal',  'reversed', 'auto' ],
+*/
+
+
+        addOption(
+                new OptionListA("Roll Motor Direction",
+                        0,0,0,2,2,1,1,27,
+                        motorDirection
+                )
+        );
+
+
+         /*
+  name => 'Roll Startup Motor Pos',
+  type => 'OPTTYPE_UI', len => 5, ppos => 0, min => 0, max => 1008, default => 504, steps => 1,
+  size => 2,
+  adr => 29,
+*/
+
+        addOption(
+                new OptionNumber("Roll Startup Motor pos",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 0,0,1008,504,1,2,29, "")
+        );
+
+         /*
+  name => 'Roll Offset',
+  type => 'OPTTYPE_SI', len => 5, ppos => 2, min => -300, max => 300, default => 0, steps => 5,
+  size => 2,
+  adr => 28,
+  unit=> '°',
+
+*/
+
+        addOption(
+                new OptionNumber("Roll Offset",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 2,-300,300,0,5,2,28, "°")
+        );
+
+         /*
+  name => 'Yaw Motor Poles',
+  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 12, max => 28, default => 14, steps => 2,
+  size => 2,
+  adr => 32,
+  pos=> [4,1],
+*/
+        addOption(
+                new OptionNumber("Yaw Motor Poles",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 0,12,28,14,2,2,32, "")
+        );
+
+         /*
+  name => 'Yaw Motor Direction',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 2, steps => 1,
+  size => 1,
+  adr => 33,
+  choices => [ 'normal',  'reversed', 'auto', ],
+*/
+
+
+
+        addOption(
+                new OptionListA("Yaw Motor Direction",
+                        0,0,0,2,2,1,1,33,
+                        motorDirection
+                )
+        );
+
+
+
+         /*
+  name => 'Yaw Startup Motor Pos',
+  type => 'OPTTYPE_UI', len => 5, ppos => 0, min => 0, max => 1008, default => 504, steps => 1,
+  size => 2,
+  adr => 35,
+*/
+
+        addOption(
+                new OptionNumber("Pitch Startup Motor pos",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 0,0,1008,504,1,2,35, "")
+        );
+
+         /*
+  name => 'Yaw Offset',
+  type => 'OPTTYPE_SI', len => 5, ppos => 2, min => -300, max => 300, default => 0, steps => 5,
+  size => 2,
+  adr => 34,
+  unit=> '°',
+
+ */
+
+        addOption(
+                new OptionNumber("Yaw Offset",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 2,-300,300,0,5,2,34, "°"));
+        
         /*
         {
   name => 'Imu AHRS',
@@ -629,13 +996,13 @@ name => 'Rc Pitch Offset',
   pos=> [2,4],
  */
 
-        /*
+
         addOption(
                 new OptionNumber("Rc Pitch Offset",
                         OptionNumber.NumberType.UnsignedInt,
                         0, 1,-1200,1200,0,5,2,106, "°")
         );
-        */
+
 
         /*name => 'Imu2 Configuration',
   type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 4, default => 0, steps => 1,
@@ -750,17 +1117,44 @@ name => 'Rc Pitch Offset',
         return b3;
     }
 
-    static int readFromOptions(int address, int length){
+    static double readOptionFromOptions(Option o, int length){
 
-        int result = 0;
+        double result = 0;
+        int address = o.address;
+
         result = decodeByte(options[2*address]);
         result += 256*decodeByte(options[2*address+1]);
+
+        if(result > 61440){
+            result = -(65536-result);
+        }
+
+
+        if(result > o.getMax())
+            result = o.getMax();
+        if(result < o.getMin())
+            result = o.getMin();
+
+
+        //if(o.ppos > 0)
+//            result = result / (10.0*o.ppos);
+
         return result;
 
     }
 
-    static void saveToOptions(int address, int length, int value){
+    static void saveToOptions(Option o, int length, double value){
 
+        int address = o.address;
+
+
+  //      if(o.ppos > 0)
+//            value = value * 10 * o.ppos;
+
+
+        if(value < 0){
+            value = 65536 - Math.abs(value);
+        }
 
         //result = decodeByte(options[2*address]);
         //result += 256*decodeByte(options[2*address+1]);

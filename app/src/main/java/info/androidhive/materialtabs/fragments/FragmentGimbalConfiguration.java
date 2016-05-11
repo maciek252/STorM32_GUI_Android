@@ -13,18 +13,25 @@ import info.androidhive.materialtabs.R;
 
 public class FragmentGimbalConfiguration extends IntermediateFragment{
 
-    TextView tv_deadBand = null;
-    TextView tv_rcHysteresis = null;
+    Spinner sp_imu_orientation;
+    Spinner sp_imu2_orientation;
 
-    TextView tv_rcPitchMin = null;
-    TextView tv_rcPitchMax = null;
-    TextView tv_rcPitchSpeedLimit = null;
-    TextView tv_rcPitchAccelLimit = null;
 
-    Spinner sp_rcPitch = null;
-    Spinner sp_rcPitchMode = null;
-    Spinner sp_rcRoll = null;
-    Spinner sp_rcRollMode = null;
+
+    TextView tv_pitchMotorPoles = null;
+    Spinner sp_pitchMotorDirection = null;
+    TextView tv_pitchStartupMotorPosition = null;
+    TextView tv_pitchOffset = null;
+
+    TextView tv_rollMotorPoles = null;
+    Spinner sp_rollMotorDirection = null;
+    TextView tv_rollStartupMotorPosition = null;
+    TextView tv_rollOffset = null;
+
+    TextView tv_yawMotorPoles = null;
+    Spinner sp_yawMotorDirection = null;
+    TextView tv_yawStartupMotorPosition = null;
+    TextView tv_yawOffset = null;
 
     public FragmentGimbalConfiguration() {
         // Required empty public constructor
@@ -44,7 +51,43 @@ public class FragmentGimbalConfiguration extends IntermediateFragment{
 
         removeControlsFromTables();
 
+        sp_imu_orientation = (Spinner) v.findViewById(R.id.spinner_gimconf_imu_orientation);
+        sp_imu2_orientation = (Spinner) v.findViewById(R.id.spinner_gimconf_imu2_orientation);
 
+        tv_pitchMotorPoles = (TextView) v.findViewById(R.id.textView_gimconf_pitch_motor_poles);
+        tv_pitchOffset = (TextView) v.findViewById(R.id.textView_gimconf_pitch_offset);
+        tv_pitchStartupMotorPosition = (TextView) v.findViewById(R.id.textView_gimconf_pitch_startup_motor_pos);
+        sp_pitchMotorDirection = (Spinner) v.findViewById(R.id.spinner_gimconf_pitch_motor_direction);
+
+        tv_rollMotorPoles = (TextView) v.findViewById(R.id.textView_gimconf_roll_motor_poles);
+        tv_rollOffset = (TextView) v.findViewById(R.id.textView_gimconf_roll_offset);
+        tv_rollStartupMotorPosition = (TextView) v.findViewById(R.id.textView_gimconf_roll_startup_motor_pos);
+        sp_rollMotorDirection = (Spinner) v.findViewById(R.id.spinner_gimconf_roll_motor_direction);
+
+        tv_yawMotorPoles = (TextView) v.findViewById(R.id.textView_gimconf_yaw_motor_poles);
+        tv_yawOffset = (TextView) v.findViewById(R.id.textView_gimconf_yaw_offset);
+        tv_yawStartupMotorPosition = (TextView) v.findViewById(R.id.textView_gimconf_yaw_startup_motor_pos);
+        sp_yawMotorDirection = (Spinner) v.findViewById(R.id.spinner_gimconf_yaw_motor_direction);
+
+        addPairSpinner(v, sp_imu_orientation, 39);
+        addPairSpinner(v, sp_imu2_orientation, 95);
+
+        addPairTv(v, tv_pitchMotorPoles, 20);
+        addPairTv(v, tv_pitchOffset, 22);
+        addPairTv(v, tv_pitchStartupMotorPosition, 23);
+        addPairSpinner(v, sp_pitchMotorDirection, 21);
+
+        addPairTv(v, tv_rollMotorPoles, 26);
+        addPairTv(v, tv_rollOffset, 28);
+        addPairTv(v, tv_rollStartupMotorPosition, 29);
+        addPairSpinner(v, sp_rollMotorDirection, 27);
+
+        addPairTv(v, tv_yawMotorPoles, 32);
+        addPairTv(v, tv_yawOffset, 34);
+        addPairTv(v, tv_yawStartupMotorPosition, 35);
+        addPairSpinner(v, sp_yawMotorDirection, 33);
+
+        
 //        updateGUI();
         updateAllControlsAccordingToOptionList();
 

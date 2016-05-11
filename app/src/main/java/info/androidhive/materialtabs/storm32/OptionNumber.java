@@ -8,8 +8,6 @@ public class OptionNumber extends Option {
     public enum NumberType {UnsignedInt, SignedInt, UnsignedChar, SignedChar};
 
 
-    public int min;
-    public int max;
     public int defaultValue;
     public int length;
 
@@ -29,6 +27,7 @@ public class OptionNumber extends Option {
         value = defaultValue;
         this.address = address;
         this.unit = unit;
+        this.ppos = ppos;
     }
 
 

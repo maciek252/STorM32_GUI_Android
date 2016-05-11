@@ -43,7 +43,7 @@ import info.androidhive.materialtabs.storm32.*;
 import quadcopter.Bluetooth;
 
 
-public class TwoFragment extends Fragment
+public class FragmentConnection extends Fragment
         implements BluetoothSerialListener, BluetoothDeviceListDialog.OnDeviceSelectedListener,
         View.OnClickListener
 {
@@ -88,7 +88,7 @@ public class TwoFragment extends Fragment
 
     private BluetoothSerial bluetoothSerial;
 
-    public TwoFragment() {
+    public FragmentConnection() {
         // Required empty public constructor
     }
 

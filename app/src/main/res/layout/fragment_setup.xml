@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="FUNCTIONS"
+            android:text="SETUP"
             android:id="@+id/textView16"
             android:layout_gravity="center_horizontal" />
 

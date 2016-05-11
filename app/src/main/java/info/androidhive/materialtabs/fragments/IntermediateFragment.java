@@ -11,19 +11,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import info.androidhive.materialtabs.R;
-import info.androidhive.materialtabs.activity.MainActivity;
-import info.androidhive.materialtabs.storm32.Option;
 import info.androidhive.materialtabs.storm32.OptionListA;
 import info.androidhive.materialtabs.storm32.OptionNumber;
 import info.androidhive.materialtabs.storm32.optionList;
@@ -89,7 +85,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
             if(o.needUpdate){
                 Log.i("Storm32", "IF o needed update");
                 o.needUpdate = false;
-                tv.setText("" + o.getValueRead());
+                tv.setText("" + doubleToString(o.convertToWithDot(o.getValueRead()), o.getppos()));
                 tv.setBackgroundColor(Color.GREEN);
             } else if(!o.isRead())
                 tv.setBackgroundColor(Color.GRAY);
@@ -99,12 +95,18 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
                 else {
 
 
-                    int v = (int) gettNumber(tv.getText().toString());
+                    double v = gettNumber(tv.getText().toString());
 
 
-                    o.setValue(v);
+                    o.setValueFromWithouDot(o.convertToWithoutDot(v));
                     Log.e("IntermediateFrag", "setting value of addr" + addr + " to " + v);
-                    if (v < o.min || v > o.max) {
+                    if (o.getValueWithoutDot() < o.getMin()) {
+                        o.setValueFromWithouDot(o.getMin());
+                        tv.setText("" + doubleToString(o.convertToWithDot(o.getValueWithoutDot()), o.getppos()));
+                        tv.setBackgroundColor(Color.YELLOW);
+                    } else if (o.getValueWithoutDot() > o.getMax()) {
+                        o.setValueFromWithouDot(o.getMax());
+                        tv.setText("" + doubleToString(o.convertToWithDot(o.getValueWithoutDot()), o.getppos()));
                         tv.setBackgroundColor(Color.YELLOW);
                     } else if (o.getValueRead() != o.getValue())
                         tv.setBackgroundColor(Color.RED);
@@ -120,12 +122,13 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
             int addr = mappingSpinnerssOptions.get(sp);
 
             OptionListA o = (OptionListA) optionList.getOptionForAddress(addr);
-            o.setValue((int)sp.getSelectedItemId());
+            o.setValueFromWithouDot((int)sp.getSelectedItemId());
 
             if(o.needUpdate){
                 Log.i("Storm32", "IF o needed update");
                 o.needUpdate = false;
-                sp.setSelection(o.getValueRead());
+                sp.setSelection((int)o.getValueRead());
+
                 sp.setBackgroundColor(Color.GREEN);
             } else
             if(!o.isRead())
@@ -160,11 +163,21 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
         return true;
     }
 
+    private static String doubleToString(double d, int numOfDigitsAfterDot){
+
+
+        String f = "%1$,."+numOfDigitsAfterDot+"f";
+        String result = String.format(Locale.US, f, d).replace(',', '.');
+        Log.i("IF", "converting" + d + " for numofDigits" + numOfDigitsAfterDot + " result=" + result);
+        return result;
+    }
+
     private static double gettNumber(String str)
     {
         try
         {
             double d = Double.parseDouble(str);
+            Log.i("IF", "converting" + str + " result=" + d);
             return d;
         }
         catch(NumberFormatException nfe)
@@ -230,7 +243,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
                         updateGUI();
                     }
 
-                }, 2000);
+                }, 4000);
 
                 // TODO Auto-generated method stub
                 s.length();
@@ -304,7 +317,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
 
                                              }, 100);
 
-                                             oa.setValue((int)sp.getSelectedItemId());
+                                             oa.setValueFromWithouDot((int)sp.getSelectedItemId());
                                              // TODO Auto-generated method stub
 
 
@@ -374,7 +387,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
                 if(on.isRead()) {
 
                     //v.setBackgroundColor(Color.GREEN);
-                    if(on.getValueRead() != on.getValue())
+                    if(on.getValueRead() != on.getValueWithoutDot())
                         v.setBackgroundColor(Color.RED);
                     else
                         v.setBackgroundColor(Color.GREEN);
@@ -383,7 +396,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
 
                 v.setTextColor(Color.parseColor("#bdbdbd"));
 
-                v.setText("" + on.getValue());
+                v.setText("" + doubleToString(on.convertToWithDot(on.getValueWithoutDot()), on.getppos()));
             } else
                 v.setBackgroundColor(Color.CYAN);
         }
@@ -404,7 +417,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
 
                 if(on.isRead()) {
 
-                    sp.setSelection(on.getValue());
+                    sp.setSelection((int)on.getValueWithoutDot());
 
                     if(sp.getSelectedItemId() == on.getValueRead()) {
                         sp.setBackgroundColor(Color.GREEN);
@@ -416,10 +429,10 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
 
                 }else {
                     sp.setBackgroundColor(Color.GRAY);
-                    sp.setSelection(on.defaultValue);
+                    sp.setSelection((int)on.defaultValue);
                 }
 
-                Log.e("IntermediateFrag", "setting value of (spinner) addr" + addr + " to " +  on.getValue());
+                Log.e("IntermediateFrag", "setting value of (spinner) addr" + addr + " to " +  on.getValueWithoutDot());
             } else
                 sp.setBackgroundColor(Color.CYAN);
 
@@ -442,7 +455,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
         }
 
     }
-
+/*
     public void inv(){
         //if(tv_voltageCorrection != null) {
 //            tv_voltageCorrection.setText("" + optionList.voltageCorrection);
@@ -452,7 +465,7 @@ public class IntermediateFragment extends Fragment implements TextWatcher, View.
         }
 
     }
-
+*/
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 

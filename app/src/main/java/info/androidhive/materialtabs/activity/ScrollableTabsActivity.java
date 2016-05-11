@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +21,13 @@ import info.androidhive.materialtabs.fragments.FragmentCalibrateAcc;
 import info.androidhive.materialtabs.fragments.FragmentGimbalConfiguration;
 import info.androidhive.materialtabs.fragments.FragmentScripts;
 import info.androidhive.materialtabs.fragments.FragmentSetup;
-import info.androidhive.materialtabs.fragments.IntermediateFragment;
 import info.androidhive.materialtabs.fragments.NineFragment;
 import info.androidhive.materialtabs.fragments.OneFragment;
-import info.androidhive.materialtabs.fragments.SevenFragment;
+import info.androidhive.materialtabs.fragments.FragmentRcInput;
 import info.androidhive.materialtabs.fragments.SixFragment;
 import info.androidhive.materialtabs.fragments.TenFragment;
 import info.androidhive.materialtabs.fragments.ThreeFragment;
-import info.androidhive.materialtabs.fragments.TwoFragment;
+import info.androidhive.materialtabs.fragments.FragmentConnection;
 
 public class ScrollableTabsActivity extends AppCompatActivity {
 
@@ -39,7 +37,7 @@ public class ScrollableTabsActivity extends AppCompatActivity {
 
     private ThreeFragment three = new ThreeFragment();
     private FourFragment four = new FourFragment();
-    private TwoFragment two = new TwoFragment();
+    private FragmentConnection two = new FragmentConnection();
 
     private FragmentScripts fragmentScripts = new FragmentScripts();
     private FragmentSetup fragmentSetup = new FragmentSetup();
@@ -71,7 +69,7 @@ public class ScrollableTabsActivity extends AppCompatActivity {
         adapter.addFrag(new OneFragment(), "DATA");
         adapter.addFrag(new SixFragment(), "PAN");
         adapter.addFrag(new FiveFragment(), "PID");
-        adapter.addFrag(new SevenFragment(), "RC INPUT");
+        adapter.addFrag(new FragmentRcInput(), "RC INPUT");
         adapter.addFrag(new EightFragment(), "FUNCTIONS");
         adapter.addFrag(new FragmentScripts(), "SCRIPTS");
         adapter.addFrag(new FragmentSetup(), "SETUP");

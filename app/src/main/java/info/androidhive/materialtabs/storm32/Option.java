@@ -5,8 +5,10 @@ package info.androidhive.materialtabs.storm32;
  */
 public class Option {
 
-    int value = 0;
-    int valueRead = 0;
+
+
+    double value = 0.0;
+    double valueRead = 0.0;
     public boolean hasBeenRead = false;
     public boolean hasBeenChanged = false;
     public int address = -1;
@@ -14,31 +16,73 @@ public class Option {
     public int ppos = -1;
     public boolean needUpdate = false;
 
-    public int defaultValue = 1;
+    protected int min;
+    protected int max;
+
+
+    public double defaultValue = 1.0;
 
 
     public boolean isRead(){
         return hasBeenRead;
     }
 
-    public int getValueRead(){
+    public double getValueRead(){
         return valueRead;
     }
 
-    public int getValue(){
+    public double getValue(){
         return value;
     }
 
-    public void setValueRead(int v){
+    public void setValueRead(double v){
         value = v;
         valueRead = v;
     }
 
-    public void setValue(int v){
+    public double convertToWithDot(double v){
+        if(ppos > 0) {
+            double coeff = Math.pow(10, ppos);
+            v /= coeff;
+        }
+
+        return v;
+    }
+
+    public int convertToWithoutDot(double v){
+        if(ppos > 0)
+            v = v * (Math.pow(10,ppos));
+
+        return (int)v;
+    }
+
+
+    public void setValueFromWithouDot(int v){
         value = v;
     }
+
 
     public void setRead(){
         hasBeenRead = true;
     }
+
+    public int getMin() {
+        return min;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public int getValueWithoutDot(){
+        return (int)value;
+    }
+
+    public int getppos(){
+        return ppos;
+    }
+
+
+
+
 }
