@@ -1,12 +1,17 @@
 package info.androidhive.materialtabs.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import info.androidhive.materialtabs.R;
 
@@ -15,7 +20,7 @@ public class FragmentGimbalConfiguration extends IntermediateFragment{
 
     Spinner sp_imu_orientation;
     Spinner sp_imu2_orientation;
-
+    Button b_configureGimbalTool = null;
 
 
     TextView tv_pitchMotorPoles = null;
@@ -69,6 +74,25 @@ public class FragmentGimbalConfiguration extends IntermediateFragment{
         tv_yawStartupMotorPosition = (TextView) v.findViewById(R.id.textView_gimconf_yaw_startup_motor_pos);
         sp_yawMotorDirection = (Spinner) v.findViewById(R.id.spinner_gimconf_yaw_motor_direction);
 
+        b_configureGimbalTool = (Button) v.findViewById(R.id.button_gimbal_configuration_configure_gimbal_tool);
+        b_configureGimbalTool.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                    Toast.makeText(getContext(), "button", Toast.LENGTH_LONG).show();
+                    FragmentConfigureGimbalTool1 f1 = new FragmentConfigureGimbalTool1();
+    //                    ActivityConfigureGimbal1 activityConfigureGimbal1 = new ActivityConfigureGimbal1();
+                Intent intent = new Intent(getActivity(), ActivityConfigureGimbal1.class);
+                //intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+
+
+                //Intent intent = new Intent(this, DisplayMessageActivity.class);
+
+
+            }
+        });
+
+
         addPairSpinner(v, sp_imu_orientation, 39);
         addPairSpinner(v, sp_imu2_orientation, 95);
 
@@ -93,5 +117,7 @@ public class FragmentGimbalConfiguration extends IntermediateFragment{
 
         return v;
     }
+
+
 
 }

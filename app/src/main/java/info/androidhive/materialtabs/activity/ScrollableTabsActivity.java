@@ -22,7 +22,7 @@ import info.androidhive.materialtabs.fragments.FragmentGimbalConfiguration;
 import info.androidhive.materialtabs.fragments.FragmentScripts;
 import info.androidhive.materialtabs.fragments.FragmentSetup;
 import info.androidhive.materialtabs.fragments.NineFragment;
-import info.androidhive.materialtabs.fragments.OneFragment;
+import info.androidhive.materialtabs.fragments.FragmentData;
 import info.androidhive.materialtabs.fragments.FragmentRcInput;
 import info.androidhive.materialtabs.fragments.SixFragment;
 import info.androidhive.materialtabs.fragments.TenFragment;
@@ -66,7 +66,7 @@ public class ScrollableTabsActivity extends AppCompatActivity {
 
 
         adapter.addFrag(two, "CONN");
-        adapter.addFrag(new OneFragment(), "DATA");
+        adapter.addFrag(new FragmentData(), "DATA");
         adapter.addFrag(new SixFragment(), "PAN");
         adapter.addFrag(new FiveFragment(), "PID");
         adapter.addFrag(new FragmentRcInput(), "RC INPUT");

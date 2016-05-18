@@ -28,6 +28,7 @@
     <string name="title_activity_main2">Main2Activity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_activity_configure_gimbal1">ActivityConfigureGimbal1</string>
 
 
 </resources>

@@ -185,6 +185,10 @@ public class FragmentConnection extends Fragment
         bt.sendMessage("g");
     }
 
+    private void readParameters(){
+        bt.queryMode = Bluetooth.QueryMode.GET_OPTIONS;
+    }
+
     @Override
     public void onClick(View v) {
 

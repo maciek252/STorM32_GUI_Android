@@ -1,27 +1,15 @@
 package info.androidhive.materialtabs.fragments;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import info.androidhive.materialtabs.R;
 
@@ -31,15 +19,32 @@ import com.devpaul.bluetoothutillib.abstracts.BaseBluetoothActivity;
 import com.devpaul.bluetoothutillib.utils.BluetoothUtility;
 import com.devpaul.bluetoothutillib.utils.SimpleBluetoothListener;
 */
-public class OneFragment extends Fragment implements View.OnClickListener {
+
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.Viewport;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.util.Random;
+
+public class FragmentData extends Fragment implements View.OnClickListener {
 
 
 //    private SimpleBluetooth simpleBluetooth;
     Button button = null;
     TextView tv = null;
 
+    private static final Random RANDOM = new Random();
+    private LineGraphSeries<DataPoint> series;
+    private int lastX = 0;
 
-    public OneFragment() {
+    final Handler handler_interact=new Handler();//not defined as final variable. may cause problem
+
+    private long previous = 0;
+
+    GraphView graph = null;
+
+    public FragmentData() {
 
         // Required empty public constructor
     }
@@ -49,6 +54,8 @@ public class OneFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 /*
     @Override
@@ -101,11 +108,24 @@ public class OneFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_one, container, false);
+        View v = inflater.inflate(R.layout.fragment_data, container, false);
         button = (Button) v.findViewById(R.id.buttonFindIdDevices);
         button.setOnClickListener(this);
 
         tv = (TextView) v.findViewById(R.id.textView2);
+
+        //v.setContentView(R.layout.activity_main);
+        // we get graph view instance
+        graph = (GraphView) v.findViewById(R.id.graph);
+        // data
+        series = new LineGraphSeries<DataPoint>();
+        graph.addSeries(series);
+        // customize a little bit viewport
+        Viewport viewport = graph.getViewport();
+        viewport.setYAxisBoundsManual(true);
+        viewport.setMinY(0);
+        viewport.setMaxY(10);
+        viewport.setScrollable(true);
 
         return v;
     }
@@ -113,6 +133,7 @@ public class OneFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+        updateGUI();
         switch (v.getId()) {
             case R.id.buttonFindIdDevices:
 
@@ -158,4 +179,42 @@ public class OneFragment extends Fragment implements View.OnClickListener {
 
         }
     }
+
+    protected void updateGUI(){
+        handler_interact.post(runnable_interact);
+        //updateMy();
+    }
+    final Runnable runnable_interact = new Runnable() {
+        public void run() {
+            addEntry();
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // we're going to simulate real time with thread that append data to the graph
+
+
+
+        long temp = System.currentTimeMillis();
+        if(temp - previous > 1000){
+            previous = temp;
+            updateGUI();
+        }
+
+
+
+    }
+
+    // add random data to graph
+    private void addEntry() {
+        // here, we choose to display max 10 points on the viewport and we scroll to end
+        series.appendData(new DataPoint(lastX++, RANDOM.nextDouble() * 10d), true, 100);
+
+        //graph.refreshDrawableState();
+        //graph.setHorizontalScrollBarEnabled(true);
+    }
+
+
 }

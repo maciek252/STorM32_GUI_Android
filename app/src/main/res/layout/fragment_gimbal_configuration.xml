@@ -7,7 +7,7 @@
 
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,6 +42,13 @@
             android:id="@+id/spinner_gimconf_imu2_orientation"
             android:spinnerMode="dropdown" />
 
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Configure Gimbal Tool"
+            android:id="@+id/button_gimbal_configuration_configure_gimbal_tool"
+             />
 
         <TextView
             android:layout_width="wrap_content"

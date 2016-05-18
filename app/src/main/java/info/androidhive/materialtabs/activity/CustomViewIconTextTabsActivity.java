@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.materialtabs.R;
-import info.androidhive.materialtabs.fragments.OneFragment;
+import info.androidhive.materialtabs.fragments.FragmentData;
 import info.androidhive.materialtabs.fragments.ThreeFragment;
 import info.androidhive.materialtabs.fragments.FragmentConnection;
 
@@ -69,7 +69,7 @@ public class CustomViewIconTextTabsActivity extends AppCompatActivity {
      */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new OneFragment(), "ONE");
+        adapter.addFrag(new FragmentData(), "ONE");
         adapter.addFrag(new FragmentConnection(), "TWO");
         adapter.addFrag(new ThreeFragment(), "THREE");
         viewPager.setAdapter(adapter);
