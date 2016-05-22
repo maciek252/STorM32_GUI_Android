@@ -29,12 +29,14 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.UUID;
 
 import info.androidhive.materialtabs.storm32.optionList;
+import utils.InterFragmentCom;
 
 /**
  * This class does all the work for setting up and managing Bluetooth
@@ -63,7 +65,7 @@ public class Bluetooth {
     public static final int MESSAGE_DEVICE_NAME = 4;
     public static final int MESSAGE_TOAST = 5;
 
-	public enum QueryMode {GET_OPTIONS, GET_VERSION, SET_OPTIONS, SET_VERSION, SAVE_TO_EEPROM, NONE};
+	public enum QueryMode {GET_OPTIONS, GET_VERSION, SET_OPTIONS, SET_VERSION, SAVE_TO_EEPROM, NONE, GET_DATA_D};
 
 	public Bluetooth.QueryMode queryMode = Bluetooth.QueryMode.NONE;
 
@@ -524,6 +526,15 @@ public class Bluetooth {
 							arg2 = 1;
 						else
 							arg2 = 0;
+					} else if(queryMode == QueryMode.GET_DATA_D){
+						arg2 = 1;
+						if(bytes >= 1){
+							//byte[] restr = Arrays.copyOf(buffer, 14);
+							//InterFragmentCom.setData_d(restr);
+							InterFragmentCom.addToTempBuffer(buffer, bytes);
+						}
+
+
 					}
 
 					Log.d(TAG, "message bytes " + bytes);

@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import info.androidhive.materialtabs.R;
+import utils.InterFragmentCom;
+import utils.Utils;
 
 /*
 import com.devpaul.bluetoothutillib.SimpleBluetooth;
@@ -26,6 +28,8 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class FragmentData extends Fragment implements View.OnClickListener {
 
@@ -38,18 +42,31 @@ public class FragmentData extends Fragment implements View.OnClickListener {
     private LineGraphSeries<DataPoint> series;
     private int lastX = 0;
 
+    private byte bufor[] = new byte[10];
+
+    private FragmentConnection fragmentConnection = null;
+
     final Handler handler_interact=new Handler();//not defined as final variable. may cause problem
 
+    Timer timer = null;
     private long previous = 0;
 
     GraphView graph = null;
 
-    public FragmentData() {
+    public FragmentData(){
 
-        // Required empty public constructor
     }
 
+    public void setFragmentConnection(FragmentConnection fc){
+        this.fragmentConnection = fc;
+    }
 
+    @Override
+    public void onPause(){
+        super.onPause();
+        if( timer != null)
+            timer.cancel();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,53 +74,6 @@ public class FragmentData extends Fragment implements View.OnClickListener {
 
 
     }
-/*
-    @Override
-    public void onResume() {
-        super.onResume();
-//        Log.d("MAIN", "OnResume Called");
-        //this check needs to be here to ensure that the simple bluetooth is not reset.
-        //an issue was occuring when a client would connect to a server. When a client
-        // connects they have to select a device, that is another activity, so after they
-        //select a device, this gets called again and the reference to the original simpleBluetooth
-        //object on the client side gets lost. Thus when send is called, nothing happens because it's
-        //a different object.
-        if(simpleBluetooth == null) {
-            //new SimpleBluetooth(getContext(), getActivity());
-            //simpleBluetooth = new SimpleBluetooth(getContext(), new SimpleBluetoothListener() {
-            SimpleBluetoothListener sbl = new SimpleBluetoothListener() {
-                @Override
-                public void onBluetoothDataReceived(byte[] bytes, String data) {
-                    //read the data coming in.
-                    Toast.makeText(getActivity(), "Data: " + data, Toast.LENGTH_SHORT).show();
-                    //connectionState.setText("Data: " + data);
-                    //isConnected = false;
-                    Log.w("SIMPLEBT", "Data received");
-                }
-
-                @Override
-                public void onDeviceConnected(BluetoothDevice device) {
-                    //a device is connected so you can now send stuff to it
-                    Toast.makeText(getActivity(), "Connected!", Toast.LENGTH_SHORT).show();
-                    //connectionState.setText("Connected");
-                    //isConnected = true;
-                    Log.w("SIMPLEBT", "Device connected");
-                }
-
-                @Override
-                public void onDeviceDisconnected(BluetoothDevice device) {
-                    // device was disconnected so connect it again?
-                    Toast.makeText(getActivity(), "Disconnected!", Toast.LENGTH_SHORT).show();
-                    //connectionState.setText("Disconnected");
-                    Log.w("SIMPLEBT", "Device disconnected");
-                }
-            };
-            //simpleBluetooth = new SimpleBluetooth(getContext(), sbl);
-        }
-        simpleBluetooth.initializeSimpleBluetooth();
-        simpleBluetooth.setInputStreamType(BluetoothUtility.InputStreamType.BUFFERED);
-    }
-*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -123,8 +93,8 @@ public class FragmentData extends Fragment implements View.OnClickListener {
         // customize a little bit viewport
         Viewport viewport = graph.getViewport();
         viewport.setYAxisBoundsManual(true);
-        viewport.setMinY(0);
-        viewport.setMaxY(10);
+        viewport.setMinY(-180);
+        viewport.setMaxY(180);
         viewport.setScrollable(true);
 
         return v;
@@ -133,41 +103,29 @@ public class FragmentData extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        updateGUI();
+
+
+
+
         switch (v.getId()) {
             case R.id.buttonFindIdDevices:
+                timer = new Timer();
+                timer.scheduleAtFixedRate( new TimerTask() {
+                    public void run() {
 
-                /*
-                Spinner btDevices = (Spinner) v.findViewById(R.id.spinnerBtDevices);
-                final List<String> list=new ArrayList<String>();
-                list.add("Item 1");
-                list.add("Item 2");
-                list.add("Item 3");
-                list.add("Item 4");
-                list.add("Item 5");
+                        try{
 
-                //ArrayAdapter<String> adp1=new ArrayAdapter<String>(this,
-//                        android.R.layout.simple_list_item_1,list);
-  //              adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    //            btDevices.setAdapter(adp1);
-*/
-                //EditText editText = (EditText) v.findViewById(R.id.editText);
-                //editText.setText("ple");
-                if(tv != null)
-                    tv.setText("ple");
-                BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-                if (mBluetoothAdapter == null) {
-                    // Device does not support Bluetooth
-                    return;
-                }
-                if (!mBluetoothAdapter.isEnabled()) {
-                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    int REQUEST_ENABLE_BT = 2;
-                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-                }
-                // query paired
+                            updateGUI();
 
-                //discover:
+                        }
+                        catch (Exception e) {
+                            // TODO: handle exception
+                        }
+
+                    }
+                }, 0, 500);
+
+
 
 
 
@@ -186,7 +144,37 @@ public class FragmentData extends Fragment implements View.OnClickListener {
     }
     final Runnable runnable_interact = new Runnable() {
         public void run() {
-            addEntry();
+            //addEntry();
+
+            InterFragmentCom.clearData();
+
+            if(fragmentConnection != null)
+                fragmentConnection.readData_d();
+            InterFragmentCom.setReadData_d(true);
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            byte [] a = InterFragmentCom.getData_d();
+            if(tv != null && a != null && a.length > 5) {
+                int status1 = (int)Utils.getNumberFromByteArray(a, 1);
+                int status2 = (int)Utils.getNumberFromByteArray(a, 2);
+                int i2cError = (int)Utils.getNumberFromByteArray(a, 3);
+                double pitch = (double)Utils.getNumberFromByteArray(a, 16) / 100.0;
+                double pitch2 = (int)Utils.getNumberFromByteArray(a, 25) / 100.0;
+
+                //series.appendData(new DataPoint(lastX++, RANDOM.nextDouble() * 10d), true, 100);
+                series.appendData(new DataPoint(lastX++, pitch), true, 30);
+
+
+                int voltage = (int)Utils.getNumberFromByteArray(a, 4);
+                int magYaw = (int)Utils.getNumberFromByteArray(a, 28);
+                tv.setText(" i2cerr=" +  i2cError  + " p1=" + pitch + "p2=" +pitch2 + " v=" + voltage + " mag=" + magYaw + "s1=" + status1 + " s2=" + status2);
+            }
+
+
         }
     };
 

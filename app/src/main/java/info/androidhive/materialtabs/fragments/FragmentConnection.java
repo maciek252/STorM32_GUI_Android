@@ -22,6 +22,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import android.support.v7.app.ActionBarActivity;
 
 import info.androidhive.materialtabs.R;
@@ -41,6 +42,7 @@ import java.util.Arrays;
 
 import info.androidhive.materialtabs.storm32.*;
 import quadcopter.Bluetooth;
+import utils.InterFragmentCom;
 
 
 public class FragmentConnection extends Fragment
@@ -66,6 +68,8 @@ public class FragmentConnection extends Fragment
     String messageBuffer = "";
 
     //byte [] options = null;
+
+
 
     Button button = null;
     Button button_2_readVersion = null;
@@ -183,11 +187,14 @@ public class FragmentConnection extends Fragment
         bt.queryMode = Bluetooth.QueryMode.GET_OPTIONS;
         //bluetoothSerial.write("g");
         bt.sendMessage("g");
+
     }
 
-    private void readParameters(){
-        bt.queryMode = Bluetooth.QueryMode.GET_OPTIONS;
+    public void readData_d(){
+        bt.queryMode = Bluetooth.QueryMode.GET_DATA_D;
+        bt.sendMessage("d");
     }
+
 
     @Override
     public void onClick(View v) {
@@ -548,6 +555,9 @@ public class FragmentConnection extends Fragment
                 case Bluetooth.MESSAGE_WRITE:
                     Log.d(TAG, "MESSAGE_WRITE ");
                     break;
+
+
+
                 case Bluetooth.MESSAGE_READ:
                     Log.d(TAG, "MESSAGE_READ " + msg.arg1 + " " + msg.arg2);
                     if(bt.queryMode == Bluetooth.QueryMode.GET_OPTIONS && msg.arg2 == 1){
@@ -573,6 +583,12 @@ public class FragmentConnection extends Fragment
                             toast.show();
                             rereadOptions();
                         }
+                    } else if(bt.queryMode == Bluetooth.QueryMode.GET_DATA_D) {
+                        //byte[] ar = new byte[14];
+
+                        //ar[5] = 4;
+                        //InterFragmentCom.setData_d(ar);
+
                     }
                     break;
                 case Bluetooth.MESSAGE_DEVICE_NAME:

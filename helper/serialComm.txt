@@ -1,0 +1,146 @@
+my $CMD_d_PARAMETER_ZAHL= 32; #number of values transmitted with a 'd' get data command
+
+#  data array:              index in DataMatrix         index in 'd' cmd response str
+my @DataMillis= ();         my $DataMillis_i= 0;        my $DataMillis_p= 5;
+my @DataCycleTime= ();      my $DataCycleTime_i= 1;     my $DataCycleTime_p= 6;
+
+my @DataState= ();          my $DataState_i= 2;         my $DataState_p= 0;
+my @DataStatus= ();         my $DataStatus_i= 3;        my $DataStatus_p= 1;
+my @DataStatus2= ();        my $DataStatus2_i= 4;       my $DataStatus2_p= 2;
+my @DataI2cError= ();       my $DataI2cError_i= 5;      my $DataI2cError_p= 3;
+my @DataVoltage= ();        my $DataVoltage_i= 6;       my $DataVoltage_p= 4;
+
+my @DataGx= ();             my $DataGx_i= 7;            my $DataGx_p= 7;
+my @DataGy= ();             my $DataGy_i= 8;            my $DataGy_p= 8;
+my @DataGz= ();             my $DataGz_i= 9;            my $DataGz_p= 9;
+
+my @DataAx= ();             my $DataAx_i= 28;           my $DataAx_p= 10;
+my @DataAy= ();             my $DataAy_i= 29;           my $DataAy_p= 11;
+my @DataAz= ();             my $DataAz_i= 30;           my $DataAz_p= 12;
+
+my @DataRx= ();             my $DataRx_i= 10;           my $DataRx_p= 13;
+my @DataRy= ();             my $DataRy_i= 11;           my $DataRy_p= 14;
+my @DataRz= ();             my $DataRz_i= 12;           my $DataRz_p= 15;
+
+my @DataPitch= ();          my $DataPitch_i= 13;        my $DataPitch_p= 16;
+my @DataRoll= ();           my $DataRoll_i= 14;         my $DataRoll_p= 17;
+my @DataYaw= ();            my $DataYaw_i= 15;          my $DataYaw_p= 18;
+
+my @DataPitch2= ();         my $DataPitch2_i= 16;       my $DataPitch2_p= 25;
+my @DataRoll2= ();          my $DataRoll2_i= 17;        my $DataRoll2_p= 26;
+my @DataYaw2= ();           my $DataYaw2_i= 18;         my $DataYaw2_p= 27;
+
+my @DataMagYaw= ();         my $DataMagYaw_i= 19;       my $DataMagYaw_p= 28;
+my @DataLinkYaw= ();        my $DataLinkYaw_i= 20;      my $DataLinkYaw_p= 29;
+
+my @DataPitchCntrl= ();     my $DataPitchCntrl_i= 21;   my $DataPitchCntrl_p= 19;
+my @DataRollCntrl= ();      my $DataRollCntrl_i= 22;    my $DataRollCntrl_p= 20;
+my @DataYawCntrl= ();       my $DataYawCntrl_i= 23;     my $DataYawCntrl_p= 21;
+
+my @DataPitchRcIn= ();      my $DataPitchRcIn_i= 31;    my $DataPitchRcIn_p= 22;
+my @DataRollRcIn= ();       my $DataRollRcIn_i= 32;     my $DataRollRcIn_p= 23;
+my @DataYawRcIn= ();        my $DataYawRcIn_i= 33;      my $DataYawRcIn_p= 24;
+my @DataFunctionsIn= ();    my $DataFunctionsIn_i= 34;  my $DataFunctionsIn_p= 31;
+
+my @DataAccConfidence= ();  my $DataAccConfidence_i= 24; my $DataAccConfidence_p= 30;
+
+
+d - IMU connected
+
+0
+
+06 00 
+
+data status 1
+
+70 9A 
+
+data status 2
+
+00 20 
+
+
+00 00
+
+$DataVoltage_p= 4;
+
+F4 09 
+
+7D FB 
+
+DC 05 
+
+FF FF    
+
+05 00 
+
+00 00 
+
+26 F0 
+
+9E 00 
+
+FC 1A 
+
+18 EB 
+
+09 00 
+
+FF 20    
+
+9D 0C 
+
+0A 00 
+
+03 04 
+
+63 F3 
+
+F6 FF 
+
+FD FB 
+
+19
+00 00 
+
+00 00    
+
+00 00
+
+0B 00 40 FF 75 04 - 00 00 6C 02 06 27 00 00    
+3B DA 6F                                             
+
+d - IMU not connected
+
+0
+
+06 00 
+
+1
+
+50 9A 
+
+2
+
+00 20 
+
+3 - ic error
+
+D2 29 
+
+4
+
+2C 0A 
+
+2604?
+
+5
+
+3B D8 
+
+DC 05 3C 07    
+DB 0A 35 FF 7C 0F AA E7 - AE 00 E4 FE 99 DC 7A 10    
+77 01 A1 E6 8A D2 89 FE - 5F 19 76 2D 00 00 00 00    
+00 00 00 00 48 FF 71 F7 - 00 00 AA 05 FC 26 00 00    
+2F F2 6F                                             
+

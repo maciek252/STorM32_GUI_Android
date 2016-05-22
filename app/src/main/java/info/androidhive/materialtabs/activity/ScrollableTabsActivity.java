@@ -37,7 +37,7 @@ public class ScrollableTabsActivity extends AppCompatActivity {
 
     private ThreeFragment three = new ThreeFragment();
     private FourFragment four = new FourFragment();
-    private FragmentConnection two = new FragmentConnection();
+    private FragmentConnection fragmentConnection = new FragmentConnection();
 
     private FragmentScripts fragmentScripts = new FragmentScripts();
     private FragmentSetup fragmentSetup = new FragmentSetup();
@@ -65,8 +65,15 @@ public class ScrollableTabsActivity extends AppCompatActivity {
 
 
 
-        adapter.addFrag(two, "CONN");
-        adapter.addFrag(new FragmentData(), "DATA");
+        adapter.addFrag(fragmentConnection, "CONN");
+        FragmentData fragmentData = new FragmentData();
+
+//        Bundle args = new Bundle();
+        //args.putInt("someInt", someInt);
+        //myFragment.setArguments(args);
+
+        fragmentData.setFragmentConnection(fragmentConnection);
+        adapter.addFrag(fragmentData, "DATA");
         adapter.addFrag(new SixFragment(), "PAN");
         adapter.addFrag(new FiveFragment(), "PID");
         adapter.addFrag(new FragmentRcInput(), "RC INPUT");
