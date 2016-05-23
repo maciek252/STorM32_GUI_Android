@@ -36,19 +36,70 @@
         android:layout_alignParentStart="true"
         android:layout_centerInParent="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/textView2"
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/buttonFindIdDevices"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/buttonFindIdDevices"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:singleLine="false"
-        android:layout_alignParentBottom="true" />
+        android:columnCount="12"
+        android:layout_centerInParent="true"
+        android:columnOrderPreserved="true">
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="IMU"
+            android:id="@+id/textView_data_imuState"
+            android:layout_row="0"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="IMU2"
+            android:id="@+id/textView_data_imu2_state"
+            android:layout_row="0"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="I2C ERR"
+            android:id="@+id/textView49"
+            android:layout_row="0"
+            android:layout_column="3"
+            android:background="#aea9a9" />
+
+        <TextView
+            android:layout_width="306dp"
+            android:layout_height="86dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/textView2"
+            android:singleLine="false"
+            android:layout_below="@+id/buttonFindIdDevices"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="false"
+            android:layout_alignRight="@+id/buttonFindIdDevices"
+            android:layout_alignEnd="@+id/buttonFindIdDevices"
+            android:layout_alignParentEnd="false"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_columnSpan="4" />
+
+        <TextView
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="0"
+            android:id="@+id/textView_data_i2c_errors"
+            android:layout_row="0"
+            android:layout_column="10" />
+    </GridLayout>
 
 
 </RelativeLayout>

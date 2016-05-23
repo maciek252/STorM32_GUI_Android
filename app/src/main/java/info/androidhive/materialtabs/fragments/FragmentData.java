@@ -2,6 +2,7 @@ package info.androidhive.materialtabs.fragments;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -53,6 +54,11 @@ public class FragmentData extends Fragment implements View.OnClickListener {
 
     GraphView graph = null;
 
+
+    protected TextView imuStatus = null;
+    protected TextView imu2Status = null;
+    protected TextView i2cErrors = null;
+
     public FragmentData(){
 
     }
@@ -63,9 +69,14 @@ public class FragmentData extends Fragment implements View.OnClickListener {
 
     @Override
     public void onPause(){
+        //if( timer != null) {
+            //timer.cancel();
+            //timer.purge();
+//        }
+        timer = null;
+
         super.onPause();
-        if( timer != null)
-            timer.cancel();
+
     }
 
     @Override
@@ -74,6 +85,28 @@ public class FragmentData extends Fragment implements View.OnClickListener {
 
 
     }
+
+    private void setImuState(int imuNr, boolean active){
+        if(imuNr != 0 && imuNr != 1)
+            return;
+
+        TextView imuState = null;
+        if(imuNr == 0)
+            imuState = imuStatus;
+        else if(imuNr == 1)
+            imuState = imu2Status;
+
+        if(active){
+            imuState.setBackgroundColor(Color.GREEN);
+            imuState.setText("OK");
+        } else{
+            imuState.setBackgroundColor(Color.RED);
+            imuState.setText("ERR");
+        }
+
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,6 +116,10 @@ public class FragmentData extends Fragment implements View.OnClickListener {
         button.setOnClickListener(this);
 
         tv = (TextView) v.findViewById(R.id.textView2);
+
+         imuStatus = (TextView) v.findViewById(R.id.textView_data_imuState);
+        imu2Status = (TextView) v.findViewById(R.id.textView_data_imu2_state);
+        i2cErrors = (TextView) v.findViewById(R.id.textView_data_i2c_errors);
 
         //v.setContentView(R.layout.activity_main);
         // we get graph view instance
@@ -100,6 +137,24 @@ public class FragmentData extends Fragment implements View.OnClickListener {
         return v;
     }
 
+    private void runUpdating(){
+        if(timer != null ) {
+            timer.scheduleAtFixedRate(new TimerTask() {
+                public void run() {
+
+                    try {
+
+                        updateGUI();
+
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                    }
+
+                }
+            }, 0, 500);
+        }
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -109,23 +164,9 @@ public class FragmentData extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.buttonFindIdDevices:
+
                 timer = new Timer();
-                timer.scheduleAtFixedRate( new TimerTask() {
-                    public void run() {
-
-                        try{
-
-                            updateGUI();
-
-                        }
-                        catch (Exception e) {
-                            // TODO: handle exception
-                        }
-
-                    }
-                }, 0, 500);
-
-
+                runUpdating();
 
 
 
@@ -152,26 +193,38 @@ public class FragmentData extends Fragment implements View.OnClickListener {
                 fragmentConnection.readData_d();
             InterFragmentCom.setReadData_d(true);
 
+
             try {
-                Thread.sleep(500);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             byte [] a = InterFragmentCom.getData_d();
-            if(tv != null && a != null && a.length > 5) {
-                int status1 = (int)Utils.getNumberFromByteArray(a, 1);
-                int status2 = (int)Utils.getNumberFromByteArray(a, 2);
-                int i2cError = (int)Utils.getNumberFromByteArray(a, 3);
-                double pitch = (double)Utils.getNumberFromByteArray(a, 16) / 100.0;
-                double pitch2 = (int)Utils.getNumberFromByteArray(a, 25) / 100.0;
+            synchronized (a){
+            if(tv != null && a != null && a.length > 10) {
+                int status1 = (int) Utils.getNumberFromByteArray(a, 1);
+                int status2 = (int) Utils.getNumberFromByteArray(a, 2);
+                int i2cError = (int) Utils.getNumberFromByteArray(a, 3);
+                double pitch = (double) Utils.getNumberFromByteArray(a, 16) / 100.0;
+                double pitch2 = (int) Utils.getNumberFromByteArray(a, 25) / 100.0;
 
                 //series.appendData(new DataPoint(lastX++, RANDOM.nextDouble() * 10d), true, 100);
                 series.appendData(new DataPoint(lastX++, pitch), true, 30);
 
+                byte aa = (byte) (status1 & 32);
+                if (aa != 0)
+                    setImuState(0, true);
+                else
+                    setImuState(0, false);
 
-                int voltage = (int)Utils.getNumberFromByteArray(a, 4);
-                int magYaw = (int)Utils.getNumberFromByteArray(a, 28);
-                tv.setText(" i2cerr=" +  i2cError  + " p1=" + pitch + "p2=" +pitch2 + " v=" + voltage + " mag=" + magYaw + "s1=" + status1 + " s2=" + status2);
+                setImuState(1, true);
+                i2cErrors.setText(" " + i2cError);
+
+                int voltage = (int) Utils.getNumberFromByteArray(a, 4);
+                int magYaw = (int) Utils.getNumberFromByteArray(a, 28);
+                tv.setText(" i2cerr=" + i2cError + " p1=" + pitch + "p2=" + pitch2 + " v=" + voltage + " mag=" + magYaw + "s1=" + status1 + " s2=" + status2);
+            }
             }
 
 
@@ -183,13 +236,14 @@ public class FragmentData extends Fragment implements View.OnClickListener {
         super.onResume();
         // we're going to simulate real time with thread that append data to the graph
 
+        runUpdating();
 
-
+        /*
         long temp = System.currentTimeMillis();
-        if(temp - previous > 1000){
+        if(temp - previous > 100){
             previous = temp;
             updateGUI();
-        }
+        }*/
 
 
 
