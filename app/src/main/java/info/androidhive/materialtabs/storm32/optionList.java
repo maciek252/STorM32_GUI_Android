@@ -803,6 +803,104 @@ cameras
   pos=> [2,1],
 */
 
+/*
+  name => 'Yaw Pan (0 = hold)',
+  type => 'OPTTYPE_UI', len => 5, ppos => 1, min => 0, max => 50, default => 20, steps => 1,
+  size => 2,
+  adr => 16,
+  column=> 4,
+ */
+
+        addOption(
+                new OptionNumber("Pitch Pan (0 = hold)",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 1,0,50,20,1,2,4, "")
+        );
+
+
+        addOption(
+                new OptionNumber("Pitch Pan Deadband",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 1,0,100,50,5,2,5, "")
+        );
+
+
+        addOption(
+                new OptionNumber("Pitch Pan Expo",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 0,0,100,0,0,2,102, "")
+        );
+
+//------------------------ ROLL
+
+        addOption(
+                new OptionNumber("Roll Pan (0 = hold)",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 1,0,50,20,1,2,10, "")
+        );
+
+
+        addOption(
+                new OptionNumber("Roll Pan Deadband",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 1,0,600,50,5,2,11, "")
+        );
+
+
+        addOption(
+                new OptionNumber("Roll Pan Expo",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 0,0,100,0,0,2,103, "")
+        );
+
+
+// ------------------------YAW
+
+        addOption(
+                new OptionNumber("Yaw Pan (0 = hold)",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 1,0,50,20,1,2,16, "")
+        );
+
+
+        addOption(
+                new OptionNumber("Yaw Pan Deadband",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 1,0,100,50,5,2,17, "")
+        );
+
+
+        addOption(
+                new OptionNumber("Yaw Pan Expo",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 0,0,100,0,1,2,104, "")
+        );
+
+        addOption(
+                new OptionNumber("Yaw Pan (0 = hold)",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 1,0,50,20,1,2,16, "")
+        );
+
+
+        addOption(
+                new OptionNumber("Yaw Pan Deadband LPF",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 2,0,200,0,5,2,118, "")
+        );
+
+
+        addOption(
+                new OptionNumber("Yaw Pan Deadband Hysteresis",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 1,0,50,0,1,2,97, "")
+        );
+
+
+
+        // -------------------------------------------------
+
+
         addOption(
                 new OptionNumber("Pitch Motor Poles",
                         OptionNumber.NumberType.UnsignedInt,

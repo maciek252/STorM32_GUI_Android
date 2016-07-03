@@ -45,14 +45,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pitch Pan"
+            android:text="Pitch Pan (0 = hold)"
             android:id="@+id/textView14" />
 
         <TextView
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView_6_pitchPan"
+            android:id="@+id/textView_pan_pitchPan"
             android:contextClickable="true"
             android:editable="true"
             android:layout_gravity="center_horizontal" />
@@ -67,7 +67,7 @@
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView_6_pitchPanDeadband"
+            android:id="@+id/textView_pan_pitchPanDeadband"
             android:contextClickable="true"
             android:editable="true"
             android:layout_gravity="center_horizontal" />
@@ -76,13 +76,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pitch Pan Expo"
-            android:id="@+id/textView18" />
+            android:id="@+id/textView23" />
 
         <TextView
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView_6_pitchPanExpo"
+            android:id="@+id/textView_pan_pitchPanExpo"
             android:contextClickable="true"
             android:editable="true"
             android:layout_gravity="center_horizontal" />
@@ -90,45 +90,29 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Roll Pan"
-            android:id="@+id/textView8" />
-
-        <TextView
-            android:layout_width="47dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView_6_rollPan"
-            android:contextClickable="true"
-            android:editable="true"
-            android:layout_gravity="center_horizontal" />
+            android:text="Roll Pan  (0 = hold)"
+            android:id="@+id/textView20" />
 
         <TextView
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView9"
+            android:id="@+id/textView_pan_rollPan"
             android:contextClickable="true"
-            android:editable="true" />
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Roll Pan Deadband"
-            android:id="@+id/textView11" />
+            android:id="@+id/textView21" />
 
         <TextView
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView12"
-            android:contextClickable="true"
-            android:editable="true" />
-
-        <TextView
-            android:layout_width="46dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView_6_rollPanDeadband"
+            android:id="@+id/textView_pan_rollPanDeadband"
             android:contextClickable="true"
             android:editable="true"
             android:layout_gravity="center_horizontal" />
@@ -137,113 +121,95 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Roll Pan Expo"
-            android:id="@+id/textView17" />
-
-        <TextView
-            android:layout_width="42dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView_6_rollPanExpo"
-            android:contextClickable="true"
-            android:editable="true"
-            android:layout_gravity="center_horizontal" />
+            android:id="@+id/textView22" />
 
         <TextView
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView20"
+            android:id="@+id/textView_pan_rollPanExpo"
             android:contextClickable="true"
-            android:editable="true" />
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Button 2" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Button 3" />
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Button 4" />
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Button 5" />
-
-        <ProgressBar
-            android:id="@+id/progressBar1"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <RadioButton
-            android:id="@+id/radioButton2"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RadioButton 1" />
+            android:text="Yaw Pan (0 = hold)"
+            android:id="@+id/textView_" />
 
-        <RadioButton
-            android:id="@+id/radioButton1"
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_pan_yawPan"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RadioButton 2" />
+            android:text="Yaw Pan Deadband"
+            android:id="@+id/textView24" />
 
-        <ToggleButton
-            android:id="@+id/toggleButton1"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="56dp"
             android:layout_height="wrap_content"
-            android:text="ToggleButton" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_pan_yawPanDeadband"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Button 6" />
-
-        <SeekBar
-            android:id="@+id/seekBar1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button 7" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button 8" />
-
-        <CheckBox
-            android:id="@+id/checkBox1"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CheckBox" />
+            android:text="Yaw Pan Expo"
+            android:id="@+id/textView18" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="56dp"
             android:layout_height="wrap_content"
-            android:text="Button 9" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_pan_yawPanExpo"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button 10" />
+            android:text="Yaw Pan Deadband LPF"
+            android:id="@+id/textView25" />
 
-        <Button
-            android:layout_width="fill_parent"
+        <TextView
+            android:layout_width="56dp"
             android:layout_height="wrap_content"
-            android:text="Button 11" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_pan_yawPanDeadbandLPF"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yaw Pan Deadband Hysteresis"
+            android:id="@+id/textView2" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView_pan_yawPanDeadbandHysteresis"
+            android:contextClickable="true"
+            android:editable="true"
+            android:layout_gravity="center_horizontal" />
+
+
+
+
     </LinearLayout>
 
 </ScrollView>
