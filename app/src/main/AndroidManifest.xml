@@ -29,7 +29,13 @@
         <activity
             android:name=".activity.ScrollableTabsActivity"
             android:label="@string/title_activity_scrollable_tabs"
-            android:parentActivityName=".activity.MainActivity"></activity>
+            android:parentActivityName=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+            <meta-data android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+        </activity>
         <activity
             android:name=".activity.SimpleTabsActivity"
             android:label="@string/title_activity_simple_tabs"

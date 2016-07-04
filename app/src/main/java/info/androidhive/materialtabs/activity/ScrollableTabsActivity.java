@@ -15,7 +15,7 @@ import java.util.List;
 
 import info.androidhive.materialtabs.R;
 import info.androidhive.materialtabs.fragments.EightFragment;
-import info.androidhive.materialtabs.fragments.FiveFragment;
+import info.androidhive.materialtabs.fragments.FragmentPid;
 import info.androidhive.materialtabs.fragments.FourFragment;
 import info.androidhive.materialtabs.fragments.FragmentCalibrateAcc;
 import info.androidhive.materialtabs.fragments.FragmentGimbalConfiguration;
@@ -75,7 +75,7 @@ public class ScrollableTabsActivity extends AppCompatActivity {
         fragmentData.setFragmentConnection(fragmentConnection);
         adapter.addFrag(fragmentData, "DATA");
         adapter.addFrag(new FragmentPan(), "PAN");
-        adapter.addFrag(new FiveFragment(), "PID");
+        adapter.addFrag(new FragmentPid(), "PID");
         adapter.addFrag(new FragmentRcInput(), "RC INPUT");
         adapter.addFrag(new EightFragment(), "FUNCTIONS");
         adapter.addFrag(new FragmentScripts(), "SCRIPTS");
@@ -83,13 +83,12 @@ public class ScrollableTabsActivity extends AppCompatActivity {
         adapter.addFrag(new FragmentGimbalConfiguration(), "GIMBAL CONF.");
         adapter.addFrag(new FragmentCalibrateAcc(), "CALIBRATE ACC");
 
+        /*
         adapter.addFrag(new NineFragment(), "NINE");
         adapter.addFrag(new TenFragment(), "TEN");
-
-
-
         adapter.addFrag(three, "THREE");
         adapter.addFrag(four, "FOUR");
+        */
         viewPager.setAdapter(adapter);
     }
 

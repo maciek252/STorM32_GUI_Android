@@ -4,6 +4,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import android.support.v7.app.ActionBarActivity;
-
 import info.androidhive.materialtabs.R;
 
 
@@ -34,15 +33,8 @@ import com.macroyau.blue2serial.BluetoothSerialListener;
 
 import org.mavlink.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-
 import info.androidhive.materialtabs.storm32.*;
 import quadcopter.Bluetooth;
-import utils.InterFragmentCom;
 
 
 public class FragmentConnection extends Fragment
@@ -123,10 +115,10 @@ public class FragmentConnection extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_two, container, false);
+        //return inflater.inflate(R.layout.fragment_connection, container, false);
 
 
-        View v = inflater.inflate(R.layout.fragment_two, container, false);
+        View v = inflater.inflate(R.layout.fragment_connection, container, false);
         button = (Button) v.findViewById(R.id.buttonDetectBT);
         button.setOnClickListener(this);
 
@@ -136,7 +128,10 @@ public class FragmentConnection extends Fragment
 
         v.findViewById(R.id.restart).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                connectService();
+                //connectService();
+
+                //UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+
             }
         });
 

@@ -244,8 +244,8 @@ public class optionList {
 
         /*
         },{
-  name => 'Roll Motor Vmax',
-  type => 'OPTTYPE_UI', len => 5, ppos => 0, min => 0, max => 255, default => 150, steps => 1,
+  name => "Roll Motor Vmax",
+  type => "OPTTYPE_UI", len => 5, ppos => 0, min => 0, max => 255, default => 150, steps => 1,
   size => 2,
   adr => 9,
 
@@ -283,11 +283,11 @@ public class optionList {
 
 /*
     },{
-        name => 'Gyro LPF',
-                type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 6, default => 1, steps => 1,
+        name => "Gyro LPF",
+                type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 6, default => 1, steps => 1,
                 size => 1,
                 adr => 100,
-                choices => [ 'off', '1.5 ms', '3.0 ms', '4.5 ms', '6.0 ms', '7.5 ms', '9 ms' ],
+                choices => [ "off", "1.5 ms", "3.0 ms", "4.5 ms", "6.0 ms", "7.5 ms", "9 ms" ],
             pos=>[1,1],
             expert=> 1,
     },{
@@ -323,11 +323,11 @@ public class optionList {
 
         /*
         {
-  name => 'Rc Pitch Min',
-  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -1200, max => 1200, default => -250, steps => 5,
+  name => "Rc Pitch Min",
+  type => "OPTTYPE_SI", len => 0, ppos => 1, min => -1200, max => 1200, default => -250, steps => 5,
   size => 2,
   adr => 47,
-  unit => '�',
+  unit => "�",
 }*/
         addOption(
                 new OptionNumber("Rc Pitch Min",
@@ -337,11 +337,11 @@ public class optionList {
 
 
 /*,{
-  name => 'Rc Pitch Max',
-  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -1200, max => 1200, default => 250, steps => 5,
+  name => "Rc Pitch Max",
+  type => "OPTTYPE_SI", len => 0, ppos => 1, min => -1200, max => 1200, default => 250, steps => 5,
   size => 2,
   adr => 48,
-  unit => '�',
+  unit => "�",
 }*/
         addOption(
                 new OptionNumber("Rc Pitch Max",
@@ -353,11 +353,11 @@ public class optionList {
 
 
         /*{
-  name => 'Rc Pitch Speed Limit (0 = off)',
-  type => 'OPTTYPE_UI', len => 0, ppos => 1, min => 0, max => 1000, default => 400, steps => 5,
+  name => "Rc Pitch Speed Limit (0 = off)",
+  type => "OPTTYPE_UI", len => 0, ppos => 1, min => 0, max => 1000, default => 400, steps => 5,
   size => 2,
   adr => 49,
-  unit => '�/s',
+  unit => "�/s",
 }*/
         addOption(
                 new OptionNumber("Rc Pitch Speed Limit",
@@ -367,8 +367,8 @@ public class optionList {
 
 
         /*{
-  name => 'Rc Pitch Accel Limit (0 = off)',
-  type => 'OPTTYPE_UI', len => 0, ppos => 3, min => 0, max => 1000, default => 300, steps => 10,
+  name => "Rc Pitch Accel Limit (0 = off)",
+  type => "OPTTYPE_UI", len => 0, ppos => 3, min => 0, max => 1000, default => 300, steps => 10,
   size => 2,
   adr => 50,
 }*/
@@ -383,8 +383,8 @@ public class optionList {
 
 
         /*
-        name => 'Rc Roll',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+        name => "Rc Roll",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
   size => 1,
   adr => 51,
   choices => \@FunctionInputChoicesList,
@@ -401,11 +401,11 @@ public class optionList {
 
         /*
 {
-  name => 'Rc Roll Mode',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 0, steps => 1,
+  name => "Rc Roll Mode",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 2, default => 0, steps => 1,
   size => 1,
   adr => 52,
-  choices => [ 'absolute', 'relative', 'absolute centered'],
+  choices => [ "absolute", "relative", "absolute centered"],
 },
          */
 
@@ -419,11 +419,11 @@ public class optionList {
 
           /*
         {
-  name => 'Rc Roll Min',
-  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -450, max => 450, default => -250, steps => 5,
+  name => "Rc Roll Min",
+  type => "OPTTYPE_SI", len => 0, ppos => 1, min => -450, max => 450, default => -250, steps => 5,
   size => 2,
   adr => 54,
-  unit => '°',
+  unit => "°",
          */
 
         addOption(
@@ -433,11 +433,11 @@ public class optionList {
         );
 
         /*
-          name => 'Rc Roll Max',
-  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -450, max => 450, default => 250, steps => 5,
+          name => "Rc Roll Max",
+  type => "OPTTYPE_SI", len => 0, ppos => 1, min => -450, max => 450, default => 250, steps => 5,
   size => 2,
   adr => 55,
-  unit => '°',
+  unit => "°",
          */
 
         addOption(
@@ -448,11 +448,11 @@ public class optionList {
 
 /*
 },{
-  name => 'Rc Roll Speed Limit (0 = off)',
-  type => 'OPTTYPE_UI', len => 0, ppos => 1, min => 0, max => 1000, default => 400, steps => 5,
+  name => "Rc Roll Speed Limit (0 = off)",
+  type => "OPTTYPE_UI", len => 0, ppos => 1, min => 0, max => 1000, default => 400, steps => 5,
   size => 2,
   adr => 56,
-  unit => '°/s',
+  unit => "°/s",
  */
         addOption(
                 new OptionNumber("Rc Roll Speed Limit",
@@ -462,8 +462,8 @@ public class optionList {
 
         /*
         ,{
-  name => 'Rc Roll Accel Limit (0 = off)',
-  type => 'OPTTYPE_UI', len => 0, ppos => 3, min => 0, max => 1000, default => 300, steps => 10,
+  name => "Rc Roll Accel Limit (0 = off)",
+  type => "OPTTYPE_UI", len => 0, ppos => 3, min => 0, max => 1000, default => 300, steps => 10,
   size => 2,
   adr => 57,
 
@@ -481,11 +481,11 @@ public class optionList {
 
         /*
         {
-  name => 'Rc Dead Band',
-  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 0, max => 50, default => 10, steps => 1,
+  name => "Rc Dead Band",
+  type => "OPTTYPE_UI", len => 0, ppos => 0, min => 0, max => 50, default => 10, steps => 1,
   size => 2,
   adr => 43,
-  unit => 'us',
+  unit => "us",
   expert=> 3,
 },
 */
@@ -498,8 +498,8 @@ public class optionList {
 
 
 /*
-name => 'Rc Pitch',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+name => "Rc Pitch",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
   size => 1,
   adr => 44,
   choices => \@FunctionInputChoicesList,
@@ -514,11 +514,11 @@ name => 'Rc Pitch',
                 )
         );
 /*
-{  name => 'Rc Pitch Mode',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 0, steps => 1,
+{  name => "Rc Pitch Mode",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 2, default => 0, steps => 1,
   size => 1,
   adr => 45,
-  choices => [ 'absolute', 'relative', 'absolute centered'],
+  choices => [ "absolute", "relative", "absolute centered"],
 }
  */
 
@@ -530,11 +530,11 @@ name => 'Rc Pitch',
         );
 
 /*{
-  name => 'Rc Hysteresis',
-  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 0, max => 50, default => 5, steps => 1,
+  name => "Rc Hysteresis",
+  type => "OPTTYPE_UI", len => 0, ppos => 0, min => 0, max => 50, default => 5, steps => 1,
   size => 2,
   adr => 105,
-  unit => 'us',
+  unit => "us",
 
          */
 
@@ -570,8 +570,8 @@ name => 'Rc Pitch',
         /*
         ##--- FUNCTIONS tab --------------------
 },{
-  name => 'Standby',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  name => "Standby",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
   size => 1,
   adr => 70,
   choices => \@FunctionInputChoicesList,
@@ -590,8 +590,8 @@ name => 'Rc Pitch',
         /*
 {
 
-  name => 'Re-center Camera',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  name => "Re-center Camera",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
   size => 1,
   adr => 76,
   choices => \@FunctionInputChoicesList,
@@ -606,8 +606,8 @@ name => 'Rc Pitch',
         );
 
         /*{
-  name => 'IR Camera Control',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  name => "IR Camera Control",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
   size => 1,
   adr => 71,
   choices => \@FunctionInputChoicesList,
@@ -622,11 +622,11 @@ name => 'Rc Pitch',
         );
 
         /*{
-  name => 'Camera Model',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 3, default => 0, steps => 1,
+  name => "Camera Model",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 3, default => 0, steps => 1,
   size => 1,
   adr => 72,
-  choices => [ 'Sony Nex', 'Canon', 'Panasonic', 'Nikon' ],
+  choices => [ "Sony Nex", "Canon", "Panasonic", "Nikon" ],
 },*/
         String [] cameras = new String[] {"Sony Nex", "Canon", "Panasonic", "Nikon"};
         addOption(
@@ -637,11 +637,11 @@ cameras
         );
 
         /*{
-  name => 'IR Camera Setting #1',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 0, steps => 1,
+  name => "IR Camera Setting #1",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 2, default => 0, steps => 1,
   size => 1,
   adr => 73,
-  choices => [ 'shutter', 'shutter delay', 'video on/off' ],
+  choices => [ "shutter", "shutter delay", "video on/off" ],
 }*/
 
         String [] irCamSetting1 = new String[] {"shutter", "shutter delay", "video on/off"};
@@ -651,28 +651,96 @@ cameras
                         irCamSetting1
                 )
         );
+
+/*
+        name => "Virtual Channel Configuration",
+                type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 10, default => 0, steps => 1,
+                size => 1,
+                adr => 41,
+                choices => [ "off",  "sum ppm 6", "sum ppm 7", "sum ppm 8", "sum ppm 10", "sum ppm 12",
+                "spektrum 10 bit", "spektrum 11 bit", "sbus", "hott sumd", "srxl" ],
+        column=> 2,
+*/
+
+        String [] virtualChannelConfiguration = new String[] {"off",  "sum ppm 6", "sum ppm 7", "sum ppm 8", "sum ppm 10", "sum ppm 12",
+                "spektrum 10 bit", "spektrum 11 bit", "sbus", "hott sumd", "srxl"};
+        addOption(
+                new OptionListA("Virtual Channel Configuration",
+                        0,0,0,virtualChannelConfiguration.length-1,0,1,1,41,
+                        virtualChannelConfiguration
+                )
+        );
+
+        /*
+        {
+  name => "Pwm Out Configuration",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 2, default => 0, steps => 1,
+  size => 1,
+  adr => 42,
+  choices => [ "off", "1520 us 55 Hz", "1520 us 250 Hz" ],
+         */
+
+        String [] pwmOutConfiguration = new String[] {"off", "1520 us 55 Hz", "1520 us 250 Hz"};
+        addOption(
+                new OptionListA("Pwm Out Configuration",
+                        0,0,0,pwmOutConfiguration.length-1,0,1,1,42,
+                        pwmOutConfiguration
+                )
+        );
+/*
+        {
+            name => "Pitch Motor Usage",
+                type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 3, default => 3, steps => 1,
+                size => 1,
+                adr => 78,
+                choices => [ "normal", "level", "startup pos", "disabled"],
+            column=> 4,
+        }
+*/
+
+        String [] motorUsage = new String[] {"normal", "level", "startup pos", "disabled"};
+        addOption(
+                new OptionListA("Pitch Motor Usage",
+                        0,0,0,motorUsage.length-1,0,1,1,78,
+                        motorUsage
+                )
+        );
+
+        addOption(
+                new OptionListA("Roll Motor Usage",
+                        0,0,0,motorUsage.length-1,0,1,1,79,
+                        motorUsage
+                )
+        );
+
+        addOption(
+                new OptionListA("Yaw Motor Usage",
+                        0,0,0,motorUsage.length-1,0,1,1,80,
+                        motorUsage
+                )
+        );
         
         
 /*        {
-  name => 'IR Camera Setting #2',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 3, default => 2, steps => 1,
+  name => "IR Camera Setting #2",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 3, default => 2, steps => 1,
   size => 1,
   adr => 74,
-  choices => [ 'shutter', 'shutter delay', 'video on/off', 'off' ],
+  choices => [ "shutter", "shutter delay", "video on/off", "off" ],
 }*/
 
         String [] irCamSetting2 = new String[] {"shutter", "shutter delay", "video on/off", "off"};
         addOption(
                 new OptionListA("IR Camera Setting #2",
-                        0,0,0,irCamSetting2.length,0,1,1,74,
+                        0,0,0,irCamSetting2.length-1,0,1,1,74,
                         irCamSetting2
                 )
         );
 
 /*
     },{
-        name => 'Imu Orientation',
-                type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 23, default => 0, steps => 1,
+        name => "Imu Orientation",
+                type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 23, default => 0, steps => 1,
                 size => 1,
                 adr => 39,
                 choices => \@ImuChoicesList,
@@ -699,35 +767,35 @@ cameras
 
 /*
         my @ImuOrientationList=(
-        { name => 'z0°',     axes => '+x +y +z',  value => 0, },
-        { name => 'z90°',    axes => '-y +x +z',  value => 1, },
-        { name => 'z180°',   axes => '-x -y +z',  value => 2, },
-        { name => 'z270°',   axes => '+y -x +z',  value => 3, },
+        { name => "z0°",     axes => "+x +y +z",  value => 0, },
+        { name => "z90°",    axes => "-y +x +z",  value => 1, },
+        { name => "z180°",   axes => "-x -y +z",  value => 2, },
+        { name => "z270°",   axes => "+y -x +z",  value => 3, },
 
-        { name => 'x0°',     axes => '+y +z +x',  value => 4, },
-        { name => 'x90°',    axes => '-z +y +x',  value => 5, },
-        { name => 'x180°',   axes => '-y -z +x',  value => 6, },
-        { name => 'x270°',   axes => '+z -y +x',  value => 7, },
+        { name => "x0°",     axes => "+y +z +x",  value => 4, },
+        { name => "x90°",    axes => "-z +y +x",  value => 5, },
+        { name => "x180°",   axes => "-y -z +x",  value => 6, },
+        { name => "x270°",   axes => "+z -y +x",  value => 7, },
 
-        { name => 'y0°',     axes => '+z +x +y',  value => 8, },
-        { name => 'y90°',    axes => '-x +z +y',  value => 9, },
-        { name => 'y180°',   axes => '-z -x +y',  value => 10, },
-        { name => 'y270°',   axes => '+x -z +y',  value => 11, },
+        { name => "y0°",     axes => "+z +x +y",  value => 8, },
+        { name => "y90°",    axes => "-x +z +y",  value => 9, },
+        { name => "y180°",   axes => "-z -x +y",  value => 10, },
+        { name => "y270°",   axes => "+x -z +y",  value => 11, },
 
-        { name => '-z0°',    axes => '+y +x -z',  value => 16, },
-        { name => '-z90°',   axes => '-x +y -z',  value => 17, },
-        { name => '-z180°',  axes => '-y -x -z',  value => 18, },
-        { name => '-z270°',  axes => '+x -y -z',  value => 19, },
+        { name => "-z0°",    axes => "+y +x -z",  value => 16, },
+        { name => "-z90°",   axes => "-x +y -z",  value => 17, },
+        { name => "-z180°",  axes => "-y -x -z",  value => 18, },
+        { name => "-z270°",  axes => "+x -y -z",  value => 19, },
 
-        { name => '-x0°',    axes => '+z +y -x',  value => 20, },
-        { name => '-x90°',   axes => '-y +z -x',  value => 21, },
-        { name => '-x180°',  axes => '-z -y -x',  value => 22, },
-        { name => '-x270°',  axes => '+y -z -x',  value => 23, },
+        { name => "-x0°",    axes => "+z +y -x",  value => 20, },
+        { name => "-x90°",   axes => "-y +z -x",  value => 21, },
+        { name => "-x180°",  axes => "-z -y -x",  value => 22, },
+        { name => "-x270°",  axes => "+y -z -x",  value => 23, },
 
-        { name => '-y0°',    axes => '+x +z -y',  value => 24, },
-        { name => '-y90°',   axes => '-z +x -y',  value => 25, },
-        { name => '-y180°',  axes => '-x -z -y',  value => 26, },
-        { name => '-y270°',  axes => '+z -x -y',  value => 27, },
+        { name => "-y0°",    axes => "+x +z -y",  value => 24, },
+        { name => "-y90°",   axes => "-z +x -y",  value => 25, },
+        { name => "-y180°",  axes => "-x -z -y",  value => 26, },
+        { name => "-y270°",  axes => "+z -x -y",  value => 27, },
         );
   */
         LinkedList<Orientation> orientations = new LinkedList<>();
@@ -785,8 +853,8 @@ cameras
 
 
         /*
-        name => 'Imu2 Orientation',
-                type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 23, default => 0, steps => 1,
+        name => "Imu2 Orientation",
+                type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 23, default => 0, steps => 1,
                 size => 1,
                 adr => 95,
                 choices => \@ImuChoicesList,
@@ -796,16 +864,16 @@ cameras
 
 
  /*
-  name => 'Pitch Motor Poles',
-  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 12, max => 28, default => 14, steps => 2,
+  name => "Pitch Motor Poles",
+  type => "OPTTYPE_UI", len => 0, ppos => 0, min => 12, max => 28, default => 14, steps => 2,
   size => 2,
   adr => 20,
   pos=> [2,1],
 */
 
 /*
-  name => 'Yaw Pan (0 = hold)',
-  type => 'OPTTYPE_UI', len => 5, ppos => 1, min => 0, max => 50, default => 20, steps => 1,
+  name => "Yaw Pan (0 = hold)",
+  type => "OPTTYPE_UI", len => 5, ppos => 1, min => 0, max => 50, default => 20, steps => 1,
   size => 2,
   adr => 16,
   column=> 4,
@@ -909,11 +977,11 @@ cameras
 
 
         /*
-  name => 'Pitch Motor Direction',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 2, steps => 1,
+  name => "Pitch Motor Direction",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 2, default => 2, steps => 1,
   size => 1,
   adr => 21,
-  choices => [ 'normal',  'reversed', 'auto' ],
+  choices => [ "normal",  "reversed", "auto" ],
 */
 
         String [] motorDirection = new String[] {"normal", "reversed", "auto"};
@@ -926,8 +994,8 @@ cameras
 
 
         /*
-  name => 'Pitch Startup Motor Pos',
-  type => 'OPTTYPE_UI', len => 5, ppos => 0, min => 0, max => 1008, default => 504, steps => 1,
+  name => "Pitch Startup Motor Pos",
+  type => "OPTTYPE_UI", len => 5, ppos => 0, min => 0, max => 1008, default => 504, steps => 1,
   size => 2,
   adr => 23,
 */
@@ -939,11 +1007,11 @@ cameras
         );
 
          /*
-  name => 'Pitch Offset',
-  type => 'OPTTYPE_SI', len => 5, ppos => 2, min => -300, max => 300, default => 0, steps => 5,
+  name => "Pitch Offset",
+  type => "OPTTYPE_SI", len => 5, ppos => 2, min => -300, max => 300, default => 0, steps => 5,
   size => 2,
   adr => 22,
-  unit=> '°',
+  unit=> "°",
 */
 
         addOption(
@@ -953,8 +1021,8 @@ cameras
         );
 
          /*
-  name => 'Roll Motor Poles',
-  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 12, max => 28, default => 14, steps => 2,
+  name => "Roll Motor Poles",
+  type => "OPTTYPE_UI", len => 0, ppos => 0, min => 12, max => 28, default => 14, steps => 2,
   size => 2,
   adr => 26,
   pos=> [3,1],
@@ -967,11 +1035,11 @@ cameras
 
 
         /*
-  name => 'Roll Motor Direction',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 2, steps => 1,
+  name => "Roll Motor Direction",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 2, default => 2, steps => 1,
   size => 1,
   adr => 27,
-  choices => [ 'normal',  'reversed', 'auto' ],
+  choices => [ "normal",  "reversed", "auto" ],
 */
 
 
@@ -983,9 +1051,67 @@ cameras
         );
 
 
+        addOption(
+                new OptionNumber("Pitch P",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 2,0,3000,400,10,2,0, "")
+        );
+
+        addOption(
+                new OptionNumber("Pitch I",
+                        OptionNumber.NumberType.UnsignedInt,
+                        7, 1,0,20000,1000,50,2,1, "")
+        );
+
+        addOption(
+                new OptionNumber("Pitch D",
+                        OptionNumber.NumberType.UnsignedInt,
+                        3, 4,0,8000,500,50,2,2, "")
+        );
+
+
+
+        addOption(
+                new OptionNumber("Roll P",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 2,0,3000,400,10,2,6, "")
+        );
+
+        addOption(
+                new OptionNumber("Roll I",
+                        OptionNumber.NumberType.UnsignedInt,
+                        7, 1,0,20000,1000,50,2,7, "")
+        );
+
+        addOption(
+                new OptionNumber("Roll D",
+                        OptionNumber.NumberType.UnsignedInt,
+                        3, 4,0,8000,500,50,2,8, "")
+        );
+
+
+        addOption(
+                new OptionNumber("Yaw P",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 2,0,3000,400,10,2,12, "")
+        );
+
+        addOption(
+                new OptionNumber("Yaw I",
+                        OptionNumber.NumberType.UnsignedInt,
+                        7, 1,0,20000,1000,50,2,13, "")
+        );
+
+        addOption(
+                new OptionNumber("Yaw D",
+                        OptionNumber.NumberType.UnsignedInt,
+                        3, 4,0,8000,500,50,2,14, "")
+        );
+
+        
          /*
-  name => 'Roll Startup Motor Pos',
-  type => 'OPTTYPE_UI', len => 5, ppos => 0, min => 0, max => 1008, default => 504, steps => 1,
+  name => "Roll Startup Motor Pos",
+  type => "OPTTYPE_UI", len => 5, ppos => 0, min => 0, max => 1008, default => 504, steps => 1,
   size => 2,
   adr => 29,
 */
@@ -997,11 +1123,11 @@ cameras
         );
 
          /*
-  name => 'Roll Offset',
-  type => 'OPTTYPE_SI', len => 5, ppos => 2, min => -300, max => 300, default => 0, steps => 5,
+  name => "Roll Offset",
+  type => "OPTTYPE_SI", len => 5, ppos => 2, min => -300, max => 300, default => 0, steps => 5,
   size => 2,
   adr => 28,
-  unit=> '°',
+  unit=> "°",
 
 */
 
@@ -1012,8 +1138,8 @@ cameras
         );
 
          /*
-  name => 'Yaw Motor Poles',
-  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 12, max => 28, default => 14, steps => 2,
+  name => "Yaw Motor Poles",
+  type => "OPTTYPE_UI", len => 0, ppos => 0, min => 12, max => 28, default => 14, steps => 2,
   size => 2,
   adr => 32,
   pos=> [4,1],
@@ -1025,11 +1151,11 @@ cameras
         );
 
          /*
-  name => 'Yaw Motor Direction',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 2, steps => 1,
+  name => "Yaw Motor Direction",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 2, default => 2, steps => 1,
   size => 1,
   adr => 33,
-  choices => [ 'normal',  'reversed', 'auto', ],
+  choices => [ "normal",  "reversed", "auto", ],
 */
 
 
@@ -1044,8 +1170,8 @@ cameras
 
 
          /*
-  name => 'Yaw Startup Motor Pos',
-  type => 'OPTTYPE_UI', len => 5, ppos => 0, min => 0, max => 1008, default => 504, steps => 1,
+  name => "Yaw Startup Motor Pos",
+  type => "OPTTYPE_UI", len => 5, ppos => 0, min => 0, max => 1008, default => 504, steps => 1,
   size => 2,
   adr => 35,
 */
@@ -1057,11 +1183,11 @@ cameras
         );
 
          /*
-  name => 'Yaw Offset',
-  type => 'OPTTYPE_SI', len => 5, ppos => 2, min => -300, max => 300, default => 0, steps => 5,
+  name => "Yaw Offset",
+  type => "OPTTYPE_SI", len => 5, ppos => 2, min => -300, max => 300, default => 0, steps => 5,
   size => 2,
   adr => 34,
-  unit=> '°',
+  unit=> "°",
 
  */
 
@@ -1072,11 +1198,11 @@ cameras
         
         /*
         {
-  name => 'Imu AHRS',
-  type => 'OPTTYPE_UI', len => 5, ppos => 2, min => 0, max => 2500, default => 1000, steps => 100,
+  name => "Imu AHRS",
+  type => "OPTTYPE_UI", len => 5, ppos => 2, min => 0, max => 2500, default => 1000, steps => 100,
   size => 2,
   adr => 81,
-  unit => 's',
+  unit => "s",
          */
 
         addOption(
@@ -1086,11 +1212,11 @@ cameras
         );
 
 /*
-name => 'Rc Pitch Offset',
-  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -1200, max => 1200, default => 0, steps => 5,
+name => "Rc Pitch Offset",
+  type => "OPTTYPE_SI", len => 0, ppos => 1, min => -1200, max => 1200, default => 0, steps => 5,
   size => 2,
   adr => 106,
-  unit => '°',
+  unit => "°",
   pos=> [2,4],
  */
 
@@ -1102,28 +1228,28 @@ name => 'Rc Pitch Offset',
         );
 
 
-        /*name => 'Imu2 Configuration',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 4, default => 0, steps => 1,
+        /*name => "Imu2 Configuration",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 4, default => 0, steps => 1,
   size => 1,
   adr => 94,
-  choices => [ 'off', 'full', 'full xy', 'full v1', 'full v1 xy' ],
+  choices => [ "off", "full", "full xy", "full v1", "full v1 xy" ],
   expert=> 5,*/
 
 
         String [] imu2configuration = new String[] { "off", "full", "full xy", "full v1", "full v1 xy" };
         addOption(
                 new OptionListA("Imu2 Configuration",
-                        0,0,0,imu2configuration.length,0,1,1,94,
+                        0,0,0,imu2configuration.length-1,0,1,1,94,
                         imu2configuration
                 )
         );
 
         /*{
-  name => 'Time Interval (0 = off)',
-  type => 'OPTTYPE_UI', len => 0, ppos => 1, min => 0, max => 150, default => 0, steps => 1,
+  name => "Time Interval (0 = off)",
+  type => "OPTTYPE_UI", len => 0, ppos => 1, min => 0, max => 150, default => 0, steps => 1,
   size => 2,
   adr => 75,
-  unit => 's',
+  unit => "s",
 
 }*/
 
@@ -1134,8 +1260,8 @@ name => 'Rc Pitch Offset',
         );
         
         /*{
-  name => 'Pwm Out Control',
-  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  name => "Pwm Out Control",
+  type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
   size => 1,
   adr => 113,
   choices => \@FunctionInputChoicesList,
@@ -1144,18 +1270,18 @@ name => 'Rc Pitch Offset',
 
         addOption(
                 new OptionListA("Pwm Out Control",
-                        0,0,0,functionInputChoicesList.length,0,1,1,113,
+                        0,0,0,functionInputChoicesList.length-1,0,1,1,113,
                         functionInputChoicesList
                 )
         );
 
         
         /*{
-  name => 'Pwm Out Mid',
-  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 900, max => 2100, default => 1500, steps => 1,
+  name => "Pwm Out Mid",
+  type => "OPTTYPE_UI", len => 0, ppos => 0, min => 900, max => 2100, default => 1500, steps => 1,
   size => 2,
   adr => 114,
-  unit => 'us',
+  unit => "us",
 }*/
         addOption(
                 new OptionNumber("Pwm Out Mid",
@@ -1165,11 +1291,11 @@ name => 'Rc Pitch Offset',
 
 
         /*{
-  name => 'Pwm Out Min',
-  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 900, max => 2100, default => 1100, steps => 10,
+  name => "Pwm Out Min",
+  type => "OPTTYPE_UI", len => 0, ppos => 0, min => 900, max => 2100, default => 1100, steps => 10,
   size => 2,
   adr => 115,
-  unit => 'us',
+  unit => "us",
 }*/
 
         addOption(
@@ -1179,11 +1305,11 @@ name => 'Rc Pitch Offset',
         );
 
         /*{
-  name => 'Pwm Out Max',
-  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 900, max => 2100, default => 1900, steps => 10,
+  name => "Pwm Out Max",
+  type => "OPTTYPE_UI", len => 0, ppos => 0, min => 900, max => 2100, default => 1900, steps => 10,
   size => 2,
   adr => 116,
-  unit => 'us',
+  unit => "us",
 }*/
         addOption(
                 new OptionNumber("Pwm Out Mid",
@@ -1192,11 +1318,11 @@ name => 'Rc Pitch Offset',
         );
 
         /*{
-  name => 'Pwm Out Speed Limit (0 = off)',
-  type => 'OPTTYPE_UI', len => 0, ppos => 0, min => 0, max => 1000, default => 0, steps => 5,
+  name => "Pwm Out Speed Limit (0 = off)",
+  type => "OPTTYPE_UI", len => 0, ppos => 0, min => 0, max => 1000, default => 0, steps => 5,
   size => 2,
   adr => 117,
-  unit => 'us/s',
+  unit => "us/s",
          */
 
         addOption(

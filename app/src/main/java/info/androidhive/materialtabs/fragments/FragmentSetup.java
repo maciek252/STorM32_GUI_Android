@@ -72,6 +72,14 @@ public class FragmentSetup extends IntermediateFragment{
 
         addPairSpinner(v, sp_imu2configuration, 94);
 
+        addPairSpinner(v, sp_pitchMotorUsage, 78);
+        addPairSpinner(v, sp_rollMotorUsage, 79);
+        addPairSpinner(v, sp_yawMotorUsage, 80);
+
+        addPairSpinner(v, sp_pwmOutConfiguration, 42);
+        addPairSpinner(v, sp_virtualChannelConfiguration, 41);
+
+
 //        updateGUI();
         updateAllControlsAccordingToOptionList();
 

@@ -9,8 +9,124 @@
         android:layout_height="fill_parent"
         android:orientation="vertical" >
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detect BT devices"
+            android:id="@+id/button_2_ReadOption"
+            android:layout_alignBaseline="@+id/textView_2_version"
+            android:layout_alignBottom="@+id/textView_2_version"
+            android:layout_toLeftOf="@+id/textViewDetectedBT"
+            android:layout_toStartOf="@+id/textViewDetectedBT" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Read Options"
+            android:id="@+id/button_2_readOptions"
+            android:layout_above="@+id/textView_2_board"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Options"
+            android:id="@+id/button_2_saveOptions"
+            android:layout_below="@+id/button_2_readOptions"
+            android:layout_alignLeft="@+id/button_2_readOptions"
+            android:layout_alignStart="@+id/button_2_readOptions"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SAVE TO EEPROM"
+            android:id="@+id/button_2_saveToEeprom" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Read USB"
+            android:id="@+id/restart"
+            android:layout_below="@+id/button_2_disconnect"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disconnect BT"
+            android:id="@+id/button_2_disconnect"
+            android:layout_below="@+id/button_2_ChangeOption"
+            android:layout_alignRight="@+id/button_2_ReadOption"
+            android:layout_alignEnd="@+id/button_2_ReadOption"/>
+
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Name"
+            android:id="@+id/button_2_setName"
+            android:layout_alignTop="@+id/textViewDetectedBT"
+            android:layout_toRightOf="@+id/textViewDetectedBT"
+            android:layout_toEndOf="@+id/textViewDetectedBT"/>
+
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Read version"
+            android:id="@+id/button_2_ReadVersion"
+            android:layout_above="@+id/textViewDetectedBT"
+            android:layout_toRightOf="@+id/buttonDetectBT"
+            android:layout_toEndOf="@+id/buttonDetectBT"
+            android:layout_marginLeft="45dp"
+            android:layout_marginStart="45dp"/>
+
+
+        <TextView
+            android:layout_width="321dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/textStatus"
+            android:layout_gravity="right" />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textDebug" />
+
+        <TextView
+            android:layout_width="129dp"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textView_2_connectionStatus"
+            android:layout_gravity="center_horizontal" />
+
         <TextView
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/textView_2_rcvBt"
+            android:layout_gravity="right" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/textView_2_name"
+            android:layout_gravity="right" />
+
+        <TextView
+            android:layout_width="177dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="PID"
@@ -30,30 +146,16 @@
             android:layout_gravity="center_horizontal"
             android:spinnerMode="dropdown" />
 
-        <TextView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Imu2 FeedForward LPF"
-            android:id="@+id/textView3" />
-
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_5_imu2_feedForward_lpf"
-            android:spinnerMode="dropdown" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Low Voltage Limit"
-            android:id="@+id/textView21" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_5_lowVoltageLimit"
-            android:spinnerMode="dropdown" />
+            android:text="Detect BTs"
+            android:id="@+id/buttonDetectBT"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/textDebug"
+            android:layout_toStartOf="@+id/textDebug"
+            android:layout_marginTop="39dp"
+            android:layout_gravity="right" />
 
         <TextView
             android:layout_width="wrap_content"

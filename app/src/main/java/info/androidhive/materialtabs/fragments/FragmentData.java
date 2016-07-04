@@ -10,9 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import info.androidhive.materialtabs.R;
+import info.androidhive.materialtabs.activity.MainActivity;
 import utils.InterFragmentCom;
 import utils.Utils;
 
@@ -32,12 +36,13 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class FragmentData extends Fragment implements View.OnClickListener {
+public class FragmentData extends Fragment implements View.OnClickListener{
 
 
 //    private SimpleBluetooth simpleBluetooth;
     Button button = null;
     TextView tv = null;
+
 
     private static final Random RANDOM = new Random();
     private LineGraphSeries<DataPoint> series;
@@ -46,6 +51,9 @@ public class FragmentData extends Fragment implements View.OnClickListener {
     private byte bufor[] = new byte[10];
 
     private FragmentConnection fragmentConnection = null;
+
+
+    private RadioGroup radioGroupImuSelect = null;
 
     final Handler handler_interact=new Handler();//not defined as final variable. may cause problem
 
@@ -115,6 +123,20 @@ public class FragmentData extends Fragment implements View.OnClickListener {
         button = (Button) v.findViewById(R.id.buttonFindIdDevices);
         button.setOnClickListener(this);
 
+        radioGroupImuSelect = (RadioGroup)v.findViewById(R.id.data_radioGroupImu);
+
+
+
+        radioGroupImuSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = (RadioButton) group.findViewById(checkedId);
+                if (null != rb && checkedId > -1) {
+                    Toast.makeText(getContext(), rb.getText(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
         tv = (TextView) v.findViewById(R.id.textView2);
 
          imuStatus = (TextView) v.findViewById(R.id.textView_data_imuState);
@@ -154,6 +176,7 @@ public class FragmentData extends Fragment implements View.OnClickListener {
             }, 0, 500);
         }
     }
+
 
     @Override
     public void onClick(View v) {

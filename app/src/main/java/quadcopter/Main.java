@@ -16,7 +16,6 @@ public class Main extends ActionBarActivity {
 
     public final String TAG = "Main";
 
-    private SeekBar elevation;
     private TextView debug;
     private TextView status;
     private Bluetooth bt;
@@ -35,28 +34,6 @@ public class Main extends ActionBarActivity {
             }
         });
 
-        elevation = (SeekBar) findViewById(R.id.seekBar);
-        elevation.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                Log.d("Seekbar","onStopTrackingTouch ");
-                int progress = seekBar.getProgress();
-                String p = String.valueOf(progress);
-                debug.setText(p);
-                bt.sendMessage(p);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                Log.d("Seekbar","onStartTrackingTouch ");
-            }
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //Log.d("Seekbar", "onProgressChanged " + progress);
-            }
-        });
 
         bt = new Bluetooth(this, mHandler);
         connectService();
