@@ -1,7 +1,5 @@
 package info.androidhive.materialtabs.fragments;
 
-import android.bluetooth.BluetoothAdapter;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import info.androidhive.materialtabs.R;
-import info.androidhive.materialtabs.activity.MainActivity;
 import utils.InterFragmentCom;
 import utils.Utils;
 
@@ -40,12 +37,15 @@ public class FragmentData extends Fragment implements View.OnClickListener{
 
 
 //    private SimpleBluetooth simpleBluetooth;
-    Button button = null;
+    Button buttonStart = null;
+    Button buttonStop = null;
     TextView tv = null;
 
 
     private static final Random RANDOM = new Random();
-    private LineGraphSeries<DataPoint> series;
+    private LineGraphSeries<DataPoint> series1;
+    private LineGraphSeries<DataPoint> series2;
+    private LineGraphSeries<DataPoint> series3;
     private int lastX = 0;
 
     private byte bufor[] = new byte[10];
@@ -120,8 +120,12 @@ public class FragmentData extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_data, container, false);
-        button = (Button) v.findViewById(R.id.buttonFindIdDevices);
-        button.setOnClickListener(this);
+        buttonStart = (Button) v.findViewById(R.id.buttonFindIdDevices);
+        buttonStart.setOnClickListener(this);
+
+        buttonStop = (Button) v.findViewById(R.id.button_data_stop);
+        buttonStop.setOnClickListener(this);
+
 
         radioGroupImuSelect = (RadioGroup)v.findViewById(R.id.data_radioGroupImu);
 
@@ -147,8 +151,18 @@ public class FragmentData extends Fragment implements View.OnClickListener{
         // we get graph view instance
         graph = (GraphView) v.findViewById(R.id.graph);
         // data
-        series = new LineGraphSeries<DataPoint>();
-        graph.addSeries(series);
+        series1 = new LineGraphSeries<DataPoint>();
+        graph.addSeries(series1);
+
+        series2 = new LineGraphSeries<DataPoint>();
+        graph.addSeries(series2);
+        series2.setColor(Color.MAGENTA);
+
+
+        series3 = new LineGraphSeries<DataPoint>();
+        graph.addSeries(series3);
+        series3.setColor(Color.GREEN);
+
         // customize a little bit viewport
         Viewport viewport = graph.getViewport();
         viewport.setYAxisBoundsManual(true);
@@ -181,21 +195,16 @@ public class FragmentData extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
 
-
-
-
-
         switch (v.getId()) {
             case R.id.buttonFindIdDevices:
 
                 timer = new Timer();
                 runUpdating();
-
-
-
-
                 break;
-
+            case R.id.button_data_stop:
+                timer.cancel();
+                timer.purge();
+                break;
 
 
 
@@ -230,10 +239,14 @@ public class FragmentData extends Fragment implements View.OnClickListener{
                 int status2 = (int) Utils.getNumberFromByteArray(a, 2);
                 int i2cError = (int) Utils.getNumberFromByteArray(a, 3);
                 double pitch = (double) Utils.getNumberFromByteArray(a, 16) / 100.0;
+                double roll = (double) Utils.getNumberFromByteArray(a, 17) / 100.0;
+                double yaw = (double) Utils.getNumberFromByteArray(a, 18) / 100.0;
                 double pitch2 = (int) Utils.getNumberFromByteArray(a, 25) / 100.0;
 
-                //series.appendData(new DataPoint(lastX++, RANDOM.nextDouble() * 10d), true, 100);
-                series.appendData(new DataPoint(lastX++, pitch), true, 30);
+                //series1.appendData(new DataPoint(lastX++, RANDOM.nextDouble() * 10d), true, 100);
+                series1.appendData(new DataPoint(lastX++, pitch), true, 30);
+                series2.appendData(new DataPoint(lastX++, roll), true, 30);
+                series3.appendData(new DataPoint(lastX++, yaw), true, 30);
 
                 byte aa = (byte) (status1 & 32);
                 if (aa != 0)
@@ -275,7 +288,7 @@ public class FragmentData extends Fragment implements View.OnClickListener{
     // add random data to graph
     private void addEntry() {
         // here, we choose to display max 10 points on the viewport and we scroll to end
-        series.appendData(new DataPoint(lastX++, RANDOM.nextDouble() * 10d), true, 100);
+        series1.appendData(new DataPoint(lastX++, RANDOM.nextDouble() * 10d), true, 100);
 
         //graph.refreshDrawableState();
         //graph.setHorizontalScrollBarEnabled(true);

@@ -78,7 +78,7 @@ public class FragmentGimbalConfiguration extends IntermediateFragment{
         b_configureGimbalTool.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-                    Toast.makeText(getContext(), "button", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "buttonStart", Toast.LENGTH_LONG).show();
                     FragmentConfigureGimbalTool1 f1 = new FragmentConfigureGimbalTool1();
     //                    ActivityConfigureGimbal1 activityConfigureGimbal1 = new ActivityConfigureGimbal1();
                 Intent intent = new Intent(getActivity(), ActivityConfigureGimbal1.class);
