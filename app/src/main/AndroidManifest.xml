@@ -56,6 +56,10 @@
             android:name=".fragments.ActivityConfigureGimbal1"
             android:label="@string/title_activity_activity_configure_gimbal1"
             android:theme="@style/MyMaterialTheme"></activity>
+        <activity
+            android:name=".fragments.ActivityConfigureGimbalMotorPoles"
+            android:label="@string/title_activity_activity_configure_gimbal1"
+            android:theme="@style/MyMaterialTheme"></activity>
     </application>
 
 </manifest>

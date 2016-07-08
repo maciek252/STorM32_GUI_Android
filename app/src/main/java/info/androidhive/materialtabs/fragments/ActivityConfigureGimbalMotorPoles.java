@@ -10,8 +10,16 @@ import android.view.View;
 import android.widget.Button;
 
 import info.androidhive.materialtabs.R;
+import info.androidhive.materialtabs.activity.ScrollableTabsActivity;
 
-public class ActivityConfigureGimbal1 extends AppCompatActivity {
+public class ActivityConfigureGimbalMotorPoles extends AppCompatActivity {
+
+    protected void startActivityFragmentGimbalConfiguration(View v){
+
+        Intent intent = new Intent(this, ScrollableTabsActivity.class);
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,24 +27,20 @@ public class ActivityConfigureGimbal1 extends AppCompatActivity {
 
 
 
-        setContentView(R.layout.activity_activity_configure_gimbal1);
+        setContentView(R.layout.content_activity_configure_motor_poles);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Button b = (Button)findViewById(R.id.button_configure_motor_poles_closee);
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                finish();
+                startActivityFragmentGimbalConfiguration(v);
             }
         });
 
-        Button bContinue = (Button)findViewById(R.id.button_wizard_1_continue);
-        bContinue.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity2(v);
-            }
-        });
 
+
+        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,14 +49,9 @@ public class ActivityConfigureGimbal1 extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        */
     }
 
-    protected void startActivity2(View v){
-
-            Intent intent = new Intent(this,ActivityConfigureGimbalMotorPoles.class);
-            //intent.putExtra(EXTRA_MESSAGE, message);
-            startActivity(intent);
-    }
 
 
 }

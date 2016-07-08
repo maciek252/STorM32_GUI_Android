@@ -120,7 +120,7 @@ public class FragmentData extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_data, container, false);
-        buttonStart = (Button) v.findViewById(R.id.buttonFindIdDevices);
+        buttonStart = (Button) v.findViewById(R.id.button_data_startGraph);
         buttonStart.setOnClickListener(this);
 
         buttonStop = (Button) v.findViewById(R.id.button_data_stop);
@@ -196,7 +196,7 @@ public class FragmentData extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.buttonFindIdDevices:
+            case R.id.button_data_startGraph:
 
                 timer = new Timer();
                 runUpdating();

@@ -16,24 +16,93 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Close"
-        android:id="@+id/button_closee"
+        android:id="@+id/button_configure_motor_poles_closee"
         android:layout_marginBottom="65dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/textView46"
-        android:layout_alignEnd="@+id/textView46" />
+        android:layout_alignParentBottom="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:id="@+id/button_wizard_1_continue"
+        android:layout_alignTop="@+id/button_configure_motor_poles_closee"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/button5"
+        android:layout_alignTop="@+id/button_wizard_1_continue"
+        android:layout_toRightOf="@+id/button_wizard_1_continue"
+        android:layout_toEndOf="@+id/button_wizard_1_continue" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/button5"
+        android:layout_toStartOf="@+id/button5"
+        android:layout_marginTop="53dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner2"
+        android:layout_below="@+id/spinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="55dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner3"
+        android:layout_above="@+id/button_configure_motor_poles_closee"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="57dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Number of motor poles"
+        android:id="@+id/textView8"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="&apos;Please choose on the right the tasks, which you want to get done.  For a first setup have all options checked.  Please note: - The motors were just disabled, as well as a heartbeat. - Any changes to the parameters in the GUI, which you haven\&apos;t written   to the board, will be lost. - Several parameters will be modified in the course of the process, and   correctness cannot be ensured in the case of a premature abort. Do a   >Read&lt; and double-check.  Press >Continue&lt; to go on.&apos; "
-        android:id="@+id/textView46"
-        android:layout_alignParentTop="true"
+        android:text="Pitch"
+        android:id="@+id/textView9"
+        android:layout_below="@+id/textView8"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/button_closee" />
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Roll"
+        android:id="@+id/textView11"
+        android:layout_below="@+id/spinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Yaw"
+        android:id="@+id/textView12"
+        android:layout_below="@+id/spinner2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
