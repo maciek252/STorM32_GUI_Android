@@ -1,0 +1,2 @@
+Interesting There are actually many ESCs that are the same code wise. The Plush 40A, AE 45A, K-Force 40A, Flyfun 40A opto, Platinum Pro 40A and 60A - all can use the same code. The only difference so far, is that only the AE and K-Force support dual voltage BEC.
+sskaug is offline  	
