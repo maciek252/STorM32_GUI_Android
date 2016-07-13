@@ -46,6 +46,8 @@ import utils.InterFragmentCom;
  */
 public class Bluetooth {
 	// Debugging
+    public static byte[] bufferExternalComm = new byte[1024];
+
 	private static final String TAG = "BluetoothService";
 	private static final boolean D = true;
 
@@ -520,7 +522,16 @@ public class Bluetooth {
 							arg2 = 0;
 
 
-					} else if(queryMode == QueryMode.SET_OPTIONS){
+					}else if(queryMode == QueryMode.GET_VERSION){
+						if(bytes >= 10 ) {
+                            arg2 = 1;
+                            bufferExternalComm = buffer;
+                        }else
+							arg2 = 0;
+
+
+					}
+					else if(queryMode == QueryMode.SET_OPTIONS){
 
 						if(bytes == 1 && buffer[0] == 'o')
 							arg2 = 1;

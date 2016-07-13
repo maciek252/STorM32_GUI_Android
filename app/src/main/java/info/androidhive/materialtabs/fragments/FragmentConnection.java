@@ -4,8 +4,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.hardware.usb.UsbDevice;
-import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -73,6 +71,8 @@ public class FragmentConnection extends Fragment
     Button button_2_changeOption = null;
     Button button_2_disconnect = null;
     Button button_2_saveToEeprom = null;
+    Button button_connectUSB = null;
+    Button button_btTest = null;
     TextView tv = null;
     TextView tv_connectionStatus = null;
     TextView tv_receivedBt = null;
@@ -119,13 +119,15 @@ public class FragmentConnection extends Fragment
 
 
         View v = inflater.inflate(R.layout.fragment_connection, container, false);
-        button = (Button) v.findViewById(R.id.buttonDetectBT);
+        button = (Button) v.findViewById(R.id.connection_button_detect_bt);
         button.setOnClickListener(this);
 
+        button_connectUSB = (Button) v.findViewById(R.id.connection_button_usb_connect);
 
         debug = (TextView) v.findViewById(R.id.textDebug);
         status = (TextView) v.findViewById(R.id.textStatus);
 
+        /*
         v.findViewById(R.id.restart).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //connectService();
@@ -133,26 +135,29 @@ public class FragmentConnection extends Fragment
                 //UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
 
             }
-        });
+        });*/
 
-        button_2_readVersion = (Button) v.findViewById(R.id.button_2_ReadVersion);
+        button_btTest = (Button) v.findViewById(R.id.connection_button_btTest);
+        button_btTest.setOnClickListener(this);
+
+        button_2_readVersion = (Button) v.findViewById(R.id.connection_button_readVersion);
         button_2_readVersion.setOnClickListener(this);
-        button_2_setName = (Button) v.findViewById(R.id.button_2_setName);
+        button_2_setName = (Button) v.findViewById(R.id.connection_button_setName);
         button_2_setName.setOnClickListener(this);
 
-        button_2_readOptions = (Button) v.findViewById(R.id.button_2_readOptions);
+        button_2_readOptions = (Button) v.findViewById(R.id.connection_button_readOptions);
         button_2_readOptions.setOnClickListener(this);
 
-        button_2_SaveOptions = (Button) v.findViewById(R.id.button_2_saveOptions);
+        button_2_SaveOptions = (Button) v.findViewById(R.id.connection_button_saveOptions);
         button_2_SaveOptions.setOnClickListener(this);
 
-        button_2_readOption = (Button) v.findViewById(R.id.button_2_ReadOption);
+        button_2_readOption = (Button) v.findViewById(R.id.connection_button_detect_bt);
         button_2_readOption.setOnClickListener(this);
 
-        button_2_disconnect = (Button) v.findViewById(R.id.button_2_disconnect);
+        button_2_disconnect = (Button) v.findViewById(R.id.connection_button_disconnectBT);
         button_2_disconnect.setOnClickListener(this);
 
-        button_2_saveToEeprom = (Button) v.findViewById(R.id.button_2_saveToEeprom);
+        button_2_saveToEeprom = (Button) v.findViewById(R.id.connection_button_saveToEeprom);
         button_2_saveToEeprom.setOnClickListener(this);
 
         tv = (TextView) v.findViewById(R.id.textViewDetectedBT);
@@ -162,8 +167,8 @@ public class FragmentConnection extends Fragment
         tv_receivedBt.setMovementMethod(new ScrollingMovementMethod());
 
 
-        tv_name =  (TextView) v.findViewById(R.id.textView_2_name);
-        tv_version = (TextView) v.findViewById(R.id.textView_2_version);
+        tv_name =  (TextView) v.findViewById(R.id.textView_connection_boardName);
+        tv_version = (TextView) v.findViewById(R.id.textView_connection_version);
         tv_board = (TextView) v.findViewById(R.id.textView_2_board);
 
 
@@ -197,7 +202,7 @@ public class FragmentConnection extends Fragment
         bt.queryMode = Bluetooth.QueryMode.NONE;
 
         switch (v.getId()) {
-            case R.id.buttonDetectBT:
+            case R.id.connection_button_btTest:
 
                 IntermediateFragment.setColorToAllControls();
 
@@ -208,21 +213,15 @@ public class FragmentConnection extends Fragment
                 dialog.showAddress(true);
                 dialog.show();
                 break;
-            case R.id.button_2_ReadVersion:
+            case  R.id.connection_button_readVersion:
                 //bluetoothSerial.getConnectedDeviceName().
 
-
-
-                optionList.voltageCorrection += 1;
-
-                messageBuffer = "";
-                //bluetoothSerial.write("v", false);
-
-
-
-                //bluetoothSerial.writ
+                bt.queryMode = Bluetooth.QueryMode.GET_VERSION;
+                String getVersion = "v";
+                bt.write2(getVersion.getBytes());
                 break;
-            case R.id.button_2_saveToEeprom:
+
+            case R.id.connection_button_saveToEeprom:
 
 
 
@@ -231,7 +230,11 @@ public class FragmentConnection extends Fragment
                 bt.write2(saveToEeprom.getBytes());
                 break;
 
-            case R.id.button_2_setName:
+            case R.id.connection_button_usb_connect:
+
+                break;
+
+            case R.id.connection_button_setName:
                 //  my $res = ExecuteCmdwCrc( 'xn', %name, 0 );
                 /*
                 sub ExecuteCmdwCrc{
@@ -261,12 +264,12 @@ public class FragmentConnection extends Fragment
                 bluetoothSerial.write(i);
 
                 break;
-            case R.id.button_2_readOptions:
+            case R.id.connection_button_readOptions:
 
                 readOptions();
 
                 break;
-            case R.id.button_2_saveOptions:
+            case R.id.connection_button_saveOptions:
                 //options = optionList.getOptions();
                 bt.queryMode = Bluetooth.QueryMode.SET_OPTIONS;
                 ;
@@ -309,7 +312,7 @@ public class FragmentConnection extends Fragment
 
                 // Execute some code after 2 seconds have passed
                 break;
-            case R.id.button_2_ReadOption:
+            case R.id.connection_button_detect_bt:
 
 
 
@@ -320,12 +323,12 @@ public class FragmentConnection extends Fragment
 
                 break;
 
-            case R.id.button_2_disconnect:
+            case R.id.connection_button_disconnectBT:
 
                 //bluetoothSerial.stop();
                 bt.stop();
                 break;
-        }
+            }
     }
 
     /* Implementation of BluetoothSerialListener */
@@ -562,7 +565,16 @@ public class FragmentConnection extends Fragment
 
 
 
-                    } else if(bt.queryMode == Bluetooth.QueryMode.SAVE_TO_EEPROM){
+                    }else if(bt.queryMode == Bluetooth.QueryMode.GET_VERSION) {
+
+                        if (msg.arg2 == 1) {
+                            String name = bt.bufferExternalComm.toString();
+                            Toast toast = Toast.makeText(getContext(), "GOT VERSION" + msg.arg1 + "/" + name, Toast.LENGTH_SHORT);
+                            //toast.setDuration;
+                            toast.show();
+                        }
+                    }
+                    else if(bt.queryMode == Bluetooth.QueryMode.SAVE_TO_EEPROM){
 
                         if(msg.arg2 == 1){
                             Toast toast = Toast.makeText(getContext(), "SAVE TO EEPROM OK, will re-read", Toast.LENGTH_SHORT);

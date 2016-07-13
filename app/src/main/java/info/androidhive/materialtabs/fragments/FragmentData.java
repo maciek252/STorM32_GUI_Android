@@ -46,6 +46,12 @@ public class FragmentData extends Fragment implements View.OnClickListener{
     private LineGraphSeries<DataPoint> series1;
     private LineGraphSeries<DataPoint> series2;
     private LineGraphSeries<DataPoint> series3;
+
+    private LineGraphSeries<DataPoint> series1_2;
+    private LineGraphSeries<DataPoint> series2_2;
+    private LineGraphSeries<DataPoint> series3_2;
+
+
     private int lastX = 0;
 
     private byte bufor[] = new byte[10];
@@ -135,8 +141,15 @@ public class FragmentData extends Fragment implements View.OnClickListener{
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);
-                if (null != rb && checkedId > -1) {
-                    Toast.makeText(getContext(), rb.getText(), Toast.LENGTH_SHORT).show();
+                //if (null != rb && checkedId > -1) {
+                  //  Toast.makeText(getContext(), rb.getText(), Toast.LENGTH_SHORT).show();
+                //}
+                if(checkedId == R.id.radioButton_data_imu1_acc){
+                    Toast.makeText(getContext(), "IMU1", Toast.LENGTH_SHORT).show();
+                    displayIMU(1);
+                } else if(checkedId == R.id.radioButton_data_imu1_gyro){
+                    Toast.makeText(getContext(), "IMU2", Toast.LENGTH_SHORT).show();
+                    displayIMU(2);
                 }
 
             }
@@ -152,16 +165,17 @@ public class FragmentData extends Fragment implements View.OnClickListener{
         graph = (GraphView) v.findViewById(R.id.graph);
         // data
         series1 = new LineGraphSeries<DataPoint>();
-        graph.addSeries(series1);
+        series1_2 = new LineGraphSeries<DataPoint>();
+
 
         series2 = new LineGraphSeries<DataPoint>();
-        graph.addSeries(series2);
-        series2.setColor(Color.MAGENTA);
+        series2_2 = new LineGraphSeries<DataPoint>();
 
 
         series3 = new LineGraphSeries<DataPoint>();
-        graph.addSeries(series3);
-        series3.setColor(Color.GREEN);
+        series3_2 = new LineGraphSeries<DataPoint>();
+
+        displayIMU(1);
 
         // customize a little bit viewport
         Viewport viewport = graph.getViewport();
@@ -171,6 +185,29 @@ public class FragmentData extends Fragment implements View.OnClickListener{
         viewport.setScrollable(true);
 
         return v;
+    }
+
+    protected void displayIMU(int nr){
+        graph.removeAllSeries();
+        if(nr == 1){
+            graph.addSeries(series1);
+            series1.setColor(Color.BLUE);
+
+            graph.addSeries(series2);
+            series2.setColor(Color.MAGENTA);
+
+            graph.addSeries(series3);
+            series3.setColor(Color.GREEN);
+        } else if(nr == 2){
+            graph.addSeries(series1_2);
+            series1_2.setColor(Color.BLUE);
+
+            graph.addSeries(series2_2);
+            series2_2.setColor(Color.MAGENTA);
+
+            graph.addSeries(series3_2);
+            series3_2.setColor(Color.GREEN);
+        }
     }
 
     private void runUpdating(){
@@ -241,12 +278,20 @@ public class FragmentData extends Fragment implements View.OnClickListener{
                 double pitch = (double) Utils.getNumberFromByteArray(a, 16) / 100.0;
                 double roll = (double) Utils.getNumberFromByteArray(a, 17) / 100.0;
                 double yaw = (double) Utils.getNumberFromByteArray(a, 18) / 100.0;
-                double pitch2 = (int) Utils.getNumberFromByteArray(a, 25) / 100.0;
+                double pitch2 = (double) Utils.getNumberFromByteArray(a, 25) / 100.0;
+                double roll2 = (double) Utils.getNumberFromByteArray(a, 26) / 100.0;
+                double yaw2 = (double) Utils.getNumberFromByteArray(a, 27) / 100.0;
+
 
                 //series1.appendData(new DataPoint(lastX++, RANDOM.nextDouble() * 10d), true, 100);
-                series1.appendData(new DataPoint(lastX++, pitch), true, 30);
-                series2.appendData(new DataPoint(lastX++, roll), true, 30);
-                series3.appendData(new DataPoint(lastX++, yaw), true, 30);
+                series1.appendData(new DataPoint(lastX, pitch), true, 30);
+                series2.appendData(new DataPoint(lastX, roll), true, 30);
+                series3.appendData(new DataPoint(lastX, yaw), true, 30);
+
+                series1_2.appendData(new DataPoint(lastX, pitch2), true, 30);
+                series2_2.appendData(new DataPoint(lastX, roll2), true, 30);
+                series3_2.appendData(new DataPoint(lastX, yaw2), true, 30);
+                lastX++;
 
                 byte aa = (byte) (status1 & 32);
                 if (aa != 0)
