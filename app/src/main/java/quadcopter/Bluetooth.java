@@ -470,6 +470,7 @@ public class Bluetooth {
 		private final InputStream mmInStream;
 		private final OutputStream mmOutStream;
 
+
 		public ConnectedThread(BluetoothSocket socket, String socketType) {
 			Log.d(TAG, "create ConnectedThread: " + socketType);
 			mmSocket = socket;
@@ -528,12 +529,15 @@ public class Bluetooth {
                         if(bytes >= 1){
                             //byte[] restr = Arrays.copyOf(buffer, 14);
                             //InterFragmentCom.setData_d(restr);
-                            buffer = InterFragmentCom.addToTempBuffer(buffer, bytes);
+                            InterFragmentCom.addToTempBuffer(buffer, bytes);
                         }
-
-                        if(buffer.length >= 48 ) {
+						int len = InterFragmentCom.getBufferLen();
+                        if(len >= 57 ) {
                             arg2 = 1;
-                            bufferExternalComm = buffer;
+                            bufferExternalComm = InterFragmentCom.getData_d();
+
+
+
                             String b = String.valueOf(buffer);
 						    System.out.println(b);
                         }else

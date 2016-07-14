@@ -2,6 +2,7 @@ package info.androidhive.materialtabs.fragments;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -36,6 +38,7 @@ import java.util.Arrays;
 
 import info.androidhive.materialtabs.storm32.*;
 import quadcopter.Bluetooth;
+import utils.InterFragmentCom;
 
 
 public class FragmentConnection extends Fragment
@@ -177,6 +180,20 @@ public class FragmentConnection extends Fragment
         tv_board = (TextView) v.findViewById(R.id.textView_2_board);
 
 
+        final InputMethodManager imm =(InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        tv_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    imm.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
+                }else{
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                imm.toggleSoftInput(0, 0);
+            }
+        });
+
         return v;
     }
 
@@ -222,6 +239,8 @@ public class FragmentConnection extends Fragment
                 //bluetoothSerial.getConnectedDeviceName().
 
                 bt.queryMode = Bluetooth.QueryMode.GET_VERSION;
+
+                InterFragmentCom.clearData();
                 String getVersion = "v";
                 bt.write2(getVersion.getBytes());
                 break;
@@ -257,6 +276,12 @@ public class FragmentConnection extends Fragment
                 /* //OK DZIAŁA
                 bluetoothSerial.write(n);
 */
+                //o = "0123456789012345";
+                o = tv_name.getText().toString();
+                if(o.length() > 16)
+                    o = o.substring(0,15);
+                else if(o.length() < 16)
+                    o = String.format("%0$-16s", o) ;
                 byte [] i = MAVLinkCRC.stringToByte("xn" + o + "cc");
                 //i[18] = (byte) 0x93;
                 //i[19] = (byte) 0xe6;
@@ -266,7 +291,10 @@ public class FragmentConnection extends Fragment
                 byte[] crcArray = MAVLinkCRC.intToHexVax(crc);
                 i[18] = crcArray[0];
                 i[19] = crcArray[1];
-                bluetoothSerial.write(i);
+//                bluetoothSerial.write(i);
+                bt.write2(i);
+
+
 
                 break;
             case R.id.connection_button_readOptions:
@@ -333,7 +361,8 @@ public class FragmentConnection extends Fragment
                 //bluetoothSerial.stop();
                 bt.stop();
                 break;
-            }
+
+        }
     }
 
     /* Implementation of BluetoothSerialListener */
@@ -573,7 +602,7 @@ public class FragmentConnection extends Fragment
                     }else if(bt.queryMode == Bluetooth.QueryMode.GET_VERSION) {
 
                         if (msg.arg2 == 1) {
-                            byte[] softVersion = Arrays.copyOfRange(bt.bufferExternalComm, 0, 16);
+                            byte[] softVersion = Arrays.copyOfRange(bt.bufferExternalComm, 0, 15);
                           //  String softVersionStr = String.valueOf(softVersion);
                             try {
                                 String softVersionStr = new String(softVersion, "UTF-8");
@@ -581,7 +610,7 @@ public class FragmentConnection extends Fragment
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
                             }
-                            byte[] boardName = Arrays.copyOfRange(bt.bufferExternalComm, 17, 32);
+                            byte[] boardName = Arrays.copyOfRange(bt.bufferExternalComm, 16, 31);
                             try {
                                 String boardNameStr = new String(boardName, "UTF-8");
                                 tv_name.setText(boardNameStr);
@@ -589,19 +618,13 @@ public class FragmentConnection extends Fragment
                                 e.printStackTrace();
                             }
 
-                            byte[] boardVersion = Arrays.copyOfRange(bt.bufferExternalComm, 33, 48);
+                            byte[] boardVersion = Arrays.copyOfRange(bt.bufferExternalComm, 32, 48);
                             try {
                                 String boardVersionStr = new String(boardVersion, "UTF-8");
                                 tv_board_version.setText(boardVersionStr);
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
                             }
-
-
-                            String name = bt.bufferExternalComm.toString();
-                            Toast toast = Toast.makeText(getContext(), "GOT VERSION" + msg.arg1 + "/" + name, Toast.LENGTH_SHORT);
-                            //toast.setDuration;
-                            toast.show();
                         }
                     }
                     else if(bt.queryMode == Bluetooth.QueryMode.SAVE_TO_EEPROM){
