@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Imu2Configuration"
-            android:id="@+id/textView_Functions_standby" />
+            android:id="@+id/textView52" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PWM Out Configuration"
-            android:id="@+id/textView_Functions_standby" />
+            android:id="@+id/textView53" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Roll Motor Usage"
-            android:id="@+id/textView_Functions_standby" />
+            android:id="@+id/textView55" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Yaw Motor Usage"
-            android:id="@+id/textView_Functions_standby" />
+            android:id="@+id/textView54" />
 
         <Spinner
             android:layout_width="match_parent"

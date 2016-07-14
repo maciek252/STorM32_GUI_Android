@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Standby"
-            android:id="@+id/textView_Functions_standby" />
+            android:id="@+id/textView47" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="IR Camera Control"
-            android:id="@+id/textView_Functions_standby" />
+            android:id="@+id/textView48" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Camera Model"
-            android:id="@+id/textView_Functions_standby" />
+            android:id="@+id/textView50" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="IR Camera Setting #1"
-            android:id="@+id/textView_Functions_standby" />
+            android:id="@+id/textView49" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="IR Camera Setting #2"
-            android:id="@+id/textView_Functions_standby" />
+            android:id="@+id/textView51" />
 
         <Spinner
             android:layout_width="match_parent"

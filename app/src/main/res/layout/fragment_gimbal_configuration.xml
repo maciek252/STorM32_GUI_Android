@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pitch Motor direction"
-            android:id="@+id/textView_Functions_standby" />
+            android:id="@+id/textView46" />
 
         <Spinner
             android:layout_width="match_parent"

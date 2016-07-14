@@ -166,20 +166,17 @@
                 android:layout_row="0"
                 android:layout_column="2" />
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="name_v"
-                android:id="@+id/textView_connection_boardName"
+                android:id="@+id/editText_connection_name"
                 android:layout_row="2"
                 android:layout_column="2"
-                android:contextClickable="true"
-                android:clickable="true"
-                android:editable="true"
-                android:enabled="true"
+                android:text="name_v"
+                android:background="#9bcaf4"
                 android:focusable="true"
-                android:focusableInTouchMode="true" />
+                android:enabled="true"
+                android:singleLine="true" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -191,7 +188,7 @@
                 android:layout_toRightOf="@+id/textViewDetectedBT"
                 android:layout_toEndOf="@+id/textViewDetectedBT"
                 android:layout_row="2"
-                android:layout_column="7" />
+                android:layout_column="6" />
 
             <TextView
                 android:layout_width="wrap_content"

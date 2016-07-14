@@ -30,6 +30,7 @@
         <activity
             android:name=".activity.ScrollableTabsActivity"
             android:label="@string/title_activity_scrollable_tabs"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />

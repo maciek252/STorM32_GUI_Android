@@ -11,7 +11,7 @@ import android.widget.TextView;
 import info.androidhive.materialtabs.R;
 
 
-public class EightFragment extends IntermediateFragment{
+public class FragmentFunctions extends IntermediateFragment{
 
     TextView tv_timeInterval = null;
     TextView tv_pwmOutMid = null;
@@ -29,7 +29,7 @@ public class EightFragment extends IntermediateFragment{
     Spinner sp_irCameraSetting2 = null;
 
 
-    public EightFragment() {
+    public FragmentFunctions() {
         // Required empty public constructor
     }
 
@@ -44,7 +44,7 @@ public class EightFragment extends IntermediateFragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.i("Storm32", "FF7: onCreateView: ");
-        View v =  inflater.inflate(R.layout.fragment_eight, container, false);
+        View v =  inflater.inflate(R.layout.fragment_functions, container, false);
 
         removeControlsFromTables();
 

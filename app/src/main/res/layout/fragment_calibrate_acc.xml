@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="2. Accelerometer Calibration Data Chose imu. Then run an accelerometer calibration, or load acc calibration data from file."
-            android:id="@+id/textView17" />
+            android:id="@+id/textView59" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -176,7 +176,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="buttons:"
-            android:id="@+id/textView17" />
+            android:id="@+id/textView60" />
 
         <GridLayout
             android:layout_width="409dp"

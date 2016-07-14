@@ -1,2 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="673d77a5bbddd766037f088e775df525c46407f0">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-23.2.1_257f2b9faa3cb80224f0c3d31d39c92b1b72c2ca.jar" />
+    </item>
+    <item
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/jars/libs/internal_impl-23.2.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="607a3d0b8013b4ccbfeb0b7cb293351994e021fb">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/pre-dexed/debug/internal_impl-23.2.1_60d6082f54a71e3357f0519b0e650a797942f5de.jar" />
+    </item>
+    <item
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="3469cb457f10f74c28cbc05f069b6c894f6cbdd0">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-23.2.1_18583ddfae30bea89505fb7b9f7365ba114366ba.jar" />
+    </item>
+    <item
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e4d0cbb0b999604b349062f0214a0a228a7fd151">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.2.1_59876ae7912eb4675aa0774be0ef948db4155985.jar" />
+    </item>
+    <item
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/design/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="72961d8b453b46e277702f18de9d210bc019e36e">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.2.1_216edc39caa2f1c67750cd6c9d04ac23a8776a60.jar" />
+    </item>
+    <item
+        jar="/opt/android-sdk/extras/android/m2repository/com/android/support/support-annotations/23.2.1/support-annotations-23.2.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="ccb693bc0774fcb637246f7360de25b4af7df318">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/pre-dexed/debug/support-annotations-23.2.1_a1951760cb0a8a4f984ad11d925cb985dcd14262.jar" />
+    </item>
+    <item
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/libs/GraphView-4.0.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8bd182a66f13dedad362bfbf992be96de2be5969">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/pre-dexed/debug/GraphView-4.0.1_ea7ce706f570e289435723179c49d822e9795eb4.jar" />
+    </item>
+    <item
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e3885783ff8926ed9e2fdcd16816c2e1e73e7aee">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.2.1_63007394da281051b401f5ae7b9d8a2ac9777253.jar" />
+    </item>
+    <item
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="3be474b1b21b31cf2fa93fe6bd641ae108d96452">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.2.1_7e7735d67ffd57ce23f0b26ccd0d620ff7d918b4.jar" />
+    </item>
+
+</items>

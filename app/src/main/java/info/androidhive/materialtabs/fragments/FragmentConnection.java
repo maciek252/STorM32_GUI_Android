@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,10 +83,10 @@ public class FragmentConnection extends Fragment
     TextView tv = null;
     TextView tv_connectionStatus = null;
     TextView tv_receivedBt = null;
-    TextView tv_name = null;
     TextView tv_board_version = null;
     TextView tv_software_version = null;
     TextView tv_board = null;
+    EditText et_name = null;
 
     private static final int REQUEST_ENABLE_BLUETOOTH = 1;
 
@@ -174,13 +175,15 @@ public class FragmentConnection extends Fragment
         tv_receivedBt.setMovementMethod(new ScrollingMovementMethod());
 
 
-        tv_name =  (TextView) v.findViewById(R.id.textView_connection_boardName);
         tv_board_version = (TextView) v.findViewById(R.id.textView_connection_board_version);
         tv_software_version = (TextView) v.findViewById(R.id.textView_connection_software_version);
         tv_board = (TextView) v.findViewById(R.id.textView_2_board);
+        et_name = (EditText) v.findViewById(R.id.editText_connection_name);
+        et_name.setText("                ");
 
+        //final InputMethodManager imm =(InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        final InputMethodManager imm =(InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        /*
         tv_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
@@ -193,7 +196,23 @@ public class FragmentConnection extends Fragment
                 imm.toggleSoftInput(0, 0);
             }
         });
+        */
+        /*
+        tv_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                tv_name.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(tv_name, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                });
+            }
+        });
+        tv_name.requestFocus();
+*/
         return v;
     }
 
@@ -277,9 +296,10 @@ public class FragmentConnection extends Fragment
                 bluetoothSerial.write(n);
 */
                 //o = "0123456789012345";
-                o = tv_name.getText().toString();
+                o = et_name.getText().toString();
+                //o = tv_name.getText().toString();
                 if(o.length() > 16)
-                    o = o.substring(0,15);
+                    o = o.substring(0,16);
                 else if(o.length() < 16)
                     o = String.format("%0$-16s", o) ;
                 byte [] i = MAVLinkCRC.stringToByte("xn" + o + "cc");
@@ -613,7 +633,8 @@ public class FragmentConnection extends Fragment
                             byte[] boardName = Arrays.copyOfRange(bt.bufferExternalComm, 16, 31);
                             try {
                                 String boardNameStr = new String(boardName, "UTF-8");
-                                tv_name.setText(boardNameStr);
+                                //tv_name.setText(boardNameStr);
+                                et_name.setText(boardNameStr);
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
                             }

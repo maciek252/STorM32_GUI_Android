@@ -14,18 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.materialtabs.R;
-import info.androidhive.materialtabs.fragments.EightFragment;
+import info.androidhive.materialtabs.fragments.FragmentFunctions;
 import info.androidhive.materialtabs.fragments.FragmentPid;
 import info.androidhive.materialtabs.fragments.FourFragment;
 import info.androidhive.materialtabs.fragments.FragmentCalibrateAcc;
 import info.androidhive.materialtabs.fragments.FragmentGimbalConfiguration;
 import info.androidhive.materialtabs.fragments.FragmentScripts;
 import info.androidhive.materialtabs.fragments.FragmentSetup;
-import info.androidhive.materialtabs.fragments.NineFragment;
 import info.androidhive.materialtabs.fragments.FragmentData;
 import info.androidhive.materialtabs.fragments.FragmentRcInput;
 import info.androidhive.materialtabs.fragments.FragmentPan;
-import info.androidhive.materialtabs.fragments.TenFragment;
 import info.androidhive.materialtabs.fragments.ThreeFragment;
 import info.androidhive.materialtabs.fragments.FragmentConnection;
 
@@ -77,7 +75,7 @@ public class ScrollableTabsActivity extends AppCompatActivity {
         adapter.addFrag(new FragmentPan(), "PAN");
         adapter.addFrag(new FragmentPid(), "PID");
         adapter.addFrag(new FragmentRcInput(), "RC INPUT");
-        adapter.addFrag(new EightFragment(), "FUNCTIONS");
+        adapter.addFrag(new FragmentFunctions(), "FUNCTIONS");
         adapter.addFrag(new FragmentScripts(), "SCRIPTS");
         adapter.addFrag(new FragmentSetup(), "SETUP");
         adapter.addFrag(new FragmentGimbalConfiguration(), "GIMBAL CONF.");
