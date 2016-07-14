@@ -29,7 +29,7 @@ public class InterFragmentCom {
         return data_d;
     }
 
-    static public void addToTempBuffer(byte [] o, int num) {
+    static public byte[] addToTempBuffer(byte [] o, int num) {
 
 
         //byte [] oo = System.arraycopy(o, 0, num);
@@ -50,6 +50,7 @@ public class InterFragmentCom {
 
             data_d = outputStream.toByteArray();
         }
+        return data_d;
     }
 
     static public void clearData(){

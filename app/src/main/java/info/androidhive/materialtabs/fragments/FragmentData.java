@@ -39,7 +39,7 @@ public class FragmentData extends Fragment implements View.OnClickListener{
 //    private SimpleBluetooth simpleBluetooth;
     Button buttonStart = null;
     Button buttonStop = null;
-    TextView tv = null;
+    //TextView tv = null;
 
 
     private static final Random RANDOM = new Random();
@@ -154,7 +154,7 @@ public class FragmentData extends Fragment implements View.OnClickListener{
 
             }
         });
-        tv = (TextView) v.findViewById(R.id.textView2);
+        //tv = (TextView) v.findViewById(R.id.textView2);
 
          imuStatus = (TextView) v.findViewById(R.id.textView_data_imuState);
         imu2Status = (TextView) v.findViewById(R.id.textView_data_imu2_state);
@@ -271,7 +271,7 @@ public class FragmentData extends Fragment implements View.OnClickListener{
 
             byte [] a = InterFragmentCom.getData_d();
             synchronized (a){
-            if(tv != null && a != null && a.length > 10) {
+            if( a != null && a.length > 10) {
                 int status1 = (int) Utils.getNumberFromByteArray(a, 1);
                 int status2 = (int) Utils.getNumberFromByteArray(a, 2);
                 int i2cError = (int) Utils.getNumberFromByteArray(a, 3);
@@ -304,7 +304,7 @@ public class FragmentData extends Fragment implements View.OnClickListener{
 
                 int voltage = (int) Utils.getNumberFromByteArray(a, 4);
                 int magYaw = (int) Utils.getNumberFromByteArray(a, 28);
-                tv.setText(" i2cerr=" + i2cError + " p1=" + pitch + "p2=" + pitch2 + " v=" + voltage + " mag=" + magYaw + "s1=" + status1 + " s2=" + status2);
+               // tv.setText(" i2cerr=" + i2cError + " p1=" + pitch + "p2=" + pitch2 + " v=" + voltage + " mag=" + magYaw + "s1=" + status1 + " s2=" + status2);
             }
             }
 

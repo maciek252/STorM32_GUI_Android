@@ -523,9 +523,19 @@ public class Bluetooth {
 
 
 					}else if(queryMode == QueryMode.GET_VERSION){
-						if(bytes >= 10 ) {
+                        // version str "v": v2.02 ntOlliW 323BGCv1.30 F103RC�_�Lo
+
+                        if(bytes >= 1){
+                            //byte[] restr = Arrays.copyOf(buffer, 14);
+                            //InterFragmentCom.setData_d(restr);
+                            buffer = InterFragmentCom.addToTempBuffer(buffer, bytes);
+                        }
+
+                        if(buffer.length >= 48 ) {
                             arg2 = 1;
                             bufferExternalComm = buffer;
+                            String b = String.valueOf(buffer);
+						    System.out.println(b);
                         }else
 							arg2 = 0;
 

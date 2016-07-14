@@ -111,11 +111,11 @@
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Version:"
+                android:text="Board Version:"
                 android:id="@+id/textView17"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:background="#335c51" />
+                android:background="#669e8f" />
 
             <TextView
                 android:layout_width="75dp"
@@ -131,19 +131,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Board Name"
-                android:id="@+id/textView46"
+                android:text="soft_version_v"
+                android:id="@+id/textView_connection_software_version"
                 android:layout_row="1"
-                android:layout_column="0"
-                android:layout_columnSpan="2"
-                android:background="#99c3c0" />
+                android:layout_column="2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="version_v"
-                android:id="@+id/textView_connection_version"
+                android:text="Board Name"
+                android:id="@+id/textView46"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:layout_columnSpan="2"
+                android:background="#99c3c0" />
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Version:"
+                android:id="@+id/textView57"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:background="#335c51" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="board_version_v"
+                android:id="@+id/textView_connection_board_version"
                 android:layout_row="0"
                 android:layout_column="2" />
 
@@ -153,7 +172,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="name_v"
                 android:id="@+id/textView_connection_boardName"
-                android:layout_row="1"
+                android:layout_row="2"
                 android:layout_column="2"
                 android:contextClickable="true"
                 android:clickable="true"
@@ -171,7 +190,7 @@
                 android:layout_alignTop="@+id/textViewDetectedBT"
                 android:layout_toRightOf="@+id/textViewDetectedBT"
                 android:layout_toEndOf="@+id/textViewDetectedBT"
-                android:layout_row="1"
+                android:layout_row="2"
                 android:layout_column="7" />
 
             <TextView
@@ -180,7 +199,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Conn. status:"
                 android:id="@+id/textView50"
-                android:layout_row="2"
+                android:layout_row="3"
                 android:layout_column="0" />
 
             <TextView
@@ -189,7 +208,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Small Text"
                 android:id="@+id/textView_connection_connectionStatus"
-                android:layout_row="2"
+                android:layout_row="3"
                 android:layout_column="2" />
 
             <TextView

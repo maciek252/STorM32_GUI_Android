@@ -31,6 +31,9 @@ import com.macroyau.blue2serial.BluetoothSerialListener;
 
 import org.mavlink.*;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+
 import info.androidhive.materialtabs.storm32.*;
 import quadcopter.Bluetooth;
 
@@ -77,7 +80,8 @@ public class FragmentConnection extends Fragment
     TextView tv_connectionStatus = null;
     TextView tv_receivedBt = null;
     TextView tv_name = null;
-    TextView tv_version = null;
+    TextView tv_board_version = null;
+    TextView tv_software_version = null;
     TextView tv_board = null;
 
     private static final int REQUEST_ENABLE_BLUETOOTH = 1;
@@ -168,7 +172,8 @@ public class FragmentConnection extends Fragment
 
 
         tv_name =  (TextView) v.findViewById(R.id.textView_connection_boardName);
-        tv_version = (TextView) v.findViewById(R.id.textView_connection_version);
+        tv_board_version = (TextView) v.findViewById(R.id.textView_connection_board_version);
+        tv_software_version = (TextView) v.findViewById(R.id.textView_connection_software_version);
         tv_board = (TextView) v.findViewById(R.id.textView_2_board);
 
 
@@ -568,6 +573,31 @@ public class FragmentConnection extends Fragment
                     }else if(bt.queryMode == Bluetooth.QueryMode.GET_VERSION) {
 
                         if (msg.arg2 == 1) {
+                            byte[] softVersion = Arrays.copyOfRange(bt.bufferExternalComm, 0, 16);
+                          //  String softVersionStr = String.valueOf(softVersion);
+                            try {
+                                String softVersionStr = new String(softVersion, "UTF-8");
+                                tv_software_version.setText(softVersionStr);
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                            byte[] boardName = Arrays.copyOfRange(bt.bufferExternalComm, 17, 32);
+                            try {
+                                String boardNameStr = new String(boardName, "UTF-8");
+                                tv_name.setText(boardNameStr);
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+
+                            byte[] boardVersion = Arrays.copyOfRange(bt.bufferExternalComm, 33, 48);
+                            try {
+                                String boardVersionStr = new String(boardVersion, "UTF-8");
+                                tv_board_version.setText(boardVersionStr);
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+
+
                             String name = bt.bufferExternalComm.toString();
                             Toast toast = Toast.makeText(getContext(), "GOT VERSION" + msg.arg1 + "/" + name, Toast.LENGTH_SHORT);
                             //toast.setDuration;

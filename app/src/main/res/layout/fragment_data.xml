@@ -10,104 +10,68 @@
         android:layout_width="match_parent"
         android:layout_height="300dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start"
-        android:id="@+id/button_data_startGraph"
-        android:layout_alignTop="@+id/button_data_stop"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/button_data_startGraph"
+        android:columnCount="38"
+        android:columnOrderPreserved="true"
+        android:rowCount="13"
+        android:layout_below="@+id/graph"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:columnCount="24"
-        android:layout_centerInParent="true"
-        android:columnOrderPreserved="true"
-        android:rowCount="13">
+        android:layout_alignRight="@+id/textView49"
+        android:layout_alignEnd="@+id/textView49">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:id="@+id/button_data_startGraph"
+            android:layout_alignTop="@+id/button_data_stop"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_row="2"
+            android:layout_column="0" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop"
+            android:id="@+id/button_data_stop"
+            android:layout_below="@+id/graph"
+            android:layout_toRightOf="@+id/button_data_startGraph"
+            android:layout_toEndOf="@+id/button_data_startGraph"
+            android:layout_row="2"
+            android:layout_column="6" />
 
         <RadioGroup
-            android:layout_width="216dp"
-            android:layout_height="113dp"
-            android:layout_row="9"
-            android:layout_column="1"
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="37"
             android:id="@+id/data_radioGroupImu">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="IMU1: Gyro"
-                android:id="@+id/radioButton_data_imu1_gyro"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:checked="false" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="AccX, AccY, AccZ IMU1"
+                android:text="IMU1"
                 android:id="@+id/radioButton_data_imu1_acc"
                 android:layout_row="0"
                 android:layout_column="0"
                 android:checked="false" />
 
-        </RadioGroup>
-
-        <TextView
-            android:layout_width="152dp"
-            android:layout_height="111dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/textView2"
-            android:singleLine="false"
-            android:layout_below="@+id/button_data_startGraph"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="false"
-            android:layout_alignRight="@+id/button_data_startGraph"
-            android:layout_alignEnd="@+id/button_data_startGraph"
-            android:layout_alignParentEnd="false"
-            android:layout_row="12"
-            android:layout_column="1" />
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_row="9"
-            android:layout_column="23">
-
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="IMU2: Gyro"
-                android:id="@+id/radioButton_data_imu2_acc"
+                android:text="IMU2"
+                android:id="@+id/radioButton_data_imu1_gyro"
                 android:layout_row="1"
-                android:layout_column="21"
+                android:layout_column="0"
                 android:checked="false" />
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="IMU2: Acc"
-                android:id="@+id/radioButton_data_imu2_acc"
-                android:layout_row="0"
-                android:layout_column="21"
-                android:checked="false" />
         </RadioGroup>
 
     </GridLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stop"
-        android:id="@+id/button_data_stop"
-        android:layout_below="@+id/graph"
-        android:layout_toRightOf="@+id/button_data_startGraph"
-        android:layout_toEndOf="@+id/button_data_startGraph" />
 
     <TextView
         android:layout_width="wrap_content"
