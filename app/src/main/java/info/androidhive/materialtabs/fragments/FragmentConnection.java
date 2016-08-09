@@ -102,6 +102,7 @@ public class FragmentConnection extends Fragment
 
         // Check Bluetooth availability on the device and set up the Bluetooth adapter
         bluetoothSerial.setup();
+        setControlsNotConnected();
     }
 
 
@@ -181,6 +182,8 @@ public class FragmentConnection extends Fragment
         et_name = (EditText) v.findViewById(R.id.editText_connection_name);
         et_name.setText("                ");
 
+
+
         //final InputMethodManager imm =(InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
         /*
@@ -234,6 +237,26 @@ public class FragmentConnection extends Fragment
     public void readData_d(){
         bt.queryMode = Bluetooth.QueryMode.GET_DATA_D;
         bt.sendMessage("d");
+    }
+
+
+    protected void setControlsNotConnected(){
+        button_2_disconnect.setEnabled(false);
+        button_2_readVersion.setEnabled(false);
+        button_2_SaveOptions.setEnabled(false);
+        button_2_saveToEeprom.setEnabled(false);
+    }
+
+    protected void setControlsBTConnected(){
+        button_2_disconnect.setEnabled(true);
+        button_2_readVersion.setEnabled(true);
+        button_2_SaveOptions.setEnabled(false);
+        button_2_saveToEeprom.setEnabled(false);
+    }
+
+    protected void setControlsDataRead(){
+        button_2_SaveOptions.setEnabled(true);
+        button_2_saveToEeprom.setEnabled(true);
     }
 
 
@@ -427,6 +450,7 @@ public class FragmentConnection extends Fragment
         //invalidateOptionsMenu();
         //updateBluetoothState();
         tv_connectionStatus.setText("connected");
+        setControlsBTConnected();
     }
 
     @Override
@@ -436,8 +460,6 @@ public class FragmentConnection extends Fragment
         String s2 = String.format("%01X", m[1]);
         int i4 = (m[0] & 0x0F)  * 16 + (m[0] & 0xF0);
         int i5 = (m[0] & 0xF0)  * 16 + (m[0] & 0x0F);
-
-
     }
 
     @Override
@@ -613,11 +635,11 @@ public class FragmentConnection extends Fragment
                 case Bluetooth.MESSAGE_READ:
                     Log.d(TAG, "MESSAGE_READ " + msg.arg1 + " " + msg.arg2);
                     if(bt.queryMode == Bluetooth.QueryMode.GET_OPTIONS && msg.arg2 == 1){
+                        setControlsDataRead();
+
                         Toast toast = Toast.makeText(getContext(), "options received CRC OK!", Toast.LENGTH_SHORT);
                         //toast.setDuration;
                         toast.show();
-
-
 
                     }else if(bt.queryMode == Bluetooth.QueryMode.GET_VERSION) {
 
