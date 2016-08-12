@@ -247,6 +247,55 @@
             android:id="@+id/textStatus" />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="textStatusUSB"
+            android:id="@+id/textStatusUSB"
+            android:layout_row="1"
+            android:layout_column="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="soft_version_v"
+            android:id="@+id/textInfo"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="soft_version_v"
+            android:id="@+id/textInfoInterface"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="soft_version_v"
+            android:id="@+id/textInfoEndPoint"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="soft_version_v"
+            android:id="@+id/textDeviceName"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -254,6 +303,20 @@
             android:contextClickable="true"
             android:editable="true"
             android:layout_gravity="right" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spInterface"
+            android:layout_gravity="center_horizontal"
+            android:spinnerMode="dropdown" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spEndPoint"
+            android:layout_gravity="center_horizontal"
+            android:spinnerMode="dropdown" />
 
     </LinearLayout>
 

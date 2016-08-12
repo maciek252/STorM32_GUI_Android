@@ -1,12 +1,24 @@
 package info.androidhive.materialtabs.fragments;
 
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbInterface;
+import android.hardware.usb.UsbManager;
+import android.content.BroadcastReceiver;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.hardware.usb.UsbConstants;
+import android.hardware.usb.UsbEndpoint;
+import android.hardware.usb.UsbRequest;
 import android.os.Bundle;
 import android.os.Handler;
+import java.util.ArrayList;
 import android.os.Message;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
@@ -18,11 +30,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import android.widget.Spinner;
 
 
 import info.androidhive.materialtabs.R;
@@ -35,7 +51,10 @@ import com.macroyau.blue2serial.BluetoothSerialListener;
 import org.mavlink.*;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import info.androidhive.materialtabs.storm32.*;
 import quadcopter.Bluetooth;
@@ -44,8 +63,7 @@ import utils.InterFragmentCom;
 
 public class FragmentConnection extends Fragment
         implements BluetoothSerialListener, BluetoothDeviceListDialog.OnDeviceSelectedListener,
-        View.OnClickListener
-{
+        View.OnClickListener {
 
     ViewPager vp = null;
 
@@ -55,17 +73,48 @@ public class FragmentConnection extends Fragment
 
     private SeekBar elevation;
     private TextView debug;
+    private TextView textStatusUSB;
+    TextView textInfo;
+    TextView textInfoInterface;
+    TextView textEndPoint;
+
+    TextView textDeviceName;
+
+
     private TextView status;
     private Bluetooth bt;
 
+    private UsbManager mUsbManager;
+    private UsbDevice mDevice;
+    private UsbDeviceConnection mConnection;
+    private UsbEndpoint mEndpointIntr;
+
+    Spinner spInterface;
+    ArrayList<String> listInterface;
+    ArrayList<UsbInterface> listUsbInterface;
+    ArrayAdapter<String> adapterInterface;
+
+    Spinner spEndPoint;
+    ArrayList<String> listEndPoint;
+    ArrayList<UsbEndpoint> listUsbEndpoint;
+    ArrayAdapter<String> adapterEndpoint;
 
 
+    private static final String ACTION_USB_PERMISSION =
+            "com.android.example.USB_PERMISSION";
+    PendingIntent mPermissionIntent;
+
+    private static final int targetVendorID = 1155;
+    private static final int targetProductID = 22336;
+    UsbDevice deviceFound = null;
+
+    UsbInterface usbInterface;
+    UsbDeviceConnection usbDeviceConnection;
 
 
     String messageBuffer = "";
 
     //byte [] options = null;
-
 
 
     Button button = null;
@@ -106,19 +155,583 @@ public class FragmentConnection extends Fragment
     }
 
 
+    private BroadcastReceiver mUsbDeviceReceiver =
+            new BroadcastReceiver() {
+
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    String action = intent.getAction();
+                    if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
+
+
+                        deviceFound = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                        Toast.makeText(getActivity(),
+                                "ACTION_USB_DEVICE_ATTACHED: \n" +
+                                        deviceFound.toString(),
+                                Toast.LENGTH_LONG).show();
+                        //textStatus.setText("ACTION_USB_DEVICE_ATTACHED: \n" +
+                        //      deviceFound.toString());
+
+                        //checkDeviceInfoSkipDeviceSearching();
+                        //doRawDescriptors();
+                    } else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
+
+                        UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+
+
+                        Toast.makeText(getActivity(),
+                                "ACTION_USB_DEVICE_DETACHED: \n" +
+                                        device.toString(),
+                                Toast.LENGTH_LONG).show();
+
+                        //textStatus.setText("ACTION_USB_DEVICE_DETACHED: \n" +
+//                                device.toString());
+
+                        if (device != null) {
+                            //if(device == deviceFound){
+                            //  releaseUsb();
+                            //}
+                        }
+
+                        /*
+                        textInfo.setText("");
+                        textInfoInterface.setText("");
+                        textEndPoint.setText("");
+
+                        listInterface.clear();
+                        listUsbInterface.clear();
+                        adapterInterface.notifyDataSetChanged();
+
+                        listEndPoint.clear();
+                        listUsbEndpoint.clear();
+                        adapterEndpoint.notifyDataSetChanged();
+                        */
+                    }
+                }
+
+            };
+
+
+    private void doReadRawDescriptors(UsbDevice device) {
+        final int STD_USB_REQUEST_GET_DESCRIPTOR = 0x06;
+        final int LIBUSB_DT_STRING = 0x03;
+
+        boolean forceClaim = true;
+
+        byte[] buffer = new byte[255];
+        int indexManufacturer = 14;
+        int indexProduct = 15;
+        String stringManufacturer = "";
+        String stringProduct = "";
+
+        UsbManager manager = (UsbManager) getActivity().getSystemService(Context.USB_SERVICE);
+        usbDeviceConnection = manager.openDevice(device);
+        if (usbDeviceConnection != null) {
+            usbInterface = device.getInterface(0);
+            usbDeviceConnection.claimInterface(usbInterface, forceClaim);
+
+            byte[] rawDescriptors = usbDeviceConnection.getRawDescriptors();
+
+            int lengthManufacturer = usbDeviceConnection.controlTransfer(
+                    UsbConstants.USB_DIR_IN | UsbConstants.USB_TYPE_STANDARD,
+                    STD_USB_REQUEST_GET_DESCRIPTOR,
+                    (LIBUSB_DT_STRING << 8) | rawDescriptors[indexManufacturer],
+                    0,
+                    buffer,
+                    0xFF,
+                    0);
+            try {
+                stringManufacturer = new String(buffer, 2, lengthManufacturer - 2, "UTF-16LE");
+            } catch (UnsupportedEncodingException e) {
+                Toast.makeText(getActivity(), "RAW:" + e.toString(), Toast.LENGTH_LONG).show();
+                //textStatus.setText(e.toString());
+            }
+
+            int lengthProduct = usbDeviceConnection.controlTransfer(
+                    UsbConstants.USB_DIR_IN | UsbConstants.USB_TYPE_STANDARD,
+                    STD_USB_REQUEST_GET_DESCRIPTOR,
+                    (LIBUSB_DT_STRING << 8) | rawDescriptors[indexProduct],
+                    0,
+                    buffer,
+                    0xFF,
+                    0);
+            try {
+                stringProduct = new String(buffer, 2, lengthProduct - 2, "UTF-16LE");
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            Toast.makeText(getActivity(),
+                    "RAWManufacturer: " + stringManufacturer + "\n" +
+                            "RAWProduct: " + stringProduct,
+                    Toast.LENGTH_LONG).show();
+            //textStatus.setText("Manufacturer: " + stringManufacturer + "\n" +
+            //      "Product: " + stringProduct);
+        } else {
+            Toast.makeText(getActivity(),
+                    "RAWopen failed",
+                    Toast.LENGTH_LONG).show();
+            //textStatus.setText("open failed");
+        }
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
+
+
         // Create a new instance of BluetoothSerial
         bluetoothSerial = new BluetoothSerial(getContext(), this);
         bt = new Bluetooth(getContext(), mHandler);
 
+        //mUsbManager = (UsbManager)getActivity().getSystemService(Context.USB_SERVICE);
+
+        // usb
 
 
+
+
+        //register the broadcast receiver
+        mPermissionIntent = PendingIntent.getBroadcast(getActivity(), 0, new Intent(ACTION_USB_PERMISSION), 0);
+        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+        getActivity().registerReceiver(mUsbReceiver, filter);
+
+        getActivity().registerReceiver(mUsbDeviceReceiver, new IntentFilter(UsbManager.ACTION_USB_DEVICE_ATTACHED));
+        //registerReceiver(mUsbDeviceReceiver, new IntentFilter(UsbManager.ACTION_USB_DEVICE_DETACHED));
+
+        //connectUsb();
 
     }
+
+    private void connectUsb() {
+
+        Toast.makeText(getActivity(),
+                "connectUsb()",
+                Toast.LENGTH_LONG).show();
+        textStatusUSB.setText("connectUsb()");
+
+        checkDeviceInfo();
+        if (deviceFound != null) {
+                //doRawDescriptors();
+        }
+
+        // albo doRawDescriptors, albo to co nizej
+        //if(true)
+          //  return;
+
+
+        if(deviceFound != null) {
+            UsbInterface intf = null;
+            try {
+                intf = deviceFound.getInterface(1);
+            } catch (Exception e){
+                textStatusUSB.setText("ifejsow:" + deviceFound.getInterfaceCount() + "error getting intf:" +
+                        e.getMessage());
+                return;
+            }
+
+
+            if(intf == null) {
+
+                textStatusUSB.setText("coldn't get interface");
+                return;
+            }
+
+            textStatusUSB.setText("got interface, num of i=" + deviceFound.getInterfaceCount());
+            //if(true)
+            //  return;
+
+            if (intf.getEndpointCount() != 2) {
+                //Log.e(TAG, "could not find endpoint");
+
+                Toast.makeText(getActivity(),
+                        "could not find endpoint",
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            textStatusUSB.setText("got endpoint");
+
+
+
+            UsbEndpoint ep = intf.getEndpoint(0);
+            /*
+            if (ep.getType() != UsbConstants.USB_ENDPOINT_XFER_INT) {
+                Toast.makeText(getActivity(),
+                        "endpoint type (not interrupt)=" + ep.getType() + ",epOut=" + ep.getDirection(),
+                        Toast.LENGTH_LONG).show();
+                Log.e(TAG, "endpoint is not interrupt type");
+                return;
+            }
+            */
+
+            UsbEndpoint epIN = intf.getEndpoint(1);
+
+            textStatusUSB.setText("got endpoint OK");
+
+
+            UsbDeviceConnection connection = null;
+            try {
+                mUsbManager = (UsbManager)getActivity().getSystemService(Context.USB_SERVICE);
+                 connection = mUsbManager.openDevice(deviceFound);
+                textStatusUSB.setText("got connection");
+            } catch (Exception e){
+                textStatusUSB.setText("problem" + e.getMessage());
+            }
+
+
+
+
+            if(connection == null){
+                textStatusUSB.setText("USB connection null...!");
+            } else {
+
+
+
+                if (connection.claimInterface(intf, true)) {
+                    Log.d(TAG, "open SUCCESS");
+                    textStatusUSB.setText("open SUceess");
+
+                    //if(true)
+                      //  return;
+
+
+                    byte[] message = new byte[1];
+                    message[0] = (byte) 'v';
+                    // Send command via a control request on endpoint zero
+                    mConnection = connection;
+                    //mConnection.controlTransfer(0x21, 0x9, 0x200, 0, message, message.length, 0);
+                    int sentBytes = connection.bulkTransfer(ep, message, message.length, 1000);
+
+//                Thread thread = new Thread(this);
+//                thread.start();
+                    textStatusUSB.setText("USB message sent!" + sentBytes);
+
+                } else {
+                    Log.d(TAG, "open FAIL");
+                    //mConnection = null;
+                    textStatusUSB.setText("open claim interface failed!");
+                }
+            }
+
+            /*
+            UsbRequest request = new UsbRequest();
+            request.initialize(mConnection, epIN);
+            byte status = -1;
+            while (true) {
+
+            }
+            */
+            byte[] readBytes = new byte[64];
+            int recvBytes = connection.bulkTransfer(epIN, readBytes, readBytes.length, 3000);
+
+            if(recvBytes > 0)
+            {
+                Toast.makeText(getActivity(),
+                        "Got some data: " + new String(readBytes),
+                        Toast.LENGTH_LONG).show();
+                //Log.d("trebla", "Got some data: " + new String(readBytes));
+            }
+            else
+            {
+                Toast.makeText(getActivity(),
+                        "Didng't get any data...",
+                        Toast.LENGTH_LONG).show();
+                //Log.d("trebla", "Did not get any data: " + recvBytes);
+            }
+
+
+            //private UsbDeviceConnection mConnection;
+            //private UsbEndpoint mEndpointIntr;
+        }
+
+    }
+
+    private void doRawDescriptors(){
+        UsbDevice deviceToRead = deviceFound;
+        UsbManager manager = (UsbManager) getActivity().getSystemService(Context.USB_SERVICE);
+
+        Boolean permitToRead = manager.hasPermission(deviceToRead);
+
+        if(permitToRead){
+            doReadRawDescriptors(deviceToRead);
+        }else{
+            manager.requestPermission(deviceToRead, mPermissionIntent);
+            Toast.makeText(getActivity(),
+                    "Permission: " + permitToRead,
+                    Toast.LENGTH_LONG).show();
+            textStatusUSB.setText("Permission: " + permitToRead);
+        }
+    }
+
+    private void checkDeviceInfo() {
+
+        deviceFound = null;
+
+        UsbManager manager = (UsbManager) getActivity().getSystemService(Context.USB_SERVICE);
+        HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
+        Iterator<UsbDevice> deviceIterator = deviceList.values().iterator();
+
+        while (deviceIterator.hasNext()) {
+            UsbDevice device = deviceIterator.next();
+
+            if (device.getVendorId() == targetVendorID) {
+                if (device.getProductId() == targetProductID) {
+                    deviceFound = device;
+                }
+            }
+
+           // deviceFound = device;
+        }
+
+        textInfo.setText("");
+        textInfoInterface.setText("");
+        textEndPoint.setText("");
+
+        if (deviceFound == null) {
+            Toast.makeText(getActivity(),
+                    "device not found",
+                    Toast.LENGTH_LONG).show();
+            textStatusUSB.setText("device not found");
+        } else {
+            String i = deviceFound.toString() + "\n" +
+                    "DeviceID: " + deviceFound.getDeviceId() + "\n" +
+                    "DeviceName: " + deviceFound.getDeviceName() + "\n" +
+                    "DeviceClass: " + deviceFound.getDeviceClass() + " - "
+                    + translateDeviceClass(deviceFound.getDeviceClass()) + "\n" +
+                    "DeviceSubClass: " + deviceFound.getDeviceSubclass() + "\n" +
+                    "VendorID: " + deviceFound.getVendorId() + "\n" +
+                    "ProductID: " + deviceFound.getProductId() + "\n" +
+                    "InterfaceCount: " + deviceFound.getInterfaceCount();
+            textInfo.setText(i);
+
+            checkUsbDevicve(deviceFound);
+        }
+
+    }
+
+    private String translateDeviceClass(int deviceClass) {
+        switch (deviceClass) {
+            case UsbConstants.USB_CLASS_APP_SPEC:
+                return "Application specific USB class";
+            case UsbConstants.USB_CLASS_AUDIO:
+                return "USB class for audio devices";
+            case UsbConstants.USB_CLASS_CDC_DATA:
+                return "USB class for CDC devices (communications device class)";
+            case UsbConstants.USB_CLASS_COMM:
+                return "USB class for communication devices";
+            case UsbConstants.USB_CLASS_CONTENT_SEC:
+                return "USB class for content security devices";
+            case UsbConstants.USB_CLASS_CSCID:
+                return "USB class for content smart card devices";
+            case UsbConstants.USB_CLASS_HID:
+                return "USB class for human interface devices (for example, mice and keyboards)";
+            case UsbConstants.USB_CLASS_HUB:
+                return "USB class for USB hubs";
+            case UsbConstants.USB_CLASS_MASS_STORAGE:
+                return "USB class for mass storage devices";
+            case UsbConstants.USB_CLASS_MISC:
+                return "USB class for wireless miscellaneous devices";
+            case UsbConstants.USB_CLASS_PER_INTERFACE:
+                return "USB class indicating that the class is determined on a per-interface basis";
+            case UsbConstants.USB_CLASS_PHYSICA:
+                return "USB class for physical devices";
+            case UsbConstants.USB_CLASS_PRINTER:
+                return "USB class for printers";
+            case UsbConstants.USB_CLASS_STILL_IMAGE:
+                return "USB class for still image devices (digital cameras)";
+            case UsbConstants.USB_CLASS_VENDOR_SPEC:
+                return "Vendor specific USB class";
+            case UsbConstants.USB_CLASS_VIDEO:
+                return "USB class for video devices";
+            case UsbConstants.USB_CLASS_WIRELESS_CONTROLLER:
+                return "USB class for wireless controller devices";
+            default:
+                return "Unknown USB class!";
+
+        }
+    }
+
+
+    private void checkUsbDevicve(UsbDevice d) {
+        listInterface = new ArrayList<String>();
+        listUsbInterface = new ArrayList<UsbInterface>();
+
+        for (int i = 0; i < d.getInterfaceCount(); i++) {
+            UsbInterface usbif = d.getInterface(i);
+            listInterface.add(usbif.toString());
+            listUsbInterface.add(usbif);
+        }
+
+        adapterInterface = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_item, listInterface);
+        adapterInterface.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spInterface.setAdapter(adapterInterface);
+        spInterface.setOnItemSelectedListener(interfaceOnItemSelectedListener);
+    }
+
+    AdapterView.OnItemSelectedListener interfaceOnItemSelectedListener =
+            new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> parent,
+                                           View view, int position, long id) {
+
+                    UsbInterface selectedUsbIf = listUsbInterface.get(position);
+
+                    String sUsbIf = "\n" + selectedUsbIf.toString() + "\n"
+                            + "Id: " + selectedUsbIf.getId() + "\n"
+                            + "InterfaceClass: " + selectedUsbIf.getInterfaceClass() + "\n"
+                            + "InterfaceProtocol: " + selectedUsbIf.getInterfaceProtocol() + "\n"
+                            + "InterfaceSubclass: " + selectedUsbIf.getInterfaceSubclass() + "\n"
+                            + "EndpointCount: " + selectedUsbIf.getEndpointCount();
+
+                    textInfoInterface.setText(sUsbIf);
+                    //   checkUsbInterface(selectedUsbIf);
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {}
+
+            };
+
+
+    private final BroadcastReceiver mUsbReceiver =
+            new BroadcastReceiver() {
+
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    String action = intent.getAction();
+                    if (ACTION_USB_PERMISSION.equals(action)) {
+
+                        Toast.makeText(getActivity(),
+                                "ACTION_USB_PERMISSION",
+                                Toast.LENGTH_LONG).show();
+                        //textStatus.setText("ACTION_USB_PERMISSION");
+
+                        synchronized (this) {
+                            UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+
+                            if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+                                if(device != null){
+                                    doReadRawDescriptors(device);
+                                }
+                            }
+                            else {
+                                Toast.makeText(getActivity(),
+                                        "permission denied for device " + device,
+                                        Toast.LENGTH_LONG).show();
+                                //textStatus.setText("permission denied for device " + device);
+                            }
+                        }
+                    }
+                }
+            };
+
+/*
+    private void setDevice(UsbDevice device) {
+        Log.d(TAG, "setDevice " + device);
+        if (device.getInterfaceCount() != 1) {
+
+            Toast toast = Toast.makeText(getContext(), "could not find USB devce, count = " + device.getInterfaceCount(), Toast.LENGTH_SHORT);
+            //toast.setDuration;
+            toast.show();
+
+            Log.e(TAG, "could not find interface");
+            return;
+        }
+        UsbInterface intf = device.getInterface(0);
+        // device should have one endpoint
+        if (intf.getEndpointCount() != 1) {
+            Log.e(TAG, "could not find endpoint");
+            Toast toast = Toast.makeText(getContext(), "could not find USB endpoint!", Toast.LENGTH_SHORT);
+            //toast.setDuration;
+            toast.show();
+            return;
+        }
+        // endpoint should be of type interrupt
+        UsbEndpoint ep = intf.getEndpoint(0);
+        if (ep.getType() != UsbConstants.USB_ENDPOINT_XFER_INT) {
+            Log.e(TAG, "endpoint is not interrupt type");
+            Toast toast = Toast.makeText(getContext(), "USB endpoint is not interrupt type?!", Toast.LENGTH_SHORT);
+            //toast.setDuration;
+            toast.show();
+            return;
+        }
+        mDevice = device;
+        mEndpointIntr = ep;
+        if (device != null) {
+            UsbDeviceConnection connection = mUsbManager.openDevice(device);
+            if (connection != null && connection.claimInterface(intf, true)) {
+                Log.d(TAG, "open SUCCESS");
+                Toast toast = Toast.makeText(getContext(), "USB open success!", Toast.LENGTH_SHORT);
+                //toast.setDuration;
+                toast.show();
+                mConnection = connection;
+                //Thread thread = new Thread(this);
+                //thread.start();
+
+                Thread timer = new Thread() {
+                    @Override
+                    public void run() {
+                        runUSB();
+
+                    }
+                };
+                timer.run();
+
+
+
+            } else {
+                Log.d(TAG, "open FAIL");
+                Toast toast = Toast.makeText(getContext(), "USB open failed!", Toast.LENGTH_SHORT);
+                //toast.setDuration;
+                toast.show();
+                mConnection = null;
+            }
+        }
+    }
+
+    public void runUSB() {
+        ByteBuffer buffer = ByteBuffer.allocate(1);
+        UsbRequest request = new UsbRequest();
+        request.initialize(mConnection, mEndpointIntr);
+        byte status = -1;
+        while (true) {
+            // queue a request on the interrupt endpoint
+            request.queue(buffer, 1);
+            // send poll status command
+            //       sendCommand(COMMAND_STATUS);
+            // wait for status event
+            if (mConnection.requestWait() == request) {
+                byte newStatus = buffer.get(0);
+                Toast toast = Toast.makeText(getContext(), "got sth via usb!", Toast.LENGTH_SHORT);
+                //toast.setDuration;
+                toast.show();
+
+
+                if (newStatus != status) {
+                    Log.d(TAG, "got status " + newStatus);
+                    status = newStatus;
+                    //             if ((status & COMMAND_FIRE) != 0) {
+                    // stop firing
+                    //               sendCommand(COMMAND_STOP);
+                    //         }
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                }
+            } else {
+                Log.e(TAG, "requestWait failed, exiting");
+                break;
+            }
+        }
+    }
+*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -131,7 +744,9 @@ public class FragmentConnection extends Fragment
         button = (Button) v.findViewById(R.id.connection_button_detect_bt);
         button.setOnClickListener(this);
 
+
         button_connectUSB = (Button) v.findViewById(R.id.connection_button_usb_connect);
+        button_connectUSB.setOnClickListener(this);
 
         debug = (TextView) v.findViewById(R.id.textDebug);
         status = (TextView) v.findViewById(R.id.textStatus);
@@ -182,6 +797,13 @@ public class FragmentConnection extends Fragment
         et_name = (EditText) v.findViewById(R.id.editText_connection_name);
         et_name.setText("                ");
 
+        textStatusUSB = (TextView) v.findViewById(R.id.textStatusUSB);
+        textInfo = (TextView) v.findViewById(R.id.textInfo);
+        textInfoInterface = (TextView) v.findViewById(R.id.textInfoInterface);
+        textEndPoint = (TextView) v.findViewById(R.id.textInfoEndPoint);
+
+        spInterface = (Spinner) v.findViewById(R.id.spInterface);
+        spEndPoint = (Spinner) v.findViewById(R.id.spEndPoint);
 
 
         //final InputMethodManager imm =(InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -223,8 +845,48 @@ public class FragmentConnection extends Fragment
         super.onResume();
 
         status.setText(statusStr);
-//        updateAllControlsAccordingToOptionList();
 
+        /*
+//        updateAllControlsAccordingToOptionList();
+        Intent intent = getActivity().getIntent();
+        Log.d(TAG, "intent: " + intent);
+        if(intent != null) {
+            String action = intent.getAction();
+
+            Toast toast = Toast.makeText(getContext(), "intent! action="+action, Toast.LENGTH_SHORT);
+            //toast.setDuration;
+            toast.show();
+
+
+            if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
+
+                Toast toast2 = Toast.makeText(getContext(), "USB set device!", Toast.LENGTH_SHORT);
+                //toast.setDuration;
+                toast2.show();
+                //UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                //setDevice(device);
+                UsbManager manager = (UsbManager) getActivity().getSystemService(Context.USB_SERVICE);
+                HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
+                Iterator<UsbDevice> deviceIterator = deviceList.values().iterator();
+
+                while(deviceIterator.hasNext()){
+                    UsbDevice device = deviceIterator.next();
+                    // Your code here!
+                }
+            } else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
+
+                Toast toast3 = Toast.makeText(getContext(), "USB detached...", Toast.LENGTH_SHORT);
+                //toast.setDuration;
+                toast3.show();
+
+                UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+
+                if (mDevice != null && mDevice.equals(device)) {
+                    setDevice(null);
+                }
+            }
+        }
+        */
     }
 
     private void readOptions(){
@@ -244,6 +906,7 @@ public class FragmentConnection extends Fragment
         button_2_disconnect.setEnabled(false);
         button_2_readVersion.setEnabled(false);
         button_2_SaveOptions.setEnabled(false);
+        button_2_saveToEeprom.setEnabled(false);
         button_2_saveToEeprom.setEnabled(false);
     }
 
@@ -297,6 +960,23 @@ public class FragmentConnection extends Fragment
                 break;
 
             case R.id.connection_button_usb_connect:
+
+                /*
+                if (mConnection != null) {
+                    Toast toast = Toast.makeText(getContext(), "usb != null!", Toast.LENGTH_SHORT);
+                    //toast.setDuration;
+                    toast.show();
+                    byte[] message = new byte[1];
+                    message[0] = (byte)'s';
+                    // Send command via a control request on endpoint zero
+                    mConnection.controlTransfer(0x21, 0x9, 0x200, 0, message, message.length, 0);
+                } else {
+                    Toast toast = Toast.makeText(getContext(), "usb = null!", Toast.LENGTH_SHORT);
+                    //toast.setDuration;
+                    toast.show();
+
+                }*/
+                connectUsb();
 
                 break;
 
@@ -425,6 +1105,8 @@ public class FragmentConnection extends Fragment
                 .show();
 
     }
+
+
 
     @Override
     public void onBluetoothDisabled() {

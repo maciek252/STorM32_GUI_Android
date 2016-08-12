@@ -1,0 +1,3 @@
+if resource valid:
+
+ sudo rmmod cdc-acm
