@@ -224,6 +224,23 @@ public class optionList {
         );
 
         /*
+        ,{
+  name => 'Yaw Motor Vmax',
+  type => 'OPTTYPE_UI', len => 5, ppos => 0, min => 0, max => 255, default => 150, steps => 1,
+  size => 2,
+  adr => 15,
+
+         */
+
+        addOption(
+                new OptionNumber("Yaw Motor Vmax",
+                        OptionNumber.NumberType.UnsignedInt,
+                        5, 0,0,255,150,1,2,15, "")
+        );
+
+
+
+        /*
         },{
   name => "Low Voltage Limit",
   type => "OPTTYPE_LISTA", len => 0, ppos => 0, min => 0, max => 7, default => 1, steps => 1,
@@ -398,6 +415,26 @@ public class optionList {
                 )
         );
 
+/*
+        name => 'Acc Compensation Method',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 1, default => 1, steps => 1,
+  size => 1,
+  adr => 88,
+  choices => [ 'standard', 'advanced'],
+  pos=> [1,4],
+},
+         */
+
+        String [] accCompensationMethods = {"standard", "advanced"};
+
+        addOption(
+                new OptionListA("Acc Compensation Method",
+                        0,0,0,accCompensationMethods.length-1,0,1,1,88,
+                        accCompensationMethods
+                )
+        );
+
+
 
         /*
 {
@@ -475,6 +512,59 @@ public class optionList {
                 new OptionNumber("Rc Roll Accel Limit (0=off)",
                         OptionNumber.NumberType.UnsignedInt,
                         0, 3,0,1000,300,10,2,57, "")
+        );
+
+/*
+},{
+  name => 'Rc Yaw Min',
+  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -2700, max => 2700, default => -250, steps => 10,
+  size => 2,
+  adr => 61,
+  unit => '°',
+},{
+  name => 'Rc Yaw Max',
+  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -2700, max => 2700, default => 250, steps => 10,
+  size => 2,
+  adr => 62,
+  unit => '°',
+},{
+  name => 'Rc Yaw Speed Limit (0 = off)',
+  type => 'OPTTYPE_UI', len => 0, ppos => 1, min => 0, max => 1000, default => 400, steps => 5,
+  size => 2,
+  adr => 63,
+  unit => '°/s',
+},{
+  name => 'Rc Yaw Accel Limit (0 = off)',
+  type => 'OPTTYPE_UI', len => 0, ppos => 3, min => 0, max => 1000, default => 300, steps => 10,
+  size => 2,
+  adr => 64,
+
+
+ */
+
+        addOption(
+                new OptionNumber("Rc Yaw Min",
+                        OptionNumber.NumberType.SignedInt,
+                        0, 1,-2700,2700,-250,5,2,61, "deg")
+        );
+
+        addOption(
+                new OptionNumber("Rc Yaw Max",
+                        OptionNumber.NumberType.SignedInt,
+                        0, 1,-2700,2700,250,5,2,62, "deg")
+        );
+
+        addOption(
+                new OptionNumber("Rc Yaw Speed Limit",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 1,0,1000,400,5,2,63, "deg/s")
+        );
+
+
+        addOption(
+                new OptionNumber("Rc Yaw Accel Limit (0=off)",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 3,0,1000,300,10,2,64, "")
         );
 
 
@@ -1012,6 +1102,7 @@ cameras
   size => 2,
   adr => 22,
   unit=> "°",
+
 */
 
         addOption(
@@ -1218,6 +1309,20 @@ name => "Rc Pitch Offset",
   adr => 106,
   unit => "°",
   pos=> [2,4],
+
+  {
+  name => 'Rc Roll Offset',
+  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -1200, max => 1200, default => 0, steps => 5,
+  size => 2,
+  adr => 107,
+  unit => '°',
+},{
+  name => 'Rc Yaw Offset',
+  type => 'OPTTYPE_SI', len => 0, ppos => 1, min => -1200, max => 1200, default => 0, steps => 5,
+  size => 2,
+  adr => 108,
+  unit => '°',
+
  */
 
 
@@ -1225,6 +1330,18 @@ name => "Rc Pitch Offset",
                 new OptionNumber("Rc Pitch Offset",
                         OptionNumber.NumberType.UnsignedInt,
                         0, 1,-1200,1200,0,5,2,106, "°")
+        );
+
+        addOption(
+                new OptionNumber("Rc Roll Offset",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 1,-1200,1200,0,5,2,107, "°")
+        );
+
+        addOption(
+                new OptionNumber("Rc Yaw Offset",
+                        OptionNumber.NumberType.UnsignedInt,
+                        0, 1,-1200,1200,0,5,2,108, "°")
         );
 
 
@@ -1241,6 +1358,24 @@ name => "Rc Pitch Offset",
                 new OptionListA("Imu2 Configuration",
                         0,0,0,imu2configuration.length-1,0,1,1,94,
                         imu2configuration
+                )
+        );
+
+/*
+        name => 'Beep with Motors',
+                type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 2, default => 0, steps => 1,
+                size => 1,
+                adr => 98,
+                choices => [ 'off', 'basic', 'all' ],
+        pos=> [3,4],
+        */
+
+        String [] beepWithMotors = new String[] {"off", "basic", "all"};
+
+        addOption(
+                new OptionListA("Imu2 Configuration",
+                        0,0,0,beepWithMotors.length-1,0,1,1,98,
+                        beepWithMotors
                 )
         );
 

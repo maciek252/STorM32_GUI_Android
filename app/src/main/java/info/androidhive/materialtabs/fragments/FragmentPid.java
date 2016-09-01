@@ -19,6 +19,7 @@ public class FragmentPid extends IntermediateFragment{
 
     TextView tv_PitchMotorVmax = null;
     TextView tv_RollMotorVmax = null;
+    TextView tv_YawMotorVmax = null;
 
     TextView tv_PitchP = null;
     TextView tv_PitchI = null;
@@ -54,6 +55,7 @@ public class FragmentPid extends IntermediateFragment{
         View v =  inflater.inflate(R.layout.fragment_pid, container, false);
         tv_PitchMotorVmax = (TextView) v.findViewById(R.id.textView_5_pitchMotorVmax);
         tv_RollMotorVmax = (TextView) v.findViewById(R.id.textView_5_rollMotorVmax);
+        tv_YawMotorVmax = (TextView) v.findViewById(R.id.textView_5_yawMotorVmax);
 
         tv_PitchP = (TextView) v.findViewById(R.id.textView_pid_pitchP);
         tv_PitchI = (TextView) v.findViewById(R.id.textView_pid_pitchI);
@@ -70,6 +72,7 @@ public class FragmentPid extends IntermediateFragment{
 
         addPairTv(v, tv_PitchMotorVmax, 3);
         addPairTv(v, tv_RollMotorVmax, 9);
+        addPairTv(v, tv_YawMotorVmax, 15);
 
         addPairTv(v, tv_PitchP, 0);
         addPairTv(v, tv_PitchI, 1);

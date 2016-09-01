@@ -65,6 +65,12 @@ public class FragmentConnection extends Fragment
         implements BluetoothSerialListener, BluetoothDeviceListDialog.OnDeviceSelectedListener,
         View.OnClickListener {
 
+    public enum ConnectionState {
+        DISCONNECTED, CONNECTED_NOT_READ, CONNECTED_READ, CONNECTED_CHANGED
+    };
+
+    ConnectionState connectionState = ConnectionState.DISCONNECTED;
+
     ViewPager vp = null;
 
     private String statusStr = "";
@@ -151,7 +157,8 @@ public class FragmentConnection extends Fragment
 
         // Check Bluetooth availability on the device and set up the Bluetooth adapter
         bluetoothSerial.setup();
-        setControlsNotConnected();
+        //setControlsNotConnected();
+        //setConnectionStateForDisplay(ConnectionState.DISCONNECTED);
     }
 
 
@@ -279,6 +286,7 @@ public class FragmentConnection extends Fragment
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
 
@@ -838,6 +846,7 @@ public class FragmentConnection extends Fragment
         });
         tv_name.requestFocus();
 */
+        setConnectionStateForDisplay(connectionState);
         return v;
     }
 
@@ -902,16 +911,36 @@ public class FragmentConnection extends Fragment
     }
 
 
+    protected void setConnectionStateForDisplay(ConnectionState cs){
+
+        if(connectionState != ConnectionState.DISCONNECTED && cs == ConnectionState.CONNECTED_NOT_READ){
+
+        } else {
+            connectionState = cs;
+        }
+
+        if(connectionState == ConnectionState.DISCONNECTED)
+            setControlsNotConnected();
+        else if(connectionState == ConnectionState.CONNECTED_NOT_READ)
+            setControlsBTConnected();
+        else if(connectionState == ConnectionState.CONNECTED_READ)
+            setControlsDataRead();
+
+    }
+
     protected void setControlsNotConnected(){
         button_2_disconnect.setEnabled(false);
+        button_2_readOptions.setEnabled(false);
         button_2_readVersion.setEnabled(false);
         button_2_SaveOptions.setEnabled(false);
         button_2_saveToEeprom.setEnabled(false);
         button_2_saveToEeprom.setEnabled(false);
     }
 
+
     protected void setControlsBTConnected(){
         button_2_disconnect.setEnabled(true);
+        button_2_readOptions.setEnabled(true);
         button_2_readVersion.setEnabled(true);
         button_2_SaveOptions.setEnabled(false);
         button_2_saveToEeprom.setEnabled(false);
@@ -1131,8 +1160,8 @@ public class FragmentConnection extends Fragment
     public void onBluetoothDeviceConnected(String name, String address) {
         //invalidateOptionsMenu();
         //updateBluetoothState();
-        tv_connectionStatus.setText("connected");
-        setControlsBTConnected();
+        tv_connectionStatus.setText("connected1");
+        //setControlsBTConnected();
     }
 
     @Override
@@ -1238,7 +1267,8 @@ public class FragmentConnection extends Fragment
 
 
                 Log.d(TAG, "Btservice started - listening");
-                status.setText("Connected");
+                status.setText("Connected2");
+                //setControlsBTConnected();
             } else {
                 Log.w(TAG, "Btservice started - bluetooth is not enabled");
                 status.setText("Bluetooth Not enabled");
@@ -1253,7 +1283,7 @@ public class FragmentConnection extends Fragment
     /* End of the implementation of listeners */
 
 
-
+/*
     public void connectService(){
         try {
             status.setText("Connecting...");
@@ -1262,7 +1292,8 @@ public class FragmentConnection extends Fragment
                 bt.start();
                 bt.connectDevice("HC-06");
                 Log.d(TAG, "Btservice started - listening");
-                status.setText("Connected");
+                status.setText("Connected3");
+                setControlsBTConnected();
             } else {
                 Log.w(TAG, "Btservice started - bluetooth is not enabled");
                 status.setText("Bluetooth Not enabled");
@@ -1272,7 +1303,7 @@ public class FragmentConnection extends Fragment
             status.setText("Unable to connect " +e);
         }
     }
-
+*/
 
     private final Handler mHandler = new Handler() {
         @Override
@@ -1283,15 +1314,20 @@ public class FragmentConnection extends Fragment
                     switch(msg.arg1){
                         case 0:
                             statusStr = "disconnected";
+                            setConnectionStateForDisplay(ConnectionState.DISCONNECTED);
                             break;
                         case 1:
-                            statusStr = "listening for incoming";
+                            statusStr = "listening for incoming2";
+                            //setConnectionStateForDisplay(ConnectionState.DISCONNECTED);
+                            //setConnectionStateForDisplay(ConnectionState.CONNECTED_NOT_READ);
                             break;
                         case 2:
-                            statusStr = "listening for incoming";
+                            statusStr = "listening for incoming3";
+                            //setConnectionStateForDisplay(ConnectionState.DISCONNECTED);
                             break;
                         case 3:
-                            statusStr = "CONNECTED!";
+                            statusStr = "CONNECTED4!";
+                            setConnectionStateForDisplay(ConnectionState.CONNECTED_NOT_READ);
                             break;
                         default:
                             statusStr = "??";
@@ -1317,7 +1353,8 @@ public class FragmentConnection extends Fragment
                 case Bluetooth.MESSAGE_READ:
                     Log.d(TAG, "MESSAGE_READ " + msg.arg1 + " " + msg.arg2);
                     if(bt.queryMode == Bluetooth.QueryMode.GET_OPTIONS && msg.arg2 == 1){
-                        setControlsDataRead();
+                        //setControlsDataRead();
+                        setConnectionStateForDisplay(ConnectionState.CONNECTED_READ);
 
                         Toast toast = Toast.makeText(getContext(), "options received CRC OK!", Toast.LENGTH_SHORT);
                         //toast.setDuration;

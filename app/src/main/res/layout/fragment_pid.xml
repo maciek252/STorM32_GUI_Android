@@ -77,7 +77,7 @@
                 android:layout_column="0" />
 
             <TextView
-                android:layout_width="56dp"
+                android:layout_width="73dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/textView_pid_pitchP"
@@ -96,7 +96,7 @@
                 android:layout_column="0" />
 
             <TextView
-                android:layout_width="56dp"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/textView_pid_pitchI"
@@ -115,7 +115,7 @@
                 android:layout_column="0" />
 
             <TextView
-                android:layout_width="56dp"
+                android:layout_width="84dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/textView_pid_pitchD"
@@ -134,7 +134,7 @@
                 android:layout_column="0" />
 
             <TextView
-                android:layout_width="56dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/textView_pid_rollP"
@@ -153,7 +153,7 @@
                 android:layout_column="0" />
 
             <TextView
-                android:layout_width="56dp"
+                android:layout_width="81dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/textView_pid_rollI"
@@ -172,7 +172,7 @@
                 android:layout_column="0" />
 
             <TextView
-                android:layout_width="56dp"
+                android:layout_width="79dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/textView_pid_rollD"
@@ -191,7 +191,7 @@
                 android:layout_column="0" />
 
             <TextView
-                android:layout_width="56dp"
+                android:layout_width="78dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/textView_pid_yawP"
@@ -210,7 +210,7 @@
                 android:layout_column="0" />
 
             <TextView
-                android:layout_width="56dp"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/textView_pid_yawI"
@@ -229,7 +229,7 @@
                 android:layout_column="0" />
 
             <TextView
-                android:layout_width="56dp"
+                android:layout_width="78dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/textView_pid_yawD"
@@ -281,16 +281,10 @@
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView19"
+            android:id="@+id/textView_5_yawMotorVmax"
             android:contextClickable="true"
             android:editable="true"
             android:layout_gravity="center_horizontal" />
-
-        <ProgressBar
-            android:id="@+id/progressBar1"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

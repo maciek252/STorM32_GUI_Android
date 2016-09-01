@@ -20,6 +20,7 @@ public class FragmentFunctions extends IntermediateFragment{
     TextView tv_pwmOutMax = null;
     TextView tv_pwmOutSpeedLimit = null;
 
+    Spinner sp_pwmOutControl = null;
     Spinner sp_functions_stanby = null;
     Spinner sp_functions_recenterCamera = null;
     Spinner sp_irCameraControl = null;
@@ -66,6 +67,8 @@ public class FragmentFunctions extends IntermediateFragment{
         sp_irCameraSetting1 = (Spinner) v.findViewById(R.id.spinner_functions_IrCameraSettingOne);
         sp_irCameraSetting2 = (Spinner) v.findViewById(R.id.spinner_functions_IrCameraSettingTwo);
 
+        sp_pwmOutControl = (Spinner) v.findViewById(R.id.spinner_functions_PwmOutControl);
+
 
         addPairTv(v, tv_timeInterval, 75);
 
@@ -78,6 +81,7 @@ public class FragmentFunctions extends IntermediateFragment{
         addPairSpinner(v, sp_functions_recenterCamera, 76);
         addPairSpinner(v, sp_irCameraControl, 71);
         addPairSpinner(v, sp_cameraModel, 72);
+        addPairSpinner(v, sp_pwmOutControl, 113);
 
         addPairSpinner(v, sp_irCameraSetting1, 73);
         addPairSpinner(v, sp_irCameraSetting2, 74);

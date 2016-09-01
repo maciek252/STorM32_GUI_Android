@@ -69,6 +69,8 @@ public class FragmentSetup extends IntermediateFragment{
         //addPair(v, R.id.textView_6_pid, optionList.lowVoltageLimitInt);
         addPairTv(v, tv_imuAhrs, 81);
         addPairTv(v, tv_rcPitchOffset, 106);
+        addPairTv(v, tv_rcRollOffset, 107);
+        addPairTv(v, tv_rcYawOffset, 108);
 
         addPairSpinner(v, sp_imu2configuration, 94);
 
@@ -78,6 +80,9 @@ public class FragmentSetup extends IntermediateFragment{
 
         addPairSpinner(v, sp_pwmOutConfiguration, 42);
         addPairSpinner(v, sp_virtualChannelConfiguration, 41);
+        addPairSpinner(v, sp_accCompensationMethod, 88);
+
+        addPairSpinner(v, sp_beepWithMotors, 98);
 
 
 //        updateGUI();

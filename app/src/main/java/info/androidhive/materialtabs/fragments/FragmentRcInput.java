@@ -102,10 +102,10 @@ public class FragmentRcInput extends IntermediateFragment{
         addPairTv(v, tv_rcRollSpeedLimit, 56);
         addPairTv(v, tv_rcRollAccelLimit, 57);
 
-        //addPairTv(v, tv_rcYawMin, 47);
-        //addPairTv(v, tv_rcYawMax, 48);
-        //addPairTv(v, tv_rcYawSpeedLimit, 49);
-        //addPairTv(v, tv_rcYawAccelLimit, 50);
+        addPairTv(v, tv_rcYawMin, 61);
+        addPairTv(v, tv_rcYawMax, 62);
+        addPairTv(v, tv_rcYawSpeedLimit, 63);
+        addPairTv(v, tv_rcYawAccelLimit, 64);
 
         
         
