@@ -1410,6 +1410,64 @@ name => "Rc Pitch Offset",
                 )
         );
 
+        /*
+        ##--- SCRIPTS tab --------------------
+},{
+  name => 'Script1 Control',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  size => 1,
+  adr => $CMD_g_PARAMETER_ZAHL-5, #119,
+  choices => \@FunctionInputChoicesList,
+  expert=> 8,
+  column=> 1,
+},{
+  name => 'Script2 Control',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  size => 1,
+  adr => $CMD_g_PARAMETER_ZAHL-4, #120,
+  choices => \@FunctionInputChoicesList,
+  column=> 2,
+},{
+  name => 'Script3 Control',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  size => 1,
+  adr => $CMD_g_PARAMETER_ZAHL-3, #121,
+  choices => \@FunctionInputChoicesList,
+  column=> 3,
+},{
+  name => 'Script4 Control',
+  type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => $FunctionInputMax, default => 0, steps => 1,
+  size => 1,
+  adr => $CMD_g_PARAMETER_ZAHL-2, #122,
+  choices => \@FunctionInputChoicesList,
+  column=> 4,
+         */
+
+        addOption(
+                new OptionListA("Script1Control",
+                        0,0,0,functionInputChoicesList.length-1,0,1,1,119,
+                        functionInputChoicesList
+                )
+        );
+        addOption(
+                new OptionListA("Script2Control",
+                        0,0,0,functionInputChoicesList.length-1,0,1,1,120,
+                        functionInputChoicesList
+                )
+        );
+        addOption(
+                new OptionListA("Script3Control",
+                        0,0,0,functionInputChoicesList.length-1,0,1,1,121,
+                        functionInputChoicesList
+                )
+        );
+        addOption(
+                new OptionListA("Script4Control",
+                        0,0,0,functionInputChoicesList.length-1,0,1,1,122,
+                        functionInputChoicesList
+                )
+        );
+
         
         /*{
   name => "Pwm Out Mid",

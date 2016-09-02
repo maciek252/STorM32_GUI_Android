@@ -17,18 +17,131 @@
             android:id="@+id/textView16"
             android:layout_gravity="center_horizontal" />
 
-        <TextView
+        <TabHost
+            android:id="@+id/tabHost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></TabWidget>
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/tab2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#da8200"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="This is tab 2" />
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/spinner_scripts_script2" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="New CheckBox"
+                            android:id="@+id/checkBox" />
+
+                        <Switch
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="New Switch"
+                            android:id="@+id/switch1" />
+
+                        <ToggleButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="New ToggleButton"
+                            android:id="@+id/toggleButton" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tab3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#5b89ff"
+                        android:orientation="vertical">
+
+                        <SeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/seekBar"
+                            android:layout_gravity="center_horizontal" />
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/spinner_scripts_script3" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="date"
+                            android:ems="10"
+                            android:id="@+id/editText2"
+                            android:layout_gravity="center_horizontal" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:text="This is tab 3" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tab1"
+                        android:layout_width="238dp"
+                        android:layout_height="wrap_content"
+                        android:background="#ffc916"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="154dp"
+                            android:layout_height="wrap_content"
+                            android:text="This is tab 1" />
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/spinner_scripts_script1"
+                            android:layout_gravity="center_horizontal" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+        </TabHost>
+
+        <DatePicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Script number"
-            android:id="@+id/textView47" />
+            android:id="@+id/datePicker" />
 
-        <Spinner
+        <CalendarView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_scripts_number"
-            android:layout_gravity="center_horizontal"
-            android:spinnerMode="dropdown" />
+            android:layout_height="57dp"
+            android:id="@+id/calendarView"
+            android:layout_gravity="center_horizontal" />
 
         <EditText
             android:layout_width="match_parent"
@@ -36,6 +149,12 @@
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/editText" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_scripts_number"
+            android:spinnerMode="dropdown" />
 
         <Button
             android:layout_width="wrap_content"
