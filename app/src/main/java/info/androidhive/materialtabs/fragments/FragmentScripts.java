@@ -3,17 +3,24 @@ package info.androidhive.materialtabs.fragments;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 import info.androidhive.materialtabs.R;
+import info.androidhive.materialtabs.storm32.optionList;
+import utils.Utils;
 
 
-public class FragmentScripts extends IntermediateFragment{
+public class FragmentScripts extends IntermediateFragment
+implements         View.OnClickListener
+{
 
     TextView tv_deadBand = null;
     TextView tv_rcHysteresis = null;
@@ -23,10 +30,18 @@ public class FragmentScripts extends IntermediateFragment{
     TextView tv_rcPitchSpeedLimit = null;
     TextView tv_rcPitchAccelLimit = null;
 
+    EditText editTextScript1 = null;
+    EditText editTextScript2 = null;
+    EditText editTextScript3 = null;
+
     Spinner sp_rcPitch = null;
     Spinner sp_rcPitchMode = null;
     Spinner sp_rcRoll = null;
     Spinner sp_rcRollMode = null;
+
+    Button compile1 = null;
+    Button compile2 = null;
+    Button compile3 = null;
 
     Spinner sp_script1 = null;
     Spinner sp_script2 = null;
@@ -60,6 +75,10 @@ public class FragmentScripts extends IntermediateFragment{
         sp_script2 = (Spinner) v.findViewById(R.id.spinner_scripts_script2);
         sp_script3 = (Spinner) v.findViewById(R.id.spinner_scripts_script3);
 
+        editTextScript1 = (EditText)v.findViewById(R.id.script1_editText);
+        editTextScript2 = (EditText)v.findViewById(R.id.script2_editText);
+        editTextScript3 = (EditText)v.findViewById(R.id.script3_editText);
+
         addPairSpinner(v, sp_script1, 119);
         addPairSpinner(v, sp_script2, 120);
         addPairSpinner(v, sp_script3, 121);
@@ -88,9 +107,88 @@ public class FragmentScripts extends IntermediateFragment{
         spec.setIndicator("Tab Three");
         host.addTab(spec);
 
+        compile1 = (Button) v.findViewById(R.id.script_compile1);
+        compile2 = (Button) v.findViewById(R.id.scripts_compile2);
+        compile3 = (Button) v.findViewById(R.id.scripts_compile3);
+        compile1.setOnClickListener(this);
+        compile2.setOnClickListener(this);
+        compile3.setOnClickListener(this);
+
+
+
         updateAllControlsAccordingToOptionList();
 
         return v;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.script_compile1:
+                editTextScript1.setText("bibi");
+                break;
+            case R.id.scripts_compile2:
+                editTextScript2.setText("222");
+                break;
+            case R.id.scripts_compile3:
+                String s = "";
+                byte[] scripts = optionList.giveScriptsArray();
+                // 6 - naglowek
+                editTextScript3.setText("222_" + scripts.length + "_" + Utils.byteArrayToHex(scripts));
+
+
+                scripts = Arrays.copyOfRange(scripts, 6, scripts.length);
+                int scriptNr = 0;
+                while(true) {
+                     int i = splitScriptCode(scripts);
+
+
+                    if(i != -1 && scriptNr <= 3){
+
+                        byte[] skrypt = Arrays.copyOfRange(scripts, 0, i);
+                        scripts = Arrays.copyOfRange(scripts, i+1, scripts.length);
+                        editTextScript3.setText(editTextScript3.getText() + "scriptnr=" + scriptNr + " " + Utils.byteArrayToHex(skrypt) + "-------\n");
+                        editTextScript3.setText(editTextScript3.getText() + "DECODE:" + scriptNr + decodeScriptArray(skrypt) + "========\n");
+                        scriptNr++;
+                    } else {
+                        break;
+                    }
+                }
+
+
+        }
+    }
+
+
+
+    int  splitScriptCode(byte [] a){
+        byte [] pattern = new byte [1];
+        pattern[0] = (byte)0xff;
+        int i = Utils.indexOfTwoArrays(a, 0, a.length, pattern);
+        return i;
+    }
+
+    String decodeScriptArray(byte [] s){
+        String result = "";
+
+        int pc = 0;
+        while(pc < s.length) {
+            if (s[pc] == 0x03) {
+                result += "CASE#DEFAULT\n";
+                pc += 3;
+            } else if (s[pc] == 0x16) {
+                result += "DOCAMERA\n";
+                pc += 3;
+            } else if (s[pc] == 0x09) {
+                pc++;
+                int nr = (int) Utils.getOneByteNumberFromByteArray(s, pc);
+                result += "WAIT " + nr + "\n";
+                pc += 1;
+            }
+            pc++;
+        }
+
+        return result;
     }
 
     /*

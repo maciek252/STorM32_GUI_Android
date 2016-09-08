@@ -210,7 +210,7 @@ my $CMD_d_PARAMETER_ZAHL= 32; #number of values transmitted with a 'd' get data 
 my $CMD_s_PARAMETER_ZAHL= 5; #number of values transmitted with a 's' get data command
 
 my @OptionL094List= (
-{
+{s
   name => 'Firmware Version',
   type => 'OPTTYPE_STR+OPTTYPE_READONLY', len => 0, ppos => 0, min => 0, max => 0, steps => 0,
   size => 16,
@@ -6136,15 +6136,15 @@ sub dd_LiveRecording_Click{
 #	           SCRIPTCMDUNDEFINED } SCRIPTCMDTYPE;
 
 #this MUST match SCRIPTCMDTYPE !!!
-my @SCRIPT_CMDS= ( 'STOP', 'RESTART',
-                   'REPEAT', 'CASE#DEFAULT', 'CASE#1', 'CASE#2', 'CASE#3', 'JUMP',
-                   'RESTOREALL', 'WAIT', 'SET', 'SETMINMAX', 'RESTORE',
-                   'SETANGLEPITCH', 'SETANGLEROLL', 'SETANGLEYAW', 'SETANGLE',
-	               'SETPITCH', 'SETROLL', 'SETYAW', 'SETPITCHROLLYAW',
-	               'SETSTANDBY', 'DOCAMERA', 'DORECENTER', 'SETPWM',
-	               'SETPANOWAITS', 'SETPANORANGE', 'DOPANO',
-                   'SETANGLEPITCH_W', 'SETANGLEROLL_W', 'SETANGLEYAW_W',
-                   'REMOTEENABLE', 'REMOTEDISABLE',
+my @SCRIPT_CMDS= ( 'STOP'0x00, 'RESTART', 0x01
+                   'REPEAT'0x02, 'CASE#DEFAULT'0x03, 'CASE#1'0x04, 'CASE#2'0x05, 'CASE#3'0x06, 'JUMP'0x07,
+                   'RESTOREALL'0x08, 'WAIT'0x09, 'SET'0x0a, 'SETMINMAX' 0x0b, 'RESTORE'0x0c, 
+                   'SETANGLEPITCH'0x0d, 'SETANGLEROLL' 0x0e, 'SETANGLEYAW' 0x0f, 'SETANGLE' 0x10, 
+	               'SETPITCH'0x11, 'SETROLL'0x12, 'SETYAW'0x13, 'SETPITCHROLLYAW'0x14,
+	               'SETSTANDBY'0x15, 'DOCAMERA'0x16, '', 'SETPWM'0x18,             
+	               'SETPANOWAITS'0x19, 'SETPANORANGE'0x1a, 'DOPANO'0x1b,            
+                   'SETANGLEPITCH_W'0x1c, 'SETANGLEROLL_W'0x1d, 'SETANGLEYAW_W'0x1e,
+                   'REMOTEENABLE'0x1f, 'REMOTEDISABLE'0x20,
                    '' );
 
 my $SCRIPT_hexcode_buf; #this is to store the original "raw" script code, in hexstr formatr #don't initialize

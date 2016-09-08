@@ -272,15 +272,15 @@ public class FragmentData extends Fragment implements View.OnClickListener{
             byte [] a = InterFragmentCom.getData_d();
             synchronized (a){
             if( a != null && a.length > 10) {
-                int status1 = (int) Utils.getNumberFromByteArray(a, 1);
-                int status2 = (int) Utils.getNumberFromByteArray(a, 2);
-                int i2cError = (int) Utils.getNumberFromByteArray(a, 3);
-                double pitch = (double) Utils.getNumberFromByteArray(a, 16) / 100.0;
-                double roll = (double) Utils.getNumberFromByteArray(a, 17) / 100.0;
-                double yaw = (double) Utils.getNumberFromByteArray(a, 18) / 100.0;
-                double pitch2 = (double) Utils.getNumberFromByteArray(a, 25) / 100.0;
-                double roll2 = (double) Utils.getNumberFromByteArray(a, 26) / 100.0;
-                double yaw2 = (double) Utils.getNumberFromByteArray(a, 27) / 100.0;
+                int status1 = (int) Utils.getOptionFromByteArray(a, 1);
+                int status2 = (int) Utils.getOptionFromByteArray(a, 2);
+                int i2cError = (int) Utils.getOptionFromByteArray(a, 3);
+                double pitch = (double) Utils.getOptionFromByteArray(a, 16) / 100.0;
+                double roll = (double) Utils.getOptionFromByteArray(a, 17) / 100.0;
+                double yaw = (double) Utils.getOptionFromByteArray(a, 18) / 100.0;
+                double pitch2 = (double) Utils.getOptionFromByteArray(a, 25) / 100.0;
+                double roll2 = (double) Utils.getOptionFromByteArray(a, 26) / 100.0;
+                double yaw2 = (double) Utils.getOptionFromByteArray(a, 27) / 100.0;
 
 
                 //series1.appendData(new DataPoint(lastX++, RANDOM.nextDouble() * 10d), true, 100);
@@ -302,8 +302,8 @@ public class FragmentData extends Fragment implements View.OnClickListener{
                 setImuState(1, true);
                 i2cErrors.setText(" " + i2cError);
 
-                int voltage = (int) Utils.getNumberFromByteArray(a, 4);
-                int magYaw = (int) Utils.getNumberFromByteArray(a, 28);
+                int voltage = (int) Utils.getOptionFromByteArray(a, 4);
+                int magYaw = (int) Utils.getOptionFromByteArray(a, 28);
                // tv.setText(" i2cerr=" + i2cError + " p1=" + pitch + "p2=" + pitch2 + " v=" + voltage + " mag=" + magYaw + "s1=" + status1 + " s2=" + status2);
             }
             }

@@ -40,39 +40,32 @@
                     android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:id="@+id/tab2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#da8200"
+                        android:id="@+id/tab1"
+                        android:layout_width="238dp"
+                        android:layout_height="wrap_content"
+                        android:background="#ffc916"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="This is tab 2" />
-
                         <Spinner
-                            android:layout_width="match_parent"
+                            android:layout_width="361dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/spinner_scripts_script2" />
+                            android:id="@+id/spinner_scripts_script1"
+                            android:layout_gravity="center_horizontal" />
 
-                        <CheckBox
+                        <EditText
+                            android:layout_width="421dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:ems="10"
+                            android:id="@+id/script1_editText"
+                            android:layout_gravity="center_horizontal" />
+
+                        <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New CheckBox"
-                            android:id="@+id/checkBox" />
+                            android:text="COMPILE"
+                            android:id="@+id/script_compile1" />
 
-                        <Switch
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="New Switch"
-                            android:id="@+id/switch1" />
-
-                        <ToggleButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="New ToggleButton"
-                            android:id="@+id/toggleButton" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -96,10 +89,16 @@
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="date"
+                            android:inputType="textMultiLine"
                             android:ems="10"
-                            android:id="@+id/editText2"
+                            android:id="@+id/script3_editText"
                             android:layout_gravity="center_horizontal" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Compile"
+                            android:id="@+id/scripts_compile3" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -108,21 +107,40 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/tab1"
-                        android:layout_width="238dp"
-                        android:layout_height="wrap_content"
-                        android:background="#ffc916"
+                        android:id="@+id/tab2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#da8200"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="154dp"
-                            android:layout_height="wrap_content"
-                            android:text="This is tab 1" />
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="This is tab 2" />
 
                         <Spinner
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/spinner_scripts_script1"
+                            android:id="@+id/spinner_scripts_script2" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="New CheckBox"
+                            android:id="@+id/checkBox" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Compile"
+                            android:id="@+id/scripts_compile2" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="89dp"
+                            android:inputType="textMultiLine"
+                            android:ems="10"
+                            android:id="@+id/script2_editText"
                             android:layout_gravity="center_horizontal" />
 
                     </LinearLayout>
@@ -131,6 +149,18 @@
 
             </LinearLayout>
         </TabHost>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is tab 1" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/editText3" />
 
         <DatePicker
             android:layout_width="wrap_content"

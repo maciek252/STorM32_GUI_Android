@@ -1581,5 +1581,14 @@ name => "Rc Pitch Offset",
 
     }
 
+    public static byte[] giveScriptsArray(){
+
+        int scriptSize = 128;
+        int beginIndex = 2*124;
+
+        byte [] result = Arrays.copyOfRange(options, beginIndex, beginIndex + scriptSize);
+        return result;
+    }
+
 }
 
