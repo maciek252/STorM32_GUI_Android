@@ -159,7 +159,7 @@ CASE#1
   STOP
 
   4500? tak, 16*256+256+9*16+4 = 4500
-casedef03 (04 koniec podpr) dorecenter17 stop00 case#1 04 1B(27) w podpr. 20 (setangleyaw_w1E 9411 waittime 1E)4 (setpanowaits19 1E 1E 0A)3 (setpanorange1A5A00)3 (dopano1B1EF8)3 (dopano1B0008)3 (1BE2F8)3 (stop00)1 FF
+casedef03 (04 koniec podpr) dorecenter17 stop00 case#1 04 1B(27) w podpr. 20 (setangleyaw_w1E 9411 waittime 1E)4 (setpanowaits19 1E 1E 0A)3 (setpanorange1A5A00)3 (dopano1B 1E F8)3 (dopano1B 00 08)3 (1BE2F8)3 (stop00)1 FF
 
 a naglowek:
 0FDA07FF

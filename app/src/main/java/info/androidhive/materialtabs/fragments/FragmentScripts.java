@@ -19,8 +19,7 @@ import utils.Utils;
 
 
 public class FragmentScripts extends IntermediateFragment
-implements         View.OnClickListener
-{
+        implements View.OnClickListener {
 
     TextView tv_deadBand = null;
     TextView tv_rcHysteresis = null;
@@ -59,7 +58,6 @@ implements         View.OnClickListener
         super.onCreate(savedInstanceState);
 
 
-
     }
 
     @Override
@@ -67,7 +65,7 @@ implements         View.OnClickListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.i("Storm32", "FF7: onCreateView: ");
-        View v =  inflater.inflate(R.layout.fragment_scripts, container, false);
+        View v = inflater.inflate(R.layout.fragment_scripts, container, false);
 
         removeControlsFromTables();
 
@@ -75,9 +73,9 @@ implements         View.OnClickListener
         sp_script2 = (Spinner) v.findViewById(R.id.spinner_scripts_script2);
         sp_script3 = (Spinner) v.findViewById(R.id.spinner_scripts_script3);
 
-        editTextScript1 = (EditText)v.findViewById(R.id.script1_editText);
-        editTextScript2 = (EditText)v.findViewById(R.id.script2_editText);
-        editTextScript3 = (EditText)v.findViewById(R.id.script3_editText);
+        editTextScript1 = (EditText) v.findViewById(R.id.script1_editText);
+        editTextScript2 = (EditText) v.findViewById(R.id.script2_editText);
+        editTextScript3 = (EditText) v.findViewById(R.id.script3_editText);
 
         addPairSpinner(v, sp_script1, 119);
         addPairSpinner(v, sp_script2, 120);
@@ -86,7 +84,7 @@ implements         View.OnClickListener
 //        updateGUI();
 
 
-        TabHost host = (TabHost)v.findViewById(R.id.tabHost);
+        TabHost host = (TabHost) v.findViewById(R.id.tabHost);
         host.setup();
 
         //Tab 1
@@ -115,7 +113,6 @@ implements         View.OnClickListener
         compile3.setOnClickListener(this);
 
 
-
         updateAllControlsAccordingToOptionList();
 
         return v;
@@ -123,7 +120,7 @@ implements         View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.script_compile1:
                 editTextScript1.setText("bibi");
                 break;
@@ -139,14 +136,14 @@ implements         View.OnClickListener
 
                 scripts = Arrays.copyOfRange(scripts, 6, scripts.length);
                 int scriptNr = 0;
-                while(true) {
-                     int i = splitScriptCode(scripts);
+                while (true) {
+                    int i = splitScriptCode(scripts);
 
 
-                    if(i != -1 && scriptNr <= 3){
+                    if (i != -1 && scriptNr <= 3) {
 
                         byte[] skrypt = Arrays.copyOfRange(scripts, 0, i);
-                        scripts = Arrays.copyOfRange(scripts, i+1, scripts.length);
+                        scripts = Arrays.copyOfRange(scripts, i + 1, scripts.length);
                         editTextScript3.setText(editTextScript3.getText() + "scriptnr=" + scriptNr + " " + Utils.byteArrayToHex(skrypt) + "-------\n");
                         editTextScript3.setText(editTextScript3.getText() + "DECODE:" + scriptNr + decodeScriptArray(skrypt) + "========\n");
                         scriptNr++;
@@ -160,32 +157,170 @@ implements         View.OnClickListener
     }
 
 
-
-    int  splitScriptCode(byte [] a){
-        byte [] pattern = new byte [1];
-        pattern[0] = (byte)0xff;
+    int splitScriptCode(byte[] a) {
+        byte[] pattern = new byte[1];
+        pattern[0] = (byte) 0xff;
         int i = Utils.indexOfTwoArrays(a, 0, a.length, pattern);
         return i;
     }
 
-    String decodeScriptArray(byte [] s){
+    String decodeScriptArray(byte[] s) {
         String result = "";
 
         int pc = 0;
-        while(pc < s.length) {
+        while (pc < s.length) {
+            if (s[pc] == 0x00) {
+                result += "STOP\n";
+                pc += 1;
+            } else if (s[pc] == 0x01) {
+                result += "RESTART\n";
+                pc += 1;
+            }
+            else if (s[pc] == 0x02) {
+                result += "REPEAT\n";
+                pc += 1;
+            } else
             if (s[pc] == 0x03) {
                 result += "CASE#DEFAULT\n";
-                pc += 3;
-            } else if (s[pc] == 0x16) {
-                result += "DOCAMERA\n";
-                pc += 3;
-            } else if (s[pc] == 0x09) {
+                pc += 1;
+            } else if (s[pc] == 0x04) {
+                result += "CASE#1\n";
+                pc += 1;
+            } else if (s[pc] == 0x05) {
+                result += "CASE#2\n";
+                pc += 1;
+            } else if (s[pc] == 0x06) {
+                result += "CASE#1\n";
+                pc += 1;
+            }
+            else if (s[pc] == 0x08) {
+                result += "RESTOREALL\n";
+                pc += 1;
+            }
+            else if (s[pc] == 0x09) {
                 pc++;
                 int nr = (int) Utils.getOneByteNumberFromByteArray(s, pc);
                 result += "WAIT " + nr + "\n";
                 pc += 1;
+            }  else if (s[pc] == 0x0a) {
+                result += "SET\n";
+                pc += 1;
+            }  else if (s[pc] == 0x0b) {
+                result += "SETMINMAX\n";
+                pc += 1;
+            }  else if (s[pc] == 0x0c) {
+                result += "RESTORE\n";
+                pc += 1;
+            }  else if (s[pc] == 0x0d) {
+                result += "SETANGLEPITCH\n";
+                pc += 1;
+            }else if (s[pc] == 0x0e) {
+                result += "SETANGLEROLL\n";
+                pc += 1;
             }
-            pc++;
+            else if (s[pc] == 0x0f) {
+                pc += 1;
+                int nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                result += "SETANGLEYAW " + nr1 + "\n";
+                pc += 2;
+            } else if (s[pc] == 0x10) {
+
+                pc += 1;
+                int nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                pc += 2;
+                int nr2 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                pc += 2;
+                int nr3 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                result += "SETANGLE " + nr1 + " " + nr2 + " " + nr3 + "\n";
+                pc += 2;
+            }
+            else if (s[pc] == 0x11) {
+                pc += 1;
+                int nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                result += "SETPITCH " + nr1 + "\n";
+                pc += 2;
+            } else if (s[pc] == 0x12) {
+                pc += 1;
+                int nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                result += "SETROLL " + nr1 + "\n";
+                pc += 2;
+            } else if (s[pc] == 0x13) {
+                pc += 1;
+                int nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                result += "SETYAW " + nr1 + "\n";
+                pc += 2;
+
+            } else if (s[pc] == 0x14) {
+                pc += 1;
+                int nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                pc += 2;
+                int nr2 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                pc += 2;
+                int nr3 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                result += "SETPITCHSCROLLYAW " + nr1 + " " + nr2 + " " + nr3 + "\n";
+                pc += 1;
+            }
+            else if (s[pc] == 0x16) {
+                result += "DOCAMERA\n";
+                pc += 3;
+            }
+            // SETPANOWAITS 30 30 10
+            else if (s[pc] == 0x19) {
+
+                pc += 1;
+                int nr1 = (int) Utils.getOneByteNumberFromByteArray(s, pc);
+                pc += 1;
+                int nr2 = (int) Utils.getOneByteNumberFromByteArray(s, pc);
+                pc += 1;
+                int nr3 = (int) Utils.getOneByteNumberFromByteArray(s, pc);
+                result += "SETPANOWAITS " + nr1 + " " + nr2 + " " + nr3 + "\n";
+                pc += 1;
+            } //   SETPANORANGE 90
+            else if (s[pc] == 0x1a) {
+                pc += 1;
+                int nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                result += "SETPANORANGE " + nr1 + "\n";
+                pc += 2;
+
+            } else if (s[pc] == 0x1b) {
+
+                pc += 1;
+                int nr1 = (int) Utils.getOneByteNumberFromByteArray(s, pc);
+                pc += 1;
+                int nr2 = (int) Utils.getOneByteNumberFromByteArray(s, pc);
+                result += "DOPANO " + nr1 + " " + nr2 + "\n";
+                pc += 1;
+            }
+            else if (s[pc] == 0x1c) {
+                pc += 1;
+                int nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                pc += 2;
+                int nr2 = (int) Utils.getOneByteNumberFromByteArray(s, pc);
+                pc += 1;
+                result += "SETANGLEPITCH_W " + nr1 + " " + nr2 + "\n";
+
+
+            } else if (s[pc] == 0x1d) {
+                pc += 1;
+                int nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                pc += 2;
+                int nr2 = (int) Utils.getOneByteNumberFromByteArray(s, pc);
+                pc += 1;
+                result += "SETANGLEROLL_W " + nr1 + " " + nr2 + "\n";
+
+
+            } else if (s[pc] == 0x1e) {
+                pc += 1;
+                int nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                pc += 2;
+                int nr2 = (int) Utils.getOneByteNumberFromByteArray(s, pc);
+                pc += 1;
+                result += "SETANGLEYAW_W " + nr1 + " " + nr2 + "\n";
+
+
+            } else {
+                pc++;
+            }
         }
 
         return result;
