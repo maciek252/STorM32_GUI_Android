@@ -16,7 +16,15 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="RC INPUT"
             android:id="@+id/textView16"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textStyle="normal|bold"
+            android:background="@android:color/holo_green_dark" />
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:layout_height="2dp" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -110,6 +118,11 @@
             android:layout_gravity="center_horizontal"
             android:editable="true" />
 
+        <View
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:layout_height="2dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,6 +135,30 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:foreground="#c10606" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rc Roll"
+            android:id="@+id/textView_rcRoll" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_rcInput_rcRoll"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rc Roll Mode"
+            android:id="@+id/textView_rollMode" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_rcInput_rcRollMode"
+            android:spinnerMode="dropdown" />
 
 
         <TextView
@@ -184,6 +221,10 @@
             android:layout_gravity="center_horizontal"
             android:editable="true" />
 
+        <View
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:layout_height="2dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -191,6 +232,31 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="YAW"
             android:id="@+id/textView24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rc Yaw"
+            android:id="@+id/textView_rcYaw" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_rcInput_rcYaw"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rc Yaw Mode"
+            android:id="@+id/textView_yawMode" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_rcInput_rcYawMode"
+            android:spinnerMode="dropdown" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -253,30 +319,10 @@
             android:editable="true" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rc Roll"
-            android:id="@+id/textView_rcRoll" />
-
-        <Spinner
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_rcInput_rcRoll"
-            android:spinnerMode="dropdown" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rc Roll Mode"
-            android:id="@+id/textView_rollMode" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_rcInput_rcRollMode"
-            android:spinnerMode="dropdown" />
-
+            android:background="@android:color/darker_gray"
+            android:layout_height="2dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -310,7 +356,7 @@
 
 
 
-       
+
     </LinearLayout>
 
 </ScrollView>

@@ -15,7 +15,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="PAN"
             android:id="@+id/textView16"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/holo_green_dark" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,6 +88,12 @@
             android:editable="true"
             android:layout_gravity="center_horizontal" />
 
+        <View
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:layout_height="2dp" />
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -131,6 +138,11 @@
             android:contextClickable="true"
             android:editable="true"
             android:layout_gravity="center_horizontal" />
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:layout_height="2dp" />
 
 
         <TextView

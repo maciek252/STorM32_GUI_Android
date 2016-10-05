@@ -7,7 +7,7 @@
     <LinearLayout
 
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <TextView
@@ -16,7 +16,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="SETUP"
             android:id="@+id/textView16"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textStyle="normal|bold"
+            android:background="@android:color/holo_green_dark" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -56,6 +58,22 @@
             android:id="@+id/spinner_setup_pwmOutConfiguration"
             android:layout_gravity="center_horizontal"
             android:spinnerMode="dropdown" />
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:layout_height="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="MOTOR USAGES"
+            android:id="@+id/textView111"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp"
+            android:textStyle="normal|bold" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -110,6 +128,22 @@
             android:id="@+id/spinner_setup_accCompensationMethod"
             android:spinnerMode="dropdown" />
 
+        <View
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:layout_height="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="AHRS"
+            android:id="@+id/textView112"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp"
+            android:textStyle="normal|bold" />
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,13 +151,23 @@
             android:id="@+id/textView_rcPitchMin" />
 
         <TextView
-            android:layout_width="56dp"
+            android:layout_width="73dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView_setup_imuAhrs"
             android:contextClickable="true"
             android:layout_gravity="center_horizontal"
             android:editable="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="OFFSETS"
+            android:id="@+id/textView113"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp"
+            android:textStyle="normal|bold" />
 
 
         <TextView
@@ -133,7 +177,7 @@
             android:id="@+id/textView_rcPitchMax" />
 
         <TextView
-            android:layout_width="56dp"
+            android:layout_width="74dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView_setup_rcPitchOffset"
@@ -163,13 +207,24 @@
             android:id="@+id/textView_rcPitchAccelLimit" />
 
         <TextView
-            android:layout_width="56dp"
+            android:layout_width="78dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView_setup_rcYawOffset"
             android:contextClickable="true"
             android:layout_gravity="center_horizontal"
             android:editable="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="BEEP"
+            android:id="@+id/textView114"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp"
+            android:textStyle="normal|bold" />
+
 
         <TextView
             android:layout_width="wrap_content"
