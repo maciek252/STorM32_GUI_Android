@@ -112,7 +112,7 @@ public class FragmentConnection extends Fragment
 
     private UsbManager mUsbManager;
     private UsbDevice mDevice;
-    private UsbDeviceConnection mConnection;
+    //private UsbDeviceConnection mConnection;
     private UsbEndpoint mEndpointIntr;
 
     Spinner spInterface;
@@ -192,10 +192,12 @@ public class FragmentConnection extends Fragment
 
 
                         deviceFound = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                        /* // OK but not needed
                         Toast.makeText(getActivity(),
                                 "ACTION_USB_DEVICE_ATTACHED: \n" +
                                         deviceFound.toString(),
                                 Toast.LENGTH_LONG).show();
+                                */
                         //textStatus.setText("ACTION_USB_DEVICE_ATTACHED: \n" +
                         //      deviceFound.toString());
 
@@ -210,10 +212,12 @@ public class FragmentConnection extends Fragment
                         UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
 
 
+                        /* // OK but not needed
                         Toast.makeText(getActivity(),
                                 "ACTION_USB_DEVICE_DETACHED: \n" +
                                         device.toString(),
                                 Toast.LENGTH_LONG).show();
+                                */
                         button_connectUSB.setEnabled(false);
                         //textStatus.setText("ACTION_USB_DEVICE_DETACHED: \n" +
 //                                device.toString());
@@ -918,7 +922,9 @@ public class FragmentConnection extends Fragment
             message[0] = (byte) 'g'; // options
 
             // Send command via a control request on endpoint zero
-            mConnection = connection;
+
+
+
             //mConnection.controlTransfer(0x21, 0x9, 0x200, 0, message, message.length, 0);
             int sentBytes = connection.bulkTransfer(ep, message, message.length, 1000);
 
@@ -949,17 +955,20 @@ public class FragmentConnection extends Fragment
                 }
             } while (recvBytes > 0);
 
+            /*
             Toast.makeText(getActivity(),
                     "Got some data sum:" + recvBytesSum,
                     Toast.LENGTH_LONG).show();
-
+*/
 
             if(recvBytesSum >= 380){
+
                 if (optionList.checkMessageCRC()) {
+                    /*
                     Toast.makeText(getActivity(),
                             "Data Read USB OK",
                             Toast.LENGTH_LONG).show();
-
+*/
 
                     optionList.decodeOptions();
                     setConnectionStateForDisplay(ConnectionState.CONNECTED_READ);
@@ -1064,7 +1073,7 @@ public class FragmentConnection extends Fragment
                     message[0] = (byte) 'v'; // options
 
                     // Send command via a control request on endpoint zero
-                    mConnection = connection;
+
                     //mConnection.controlTransfer(0x21, 0x9, 0x200, 0, message, message.length, 0);
                     int sentBytes = connection.bulkTransfer(ep, message, message.length, 1000);
 
@@ -1137,35 +1146,7 @@ public class FragmentConnection extends Fragment
 
                  */
 
-                String wej = "testName";
-                String o = String.format("%-20s", wej);
-                o = o.substring(0,16);
-
-                  bluetoothSerial.write("xn", false);
-  //              bluetoothSerial.write(o, false);
-                /* //OK DZIAŁA
-                bluetoothSerial.write(n);
-*/
-                //o = "0123456789012345";
-                o = et_name.getText().toString();
-                //o = tv_name.getText().toString();
-                if(o.length() > 16)
-                    o = o.substring(0,16);
-                else if(o.length() < 16)
-                    o = String.format("%0$-16s", o) ;
-                byte [] i = MAVLinkCRC.stringToByte("xn" + o + "cc");
-                //i[18] = (byte) 0x93;
-                //i[19] = (byte) 0xe6;
-
-                byte [] s= MAVLinkCRC.stringToByte(o);
-                int crc = MAVLinkCRC.crc_calculate(s);
-                byte[] crcArray = MAVLinkCRC.intToHexVax(crc);
-                i[18] = crcArray[0];
-                i[19] = crcArray[1];
-//                bluetoothSerial.write(i);
-                bt.write2(i);
-
-
+                setName();
 
                 break;
             case R.id.connection_button_readOptions:
@@ -1208,6 +1189,55 @@ public class FragmentConnection extends Fragment
                 break;
 
         }
+    }
+
+    void setName(){
+        String wej = "testName";
+        String o = String.format("%-20s", wej);
+        o = o.substring(0,16);
+
+        //bluetoothSerial.write("xn", false); // ?
+        //              bluetoothSerial.write(o, false);
+                /* //OK DZIAŁA
+                bluetoothSerial.write(n);
+*/
+        //o = "0123456789012345";
+        o = et_name.getText().toString();
+        //o = tv_name.getText().toString();
+        if(o.length() > 16)
+            o = o.substring(0,16);
+        else if(o.length() < 16)
+            o = String.format("%0$-16s", o) ;
+        byte [] i = MAVLinkCRC.stringToByte("xn" + o + "cc");
+        //i[18] = (byte) 0x93;
+        //i[19] = (byte) 0xe6;
+
+        byte [] s= MAVLinkCRC.stringToByte(o);
+        int crc = MAVLinkCRC.crc_calculate(s);
+        byte[] crcArray = MAVLinkCRC.intToHexVax(crc);
+        i[18] = crcArray[0];
+        i[19] = crcArray[1];
+//                bluetoothSerial.write(i);
+
+        if(connectionType == ConnectionType.CONNECTION_BT) {
+
+            //bluetoothSerial.write("g");
+            bt.write2(i);
+        } else if(connectionType == ConnectionType.CONNECTION_USB) {
+
+
+
+            // Send command via a control request on endpoint zero
+
+            //mConnection.controlTransfer(0x21, 0x9, 0x200, 0, message, message.length, 0);
+            int sentBytes = connection.bulkTransfer(ep, i, i.length, 1000);
+
+
+        }
+
+
+
+
     }
 
     void saveOptionsToEeprom(){
