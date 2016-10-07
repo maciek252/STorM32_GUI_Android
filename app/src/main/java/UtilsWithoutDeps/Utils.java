@@ -1,4 +1,4 @@
-package utils;
+package UtilsWithoutDeps;
 
 /**
  * Created by maciek on 5/18/16.

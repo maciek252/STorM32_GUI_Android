@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 import info.androidhive.materialtabs.R;
 import info.androidhive.materialtabs.storm32.optionList;
-import utils.Utils;
+import UtilsWithoutDeps.Utils;
 
 
 public class FragmentScripts extends IntermediateFragment
@@ -220,17 +220,20 @@ public class FragmentScripts extends IntermediateFragment
             }
             else if (s[pc] == 0x0f) {
                 pc += 1;
-                int nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                double nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                nr1 /= 100.0;
                 result += "SETANGLEYAW " + nr1 + "\n";
                 pc += 2;
             } else if (s[pc] == 0x10) {
 
                 pc += 1;
-                int nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                double nr1 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                nr1 /= 100.0;
                 pc += 2;
                 int nr2 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
                 pc += 2;
-                int nr3 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                double nr3 = (int) Utils.getTwoByteNumberFromByteArray(s, pc);
+                nr3 /= 100.0;
                 result += "SETANGLE " + nr1 + " " + nr2 + " " + nr3 + "\n";
                 pc += 2;
             }
@@ -261,8 +264,12 @@ public class FragmentScripts extends IntermediateFragment
                 pc += 1;
             }
             else if (s[pc] == 0x16) {
-                result += "DOCAMERA\n";
-                pc += 3;
+
+                pc += 1;
+                int nr1 = (int) Utils.getOneByteNumberFromByteArray(s, pc);
+                result += "DOCAMERA " + nr1 + "\n";
+                //pc += 3;
+                pc += 1;
             }
             // SETPANOWAITS 30 30 10
             else if (s[pc] == 0x19) {

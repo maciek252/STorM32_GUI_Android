@@ -38,6 +38,8 @@ public class FragmentRcInput extends IntermediateFragment{
     Spinner sp_rcPitchMode = null;
     Spinner sp_rcRoll = null;
     Spinner sp_rcRollMode = null;
+    Spinner sp_rcYaw = null;
+    Spinner sp_rcYawMode = null;
 
     public FragmentRcInput() {
         // Required empty public constructor
@@ -69,6 +71,7 @@ public class FragmentRcInput extends IntermediateFragment{
         tv_rcRollMin = (TextView) v.findViewById(R.id.textView_rcInput_rcRollMin);
         tv_rcRollMax = (TextView) v.findViewById(R.id.textView_rcInput_rcRollMax);
 
+
         tv_rcRollSpeedLimit = (TextView) v.findViewById(R.id.textView_rcInput_rcRollSpeedLimit);
         tv_rcRollAccelLimit = (TextView) v.findViewById(R.id.textView_rcInput_rcRollAccelLimit);
 
@@ -84,6 +87,9 @@ public class FragmentRcInput extends IntermediateFragment{
 
         sp_rcRoll = (Spinner) v.findViewById(R.id.spinner_rcInput_rcRoll);
         sp_rcRollMode = (Spinner) v.findViewById(R.id.spinner_rcInput_rcRollMode);
+
+        sp_rcYaw = (Spinner) v.findViewById(R.id.spinner_rcInput_rcYaw);
+        sp_rcYawMode = (Spinner) v.findViewById(R.id.spinner_rcInput_rcYawMode);
 
         //spinner_panControlMode = (Spinner) v.findViewById(R.id.spinner_6_panControlMode);
         //addPairSpinner(v, spinner_panModeDefaultSetting, 66);
@@ -113,6 +119,8 @@ public class FragmentRcInput extends IntermediateFragment{
         addPairSpinner(v, sp_rcPitchMode, 45);
         addPairSpinner(v, sp_rcRoll, 51);
         addPairSpinner(v, sp_rcRollMode, 52);
+        addPairSpinner(v, sp_rcYaw, 58);
+        addPairSpinner(v, sp_rcYawMode, 59);
 
 //        updateGUI();
         updateAllControlsAccordingToOptionList();

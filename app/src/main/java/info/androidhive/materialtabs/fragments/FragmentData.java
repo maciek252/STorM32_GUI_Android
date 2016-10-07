@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import info.androidhive.materialtabs.R;
 import utils.InterFragmentCom;
-import utils.Utils;
+import UtilsWithoutDeps.Utils;
 
 /*
 import com.devpaul.bluetoothutillib.SimpleBluetooth;

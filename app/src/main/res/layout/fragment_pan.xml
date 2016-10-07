@@ -1,5 +1,6 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
 
@@ -42,6 +43,19 @@
             android:layout_height="wrap_content"
             android:id="@+id/spinner_6_panModeDefaultSetting"
             android:spinnerMode="dropdown" />
+
+        <TextView
+            android:text="PITCH PAN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView159"
+            android:textStyle="normal|bold"
+            android:background="@android:color/holo_purple" />
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:layout_height="2dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -93,6 +107,14 @@
             android:background="@android:color/darker_gray"
             android:layout_height="2dp" />
 
+        <TextView
+            android:text="ROLL PAN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView58"
+            android:textStyle="normal|bold"
+            android:background="@android:color/holo_purple" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -143,6 +165,14 @@
             android:layout_width="match_parent"
             android:background="@android:color/darker_gray"
             android:layout_height="2dp" />
+
+        <TextView
+            android:text="YAW PAN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView158"
+            android:textStyle="normal|bold"
+            android:background="@android:color/holo_purple" />
 
 
         <TextView

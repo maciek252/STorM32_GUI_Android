@@ -137,7 +137,7 @@ public class optionList {
     }
 
 
-    static public boolean checkMessage(){
+    static public boolean checkMessageCRC(){
 
         if(options.length >= 381 && options[380] == 'o'){
             Log.d("optionList", "options read OK");
@@ -415,6 +415,8 @@ public class optionList {
                 )
         );
 
+
+
 /*
         name => 'Acc Compensation Method',
   type => 'OPTTYPE_LISTA', len => 0, ppos => 0, min => 0, max => 1, default => 1, steps => 1,
@@ -513,6 +515,21 @@ public class optionList {
                         OptionNumber.NumberType.UnsignedInt,
                         0, 3,0,1000,300,10,2,57, "")
         );
+
+        addOption(
+                new OptionListA("Rc Yaw",
+                        0,0,0,functionInputChoicesList.length-1,0,1,1,58,
+                        functionInputChoicesList
+                )
+        );
+
+        addOption(
+                new OptionListA("Rc Yaw Mode",
+                        0,0,0,3,0,1,1,59,
+                        new String[]{"absolute", "relative", "absolute centered", "relative turn around"}
+                )
+        );
+
 
 /*
 },{

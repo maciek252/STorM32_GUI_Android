@@ -29,9 +29,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Set;
 import java.util.UUID;
 
@@ -508,7 +506,7 @@ public class Bluetooth {
 					bytes = mmInStream.read(buffer);
 					if(queryMode == QueryMode.GET_OPTIONS) {
 						optionList.addToTempBuffer(buffer, bytes);
-						if (optionList.checkMessage()) {
+						if (optionList.checkMessageCRC()) {
 							arg2 = 1;
 							optionList.decodeOptions();
 						} else

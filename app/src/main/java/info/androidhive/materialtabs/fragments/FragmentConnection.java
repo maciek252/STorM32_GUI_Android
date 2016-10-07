@@ -1,5 +1,6 @@
 package info.androidhive.materialtabs.fragments;
 
+import android.graphics.Color;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbInterface;
@@ -65,9 +66,20 @@ public class FragmentConnection extends Fragment
         implements BluetoothSerialListener, BluetoothDeviceListDialog.OnDeviceSelectedListener,
         View.OnClickListener {
 
+    // CONNECTED_SAVED - clicked "SAVE" but not "SAVE TO EEPROM"
+    /*
+    CONNECT USB - active after connecting the usb cable (also if BT connection is running), inactive after starting an usb connection
+    CONNECT BT - active when bt turned on (even if USB connection is running), inactive after establishing a connection
+    DISCONNECT - active when USB or BT connection is opened
+    READ - active when BT or USB connection active
+    SAVE - active if at least one change done and READ active
+    Button "SAVE TO EEPROM" - active when SAVE clicked, disables SAVE
+     */
     public enum ConnectionState {
-        DISCONNECTED, CONNECTED_NOT_READ, CONNECTED_READ, CONNECTED_CHANGED
+        DISCONNECTED, CONNECTED_NOT_READ, CONNECTED_READ, CONNECTED_CHANGED, CONNECTED_SAVED
     };
+
+
 
     ConnectionState connectionState = ConnectionState.DISCONNECTED;
 
@@ -181,6 +193,7 @@ public class FragmentConnection extends Fragment
 
                         //checkDeviceInfoSkipDeviceSearching();
                         //doRawDescriptors();
+                        button_connectUSB.setEnabled(true);
                     } else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
 
                         UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
@@ -190,7 +203,7 @@ public class FragmentConnection extends Fragment
                                 "ACTION_USB_DEVICE_DETACHED: \n" +
                                         device.toString(),
                                 Toast.LENGTH_LONG).show();
-
+                        button_connectUSB.setEnabled(false);
                         //textStatus.setText("ACTION_USB_DEVICE_DETACHED: \n" +
 //                                device.toString());
 
@@ -404,12 +417,15 @@ public class FragmentConnection extends Fragment
                     Log.d(TAG, "open SUCCESS");
                     textStatusUSB.setText("open SUceess");
 
+
                     //if(true)
                       //  return;
 
 
                     byte[] message = new byte[1];
-                    message[0] = (byte) 'v';
+                    //message[0] = (byte) 'v'; // version - OK
+                    message[0] = (byte) 'g'; // options
+
                     // Send command via a control request on endpoint zero
                     mConnection = connection;
                     //mConnection.controlTransfer(0x21, 0x9, 0x200, 0, message, message.length, 0);
@@ -434,23 +450,44 @@ public class FragmentConnection extends Fragment
 
             }
             */
-            byte[] readBytes = new byte[64];
-            int recvBytes = connection.bulkTransfer(epIN, readBytes, readBytes.length, 3000);
+            //byte[] readBytes = new byte[64]; // OK works but we need more
+            byte[] readBytes = new byte[512];
+            int recvBytes = 0;
+            int recvBytesSum = 0;
+            do {
+                recvBytes = connection.bulkTransfer(epIN, readBytes, readBytes.length, 3000);
+                recvBytesSum += recvBytes;
+                if (recvBytes > 0) {
+                //    Toast.makeText(getActivity(),
+                  //          "Got some data: len=" + recvBytes + " dane:" + new String(readBytes),
+                    //        Toast.LENGTH_LONG).show();
 
-            if(recvBytes > 0)
-            {
-                Toast.makeText(getActivity(),
-                        "Got some data: " + new String(readBytes),
-                        Toast.LENGTH_LONG).show();
-                //Log.d("trebla", "Got some data: " + new String(readBytes));
+                    optionList.addToTempBuffer(readBytes, recvBytes);
+
+
+                    //Log.d("trebla", "Got some data: " + new String(readBytes));
+                } else {
+                    Toast.makeText(getActivity(),
+                            "Didng't get any data...",
+                            Toast.LENGTH_LONG).show();
+                    //Log.d("trebla", "Did not get any data: " + recvBytes);
+                }
+            } while (recvBytes > 0);
+
+            Toast.makeText(getActivity(),
+                    "Got some data sum:" + recvBytesSum,
+                    Toast.LENGTH_LONG).show();
+
+
+            if(recvBytesSum == 380){
+                if (optionList.checkMessageCRC()) {
+                    optionList.decodeOptions();
+//                        Toast.makeText(getActivity(),
+                    //                              "Got some data: OK USB OPTIONS",
+                    //                            Toast.LENGTH_LONG).show();
+                }
             }
-            else
-            {
-                Toast.makeText(getActivity(),
-                        "Didng't get any data...",
-                        Toast.LENGTH_LONG).show();
-                //Log.d("trebla", "Did not get any data: " + recvBytes);
-            }
+
 
 
             //private UsbDeviceConnection mConnection;
@@ -793,7 +830,7 @@ public class FragmentConnection extends Fragment
         button_2_saveToEeprom.setOnClickListener(this);
 
         tv = (TextView) v.findViewById(R.id.textViewDetectedBT);
-        tv_connectionStatus = (TextView) v.findViewById(R.id.textView_2_connectionStatus);
+        tv_connectionStatus = (TextView) v.findViewById(R.id.textView_connection_connectionStatus);
         tv_receivedBt =  (TextView) v.findViewById(R.id.textView_2_rcvBt);
 
         tv_receivedBt.setMovementMethod(new ScrollingMovementMethod());
@@ -1148,19 +1185,22 @@ public class FragmentConnection extends Fragment
         //invalidateOptionsMenu();
         //updateBluetoothState();
         tv_connectionStatus.setText("disconnected");
+        tv_connectionStatus.setBackgroundColor(Color.RED);
     }
 
     @Override
     public void onConnectingBluetoothDevice() {
         //updateBluetoothState();
         tv_connectionStatus.setText("connecting");
+        tv_connectionStatus.setBackgroundColor(Color.YELLOW);
     }
 
     @Override
     public void onBluetoothDeviceConnected(String name, String address) {
         //invalidateOptionsMenu();
         //updateBluetoothState();
-        tv_connectionStatus.setText("connected1");
+        tv_connectionStatus.setText("connected BT");
+        tv_connectionStatus.setBackgroundColor(Color.GREEN);
         //setControlsBTConnected();
     }
 

@@ -11,27 +11,42 @@
         android:orientation="vertical">
 
         <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textDebug" />
+
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/detect_bt_devices"
+                android:id="@+id/connection_button_detect_bt"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="0"
+                android:layout_column="0" />
+
+        </GridLayout>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/textView_connection_connectionStatus"
-            android:layout_row="3"
-            android:layout_column="2" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/textView_2_name"
+            android:layout_gravity="center_horizontal" />
+
 
         <GridLayout
             android:layout_width="match_parent"
             tools:rowCount="5"
             android:layout_height="0dp"
-            android:layout_weight="1.73">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/disconnect_bt"
-                android:id="@+id/connection_button_disconnectBT"
-                android:layout_row="1"
-                android:layout_column="0" />
+            android:layout_weight="1.59">
 
             <Button
                 android:layout_width="wrap_content"
@@ -58,14 +73,6 @@
                 android:layout_column="0" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/read_options"
-                android:id="@+id/connection_button_readOptions"
-                android:layout_row="0"
-                android:layout_column="9" />
-
-            <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,11 +86,18 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/detect_bt_devices"
-                android:id="@+id/connection_button_detect_bt"
-                android:layout_gravity="center_horizontal"
-                android:layout_row="0"
+                android:text="@string/disconnect_bt"
+                android:id="@+id/connection_button_disconnectBT"
+                android:layout_row="1"
                 android:layout_column="0" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/read_options"
+                android:id="@+id/connection_button_readOptions"
+                android:layout_row="0"
+                android:layout_column="9" />
 
         </GridLayout>
 
@@ -183,26 +197,27 @@
                 android:layout_row="3"
                 android:layout_column="0" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/textView_connection_connectionStatus"
+                android:layout_row="3"
+                android:layout_column="2" />
 
-
-
+            <TextView
+                android:layout_width="129dp"
+                android:layout_height="wrap_content"
+                android:text="status_v"
+                android:id="@+id/textView_2_connectionStatus"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="0"
+                android:layout_column="7" />
         </GridLayout>
 
-        <TextView
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textDebug" />
 
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/textView_2_name"
-            android:layout_gravity="center_horizontal" />
 
         <Button
             android:layout_width="match_parent"
