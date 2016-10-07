@@ -33,11 +33,11 @@
     <string name="conn_status">Conn. status:</string>
     <string name="bt_test">BT-test</string>
     <string name="board_version">Board Version:</string>
-    <string name="disconnect_bt">Disconnect BT</string>
+    <string name="disconnect_bt">Disconnect</string>
     <string name="board_name">Board Name</string>
     <string name="detect_bt_devices">Detect BT devices</string>
     <string name="read_options">Read Options</string>
-    <string name="read_usb_test">Read USB -test</string>
+    <string name="read_usb_test">Connect USB</string>
     <string name="save_to_eeprom">SAVE TO EEPROM</string>
     <string name="set_name">Set Name</string>
     <string name="soft_version_v">soft_version_v</string>

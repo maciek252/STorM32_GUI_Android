@@ -72,16 +72,21 @@ public class FragmentConnection extends Fragment
     CONNECT BT - active when bt turned on (even if USB connection is running), inactive after establishing a connection
     DISCONNECT - active when USB or BT connection is opened
     READ - active when BT or USB connection active
-    SAVE - active if at least one change done and READ active
+    SAVE - active (if at least one change done) and READ active
     Button "SAVE TO EEPROM" - active when SAVE clicked, disables SAVE
      */
     public enum ConnectionState {
         DISCONNECTED, CONNECTED_NOT_READ, CONNECTED_READ, CONNECTED_CHANGED, CONNECTED_SAVED
     };
 
+    public enum ConnectionType{
+        CONNECTION_NONE, CONNECTION_USB, CONNECTION_BT
+    }
+
 
 
     ConnectionState connectionState = ConnectionState.DISCONNECTED;
+    ConnectionType connectionType = ConnectionType.CONNECTION_NONE;
 
     ViewPager vp = null;
 
@@ -98,6 +103,9 @@ public class FragmentConnection extends Fragment
 
     TextView textDeviceName;
 
+    UsbDeviceConnection connection = null;
+    UsbEndpoint ep = null;
+    UsbEndpoint epIN = null;
 
     private TextView status;
     private Bluetooth bt;
@@ -196,6 +204,9 @@ public class FragmentConnection extends Fragment
                         button_connectUSB.setEnabled(true);
                     } else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
 
+
+
+
                         UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
 
 
@@ -211,6 +222,11 @@ public class FragmentConnection extends Fragment
                             //if(device == deviceFound){
                             //  releaseUsb();
                             //}
+                        }
+
+                        if(connectionType == ConnectionType.CONNECTION_USB){
+                            setControlsNotConnected();
+                            connectionType = ConnectionType.CONNECTION_NONE;
                         }
 
                         /*
@@ -379,7 +395,7 @@ public class FragmentConnection extends Fragment
 
 
 
-            UsbEndpoint ep = intf.getEndpoint(0);
+            ep = intf.getEndpoint(0);
             /*
             if (ep.getType() != UsbConstants.USB_ENDPOINT_XFER_INT) {
                 Toast.makeText(getActivity(),
@@ -390,12 +406,12 @@ public class FragmentConnection extends Fragment
             }
             */
 
-            UsbEndpoint epIN = intf.getEndpoint(1);
+            epIN = intf.getEndpoint(1);
 
             textStatusUSB.setText("got endpoint OK");
 
 
-            UsbDeviceConnection connection = null;
+            connection = null;
             try {
                 mUsbManager = (UsbManager)getActivity().getSystemService(Context.USB_SERVICE);
                  connection = mUsbManager.openDevice(deviceFound);
@@ -403,7 +419,6 @@ public class FragmentConnection extends Fragment
             } catch (Exception e){
                 textStatusUSB.setText("problem" + e.getMessage());
             }
-
 
 
 
@@ -418,22 +433,14 @@ public class FragmentConnection extends Fragment
                     textStatusUSB.setText("open SUceess");
 
 
+                    setConnectionStateForDisplay(ConnectionState.CONNECTED_NOT_READ);
+                    connectionType = ConnectionType.CONNECTION_USB;
+                    setControlsUsbConnected();
+
                     //if(true)
                       //  return;
 
 
-                    byte[] message = new byte[1];
-                    //message[0] = (byte) 'v'; // version - OK
-                    message[0] = (byte) 'g'; // options
-
-                    // Send command via a control request on endpoint zero
-                    mConnection = connection;
-                    //mConnection.controlTransfer(0x21, 0x9, 0x200, 0, message, message.length, 0);
-                    int sentBytes = connection.bulkTransfer(ep, message, message.length, 1000);
-
-//                Thread thread = new Thread(this);
-//                thread.start();
-                    textStatusUSB.setText("USB message sent!" + sentBytes);
 
                 } else {
                     Log.d(TAG, "open FAIL");
@@ -441,6 +448,7 @@ public class FragmentConnection extends Fragment
                     textStatusUSB.setText("open claim interface failed!");
                 }
             }
+
 
             /*
             UsbRequest request = new UsbRequest();
@@ -451,43 +459,6 @@ public class FragmentConnection extends Fragment
             }
             */
             //byte[] readBytes = new byte[64]; // OK works but we need more
-            byte[] readBytes = new byte[512];
-            int recvBytes = 0;
-            int recvBytesSum = 0;
-            do {
-                recvBytes = connection.bulkTransfer(epIN, readBytes, readBytes.length, 3000);
-                recvBytesSum += recvBytes;
-                if (recvBytes > 0) {
-                //    Toast.makeText(getActivity(),
-                  //          "Got some data: len=" + recvBytes + " dane:" + new String(readBytes),
-                    //        Toast.LENGTH_LONG).show();
-
-                    optionList.addToTempBuffer(readBytes, recvBytes);
-
-
-                    //Log.d("trebla", "Got some data: " + new String(readBytes));
-                } else {
-                    Toast.makeText(getActivity(),
-                            "Didng't get any data...",
-                            Toast.LENGTH_LONG).show();
-                    //Log.d("trebla", "Did not get any data: " + recvBytes);
-                }
-            } while (recvBytes > 0);
-
-            Toast.makeText(getActivity(),
-                    "Got some data sum:" + recvBytesSum,
-                    Toast.LENGTH_LONG).show();
-
-
-            if(recvBytesSum == 380){
-                if (optionList.checkMessageCRC()) {
-                    optionList.decodeOptions();
-//                        Toast.makeText(getActivity(),
-                    //                              "Got some data: OK USB OPTIONS",
-                    //                            Toast.LENGTH_LONG).show();
-                }
-            }
-
 
 
             //private UsbDeviceConnection mConnection;
@@ -936,9 +907,73 @@ public class FragmentConnection extends Fragment
     }
 
     private void readOptions(){
-        bt.queryMode = Bluetooth.QueryMode.GET_OPTIONS;
-        //bluetoothSerial.write("g");
-        bt.sendMessage("g");
+
+        if(connectionType == ConnectionType.CONNECTION_BT) {
+            bt.queryMode = Bluetooth.QueryMode.GET_OPTIONS;
+            //bluetoothSerial.write("g");
+            bt.sendMessage("g");
+        } else if(connectionType == ConnectionType.CONNECTION_USB) {
+            byte[] message = new byte[1];
+            //message[0] = (byte) 'v'; // version - OK
+            message[0] = (byte) 'g'; // options
+
+            // Send command via a control request on endpoint zero
+            mConnection = connection;
+            //mConnection.controlTransfer(0x21, 0x9, 0x200, 0, message, message.length, 0);
+            int sentBytes = connection.bulkTransfer(ep, message, message.length, 1000);
+
+//                Thread thread = new Thread(this);
+//                thread.start();
+            textStatusUSB.setText("USB message sent!" + sentBytes);
+
+            byte[] readBytes = new byte[512];
+            int recvBytes = 0;
+            int recvBytesSum = 0;
+            do {
+                recvBytes = connection.bulkTransfer(epIN, readBytes, readBytes.length, 3000);
+                recvBytesSum += recvBytes;
+                if (recvBytes > 0) {
+                    //    Toast.makeText(getActivity(),
+                    //          "Got some data: len=" + recvBytes + " dane:" + new String(readBytes),
+                    //        Toast.LENGTH_LONG).show();
+
+                    optionList.addToTempBuffer(readBytes, recvBytes);
+
+
+                    //Log.d("trebla", "Got some data: " + new String(readBytes));
+                } else {
+                    //Toast.makeText(getActivity(),
+                      //      "Didng't get any data...",
+                        //    Toast.LENGTH_LONG).show();
+
+                }
+            } while (recvBytes > 0);
+
+            Toast.makeText(getActivity(),
+                    "Got some data sum:" + recvBytesSum,
+                    Toast.LENGTH_LONG).show();
+
+
+            if(recvBytesSum >= 380){
+                if (optionList.checkMessageCRC()) {
+                    Toast.makeText(getActivity(),
+                            "Data Read USB OK",
+                            Toast.LENGTH_LONG).show();
+
+
+                    optionList.decodeOptions();
+                    setConnectionStateForDisplay(ConnectionState.CONNECTED_READ);
+
+//                        Toast.makeText(getActivity(),
+                    //                              "Got some data: OK USB OPTIONS",
+                    //                            Toast.LENGTH_LONG).show();
+                }
+            }
+
+
+
+
+        }
 
     }
 
@@ -983,9 +1018,19 @@ public class FragmentConnection extends Fragment
         button_2_saveToEeprom.setEnabled(false);
     }
 
+    protected void setControlsUsbConnected(){
+        button_2_disconnect.setEnabled(true);
+        button_2_readOptions.setEnabled(true);
+        button_2_readVersion.setEnabled(true);
+        button_2_SaveOptions.setEnabled(false);
+        button_2_saveToEeprom.setEnabled(false);
+    }
+
+
+
     protected void setControlsDataRead(){
         button_2_SaveOptions.setEnabled(true);
-        button_2_saveToEeprom.setEnabled(true);
+        button_2_saveToEeprom.setEnabled(false);
     }
 
 
@@ -1009,20 +1054,57 @@ public class FragmentConnection extends Fragment
             case  R.id.connection_button_readVersion:
                 //bluetoothSerial.getConnectedDeviceName().
 
-                bt.queryMode = Bluetooth.QueryMode.GET_VERSION;
+                if(connectionType == ConnectionType.CONNECTION_BT) {
+                    bt.queryMode = Bluetooth.QueryMode.GET_VERSION;
+                    String getVersion = "v";
+                    bt.write2(getVersion.getBytes());
+                } else if(connectionType == ConnectionType.CONNECTION_USB) {
+                    byte[] message = new byte[1];
+
+                    message[0] = (byte) 'v'; // options
+
+                    // Send command via a control request on endpoint zero
+                    mConnection = connection;
+                    //mConnection.controlTransfer(0x21, 0x9, 0x200, 0, message, message.length, 0);
+                    int sentBytes = connection.bulkTransfer(ep, message, message.length, 1000);
+
+                    byte[] readBytes = new byte[512];
+                    int recvBytes = 0;
+                    int recvBytesSum = 0;
+                    do {
+                        recvBytes = connection.bulkTransfer(epIN, readBytes, readBytes.length, 3000);
+                        recvBytesSum += recvBytes;
+                        if (recvBytes > 0) {
+                            //    Toast.makeText(getActivity(),
+                            //          "Got some data: len=" + recvBytes + " dane:" + new String(readBytes),
+                            //        Toast.LENGTH_LONG).show();
+
+                            optionList.addToTempBuffer(readBytes, recvBytes);
+
+
+                            //Log.d("trebla", "Got some data: " + new String(readBytes));
+                        } else {
+                            //Toast.makeText(getActivity(),
+                            //      "Didng't get any data...",
+                            //    Toast.LENGTH_LONG).show();
+
+                        }
+                    } while (recvBytes > 0);
+                    if(recvBytesSum >= 48) {
+                        readVersionWriteToFields(readBytes);
+                    }
+
+                }
+
 
                 InterFragmentCom.clearData();
-                String getVersion = "v";
-                bt.write2(getVersion.getBytes());
+
                 break;
 
             case R.id.connection_button_saveToEeprom:
 
+                saveOptionsToEeprom();
 
-
-                bt.queryMode = Bluetooth.QueryMode.SAVE_TO_EEPROM;
-                String saveToEeprom = "xs";
-                bt.write2(saveToEeprom.getBytes());
                 break;
 
             case R.id.connection_button_usb_connect:
@@ -1093,44 +1175,8 @@ public class FragmentConnection extends Fragment
                 break;
             case R.id.connection_button_saveOptions:
                 //options = optionList.getOptions();
-                bt.queryMode = Bluetooth.QueryMode.SET_OPTIONS;
-                ;
 
-                if(optionList.getOptions() != null) {
-                    optionList.encodeOptions();
-                    tv_receivedBt.setText("size of opTions = " + optionList.getOptions().length);
-                }else {
-                    tv_receivedBt.setText("optins = null");
-                    return;
-                }
-
-                byte [] optionsFull = new byte[381];
-                optionsFull[0] = 'p';
-                //optionsFull[380] = 'e'; // i tak nadpisane, dla testu
-                tv_receivedBt.append("oko");
-                byte [] optionsWrite = new byte [125*2 + 128 ];
-                for(int ii = 0; ii < 125*2 + 128 ; ii++){
-
-                    byte b = optionList.getOptions()[ii];
-                    optionsWrite[ii] = b;
-                    optionsFull[ii+1] = b;
-                }
-                int crc2 = MAVLinkCRC.crc_calculate(optionsWrite);
-                byte[] crcArray2 = MAVLinkCRC.intToHexVax(crc2);
-
-                //for(int ii = 0; ii < 125*2; ii++) // 2 crc, 'o'
-// 378 elements - contents 0-377
-                // in write - 1 - 378
-
-                optionsFull[379] = crcArray2[0];
-                optionsFull[380] = crcArray2[1];
-
-                tv_receivedBt.append("crc=" + String.format("%01X",crcArray2[0])  + "," + String.format("%01X",crcArray2[1]));
-
-                //bluetoothSerial.write(optionsFull);
-                bt.write2(optionsFull);
-
-                //SystemClock.sleep(1000);
+                saveOptions();
 
                 // Execute some code after 2 seconds have passed
                 break;
@@ -1148,10 +1194,93 @@ public class FragmentConnection extends Fragment
             case R.id.connection_button_disconnectBT:
 
                 //bluetoothSerial.stop();
-                bt.stop();
+                if(connectionType == ConnectionType.CONNECTION_BT) {
+                    bt.stop();
+                    connectionType = ConnectionType.CONNECTION_NONE;
+                    connectionState = ConnectionState.DISCONNECTED;
+                } else if(connectionType == ConnectionType.CONNECTION_USB) {
+                    connection.close();
+                    connectionType = ConnectionType.CONNECTION_NONE;
+                    connectionState = ConnectionState.DISCONNECTED;
+                    setConnectionStateForDisplay(ConnectionState.DISCONNECTED);
+                    connectionType = ConnectionType.CONNECTION_NONE;
+                }
                 break;
 
         }
+    }
+
+    void saveOptionsToEeprom(){
+
+        if( connectionType == ConnectionType.CONNECTION_BT) {
+            bt.queryMode = Bluetooth.QueryMode.SAVE_TO_EEPROM;
+            String saveToEeprom = "xs";
+            bt.write2(saveToEeprom.getBytes());
+        } else if( connectionType == ConnectionType.CONNECTION_USB) {
+
+            byte[] message = new byte[2];
+            //message[0] = (byte) 'v'; // version - OK
+            message[0] = (byte) 'x'; // options
+            message[1] = (byte) 's'; // options
+
+            // Send command via a control request on endpoint zero
+            //mConnection = connection;
+            //mConnection.controlTransfer(0x21, 0x9, 0x200, 0, message, message.length, 0);
+            int sentBytes = connection.bulkTransfer(ep, message, message.length, 1000);
+            rereadOptions();
+        }
+
+        button_2_saveToEeprom.setEnabled(false);
+
+    }
+
+    void saveOptions(){
+
+        if(optionList.getOptions() != null) {
+            optionList.encodeOptions();
+            tv_receivedBt.setText("size of opTions = " + optionList.getOptions().length);
+        }else {
+            tv_receivedBt.setText("optins = null");
+            return;
+        }
+
+        byte [] optionsFull = new byte[381];
+        optionsFull[0] = 'p';
+        //optionsFull[380] = 'e'; // i tak nadpisane, dla testu
+        tv_receivedBt.append("oko");
+        byte [] optionsWrite = new byte [125*2 + 128 ];
+        for(int ii = 0; ii < 125*2 + 128 ; ii++){
+
+            byte b = optionList.getOptions()[ii];
+            optionsWrite[ii] = b;
+            optionsFull[ii+1] = b;
+        }
+        int crc2 = MAVLinkCRC.crc_calculate(optionsWrite);
+        byte[] crcArray2 = MAVLinkCRC.intToHexVax(crc2);
+
+        //for(int ii = 0; ii < 125*2; ii++) // 2 crc, 'o'
+// 378 elements - contents 0-377
+        // in write - 1 - 378
+
+        optionsFull[379] = crcArray2[0];
+        optionsFull[380] = crcArray2[1];
+
+        tv_receivedBt.append("crc=" + String.format("%01X",crcArray2[0])  + "," + String.format("%01X",crcArray2[1]));
+
+
+        if( connectionType == ConnectionType.CONNECTION_BT) {
+            bt.queryMode = Bluetooth.QueryMode.SET_OPTIONS;
+            bt.write2(optionsFull); // OK this works for BT
+        } else if( connectionType == ConnectionType.CONNECTION_USB) {
+            int sentBytes = connection.bulkTransfer(ep, optionsFull, optionsFull.length, 1000);
+        }
+
+        button_2_saveToEeprom.setEnabled(true);
+
+        //SystemClock.sleep(1000);
+
+
+
     }
 
     /* Implementation of BluetoothSerialListener */
@@ -1186,6 +1315,14 @@ public class FragmentConnection extends Fragment
         //updateBluetoothState();
         tv_connectionStatus.setText("disconnected");
         tv_connectionStatus.setBackgroundColor(Color.RED);
+
+        if(connectionType == ConnectionType.CONNECTION_BT) {
+            connectionType = ConnectionType.CONNECTION_NONE;
+            connectionState = ConnectionState.DISCONNECTED;
+        }
+
+
+
     }
 
     @Override
@@ -1201,7 +1338,9 @@ public class FragmentConnection extends Fragment
         //updateBluetoothState();
         tv_connectionStatus.setText("connected BT");
         tv_connectionStatus.setBackgroundColor(Color.GREEN);
-        //setControlsBTConnected();
+
+        connectionType = ConnectionType.CONNECTION_BT;
+        setControlsBTConnected();
     }
 
     @Override
@@ -1345,6 +1484,34 @@ public class FragmentConnection extends Fragment
     }
 */
 
+    private void readVersionWriteToFields(byte[] buf){
+        byte[] softVersion = Arrays.copyOfRange(buf, 0, 15);
+        //  String softVersionStr = String.valueOf(softVersion);
+        try {
+            String softVersionStr = new String(softVersion, "UTF-8");
+            tv_software_version.setText(softVersionStr);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        byte[] boardName = Arrays.copyOfRange(buf, 16, 31);
+        try {
+            String boardNameStr = new String(boardName, "UTF-8");
+            //tv_name.setText(boardNameStr);
+            et_name.setText(boardNameStr);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        byte[] boardVersion = Arrays.copyOfRange(buf, 32, 48);
+        try {
+            String boardVersionStr = new String(boardVersion, "UTF-8");
+            tv_board_version.setText(boardVersionStr);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -1368,6 +1535,7 @@ public class FragmentConnection extends Fragment
                         case 3:
                             statusStr = "CONNECTED4!";
                             setConnectionStateForDisplay(ConnectionState.CONNECTED_NOT_READ);
+                            connectionType = ConnectionType.CONNECTION_BT;
                             break;
                         default:
                             statusStr = "??";
@@ -1403,30 +1571,8 @@ public class FragmentConnection extends Fragment
                     }else if(bt.queryMode == Bluetooth.QueryMode.GET_VERSION) {
 
                         if (msg.arg2 == 1) {
-                            byte[] softVersion = Arrays.copyOfRange(bt.bufferExternalComm, 0, 15);
-                          //  String softVersionStr = String.valueOf(softVersion);
-                            try {
-                                String softVersionStr = new String(softVersion, "UTF-8");
-                                tv_software_version.setText(softVersionStr);
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
-                            byte[] boardName = Arrays.copyOfRange(bt.bufferExternalComm, 16, 31);
-                            try {
-                                String boardNameStr = new String(boardName, "UTF-8");
-                                //tv_name.setText(boardNameStr);
-                                et_name.setText(boardNameStr);
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
+                            readVersionWriteToFields(bt.bufferExternalComm);
 
-                            byte[] boardVersion = Arrays.copyOfRange(bt.bufferExternalComm, 32, 48);
-                            try {
-                                String boardVersionStr = new String(boardVersion, "UTF-8");
-                                tv_board_version.setText(boardVersionStr);
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
                         }
                     }
                     else if(bt.queryMode == Bluetooth.QueryMode.SAVE_TO_EEPROM){
@@ -1462,6 +1608,8 @@ public class FragmentConnection extends Fragment
             }
         }
     };
+
+
 
     private void rereadOptions(){
         SystemClock.sleep(1000);
