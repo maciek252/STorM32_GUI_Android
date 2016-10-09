@@ -188,34 +188,6 @@
 
         </GridLayout>
 
-        <TextView
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textDebug" />
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/textView_2_name"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/bt_test"
-            android:id="@+id/connection_button_btTest" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/textView_2_rcvBt" />
 
         <TextView
             android:layout_width="321dp"
@@ -232,38 +204,6 @@
             android:id="@+id/textStatusUSB" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="soft_version_v"
-            android:id="@+id/textInfo"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="soft_version_v"
-            android:id="@+id/textInfoInterface"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="soft_version_v"
-            android:id="@+id/textInfoEndPoint"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="soft_version_v"
-            android:id="@+id/textDeviceName"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -273,20 +213,6 @@
             android:layout_gravity="right"
             tools:ignore="RtlHardcoded,TextViewEdits"
             android:maxLines="1" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spInterface"
-            android:layout_gravity="center_horizontal"
-            android:spinnerMode="dropdown" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spEndPoint"
-            android:layout_gravity="center_horizontal"
-            android:spinnerMode="dropdown" />
 
     </LinearLayout>
 

@@ -95,19 +95,17 @@ public class FragmentConnection extends Fragment
     public final String TAG = "Main";
 
     private SeekBar elevation;
-    private TextView debug;
-    private TextView textStatusUSB;
-    TextView textInfo;
-    TextView textInfoInterface;
-    TextView textEndPoint;
 
-    TextView textDeviceName;
+    private TextView textStatusUSB;
+
+    protected boolean noBTAvailableWarningShown = false;
+
 
     UsbDeviceConnection connection = null;
     UsbEndpoint ep = null;
     UsbEndpoint epIN = null;
 
-    private TextView status;
+
     private Bluetooth bt;
 
     private UsbManager mUsbManager;
@@ -115,12 +113,12 @@ public class FragmentConnection extends Fragment
     //private UsbDeviceConnection mConnection;
     private UsbEndpoint mEndpointIntr;
 
-    Spinner spInterface;
+
     ArrayList<String> listInterface;
     ArrayList<UsbInterface> listUsbInterface;
     ArrayAdapter<String> adapterInterface;
 
-    Spinner spEndPoint;
+
     ArrayList<String> listEndPoint;
     ArrayList<UsbEndpoint> listUsbEndpoint;
     ArrayAdapter<String> adapterEndpoint;
@@ -157,7 +155,7 @@ public class FragmentConnection extends Fragment
     Button button_btTest = null;
     TextView tv = null;
     TextView tv_connectionStatus = null;
-    TextView tv_receivedBt = null;
+
     TextView tv_board_version = null;
     TextView tv_software_version = null;
     TextView tv_board = null;
@@ -508,9 +506,6 @@ public class FragmentConnection extends Fragment
            // deviceFound = device;
         }
 
-        textInfo.setText("");
-        textInfoInterface.setText("");
-        textEndPoint.setText("");
 
         if (deviceFound == null) {
             Toast.makeText(getActivity(),
@@ -527,7 +522,6 @@ public class FragmentConnection extends Fragment
                     "VendorID: " + deviceFound.getVendorId() + "\n" +
                     "ProductID: " + deviceFound.getProductId() + "\n" +
                     "InterfaceCount: " + deviceFound.getInterfaceCount();
-            textInfo.setText(i);
 
             checkUsbDevicve(deviceFound);
         }
@@ -590,8 +584,8 @@ public class FragmentConnection extends Fragment
         adapterInterface = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item, listInterface);
         adapterInterface.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spInterface.setAdapter(adapterInterface);
-        spInterface.setOnItemSelectedListener(interfaceOnItemSelectedListener);
+        //spInterface.setAdapter(adapterInterface);
+        //spInterface.setOnItemSelectedListener(interfaceOnItemSelectedListener);
     }
 
     AdapterView.OnItemSelectedListener interfaceOnItemSelectedListener =
@@ -610,7 +604,7 @@ public class FragmentConnection extends Fragment
                             + "InterfaceSubclass: " + selectedUsbIf.getInterfaceSubclass() + "\n"
                             + "EndpointCount: " + selectedUsbIf.getEndpointCount();
 
-                    textInfoInterface.setText(sUsbIf);
+                    //textInfoInterface.setText(sUsbIf);
                     //   checkUsbInterface(selectedUsbIf);
                 }
                 @Override
@@ -768,8 +762,7 @@ public class FragmentConnection extends Fragment
         button_connectUSB = (Button) v.findViewById(R.id.connection_button_usb_connect);
         button_connectUSB.setOnClickListener(this);
 
-        debug = (TextView) v.findViewById(R.id.textDebug);
-        status = (TextView) v.findViewById(R.id.textStatus);
+
 
         /*
         v.findViewById(R.id.restart).setOnClickListener(new View.OnClickListener() {
@@ -781,8 +774,6 @@ public class FragmentConnection extends Fragment
             }
         });*/
 
-        button_btTest = (Button) v.findViewById(R.id.connection_button_btTest);
-        button_btTest.setOnClickListener(this);
 
         button_2_readVersion = (Button) v.findViewById(R.id.connection_button_readVersion);
         button_2_readVersion.setOnClickListener(this);
@@ -806,9 +797,6 @@ public class FragmentConnection extends Fragment
 
         tv = (TextView) v.findViewById(R.id.textViewDetectedBT);
         tv_connectionStatus = (TextView) v.findViewById(R.id.textView_connection_connectionStatus);
-        tv_receivedBt =  (TextView) v.findViewById(R.id.textView_2_rcvBt);
-
-        tv_receivedBt.setMovementMethod(new ScrollingMovementMethod());
 
 
         tv_board_version = (TextView) v.findViewById(R.id.textView_connection_board_version);
@@ -818,12 +806,8 @@ public class FragmentConnection extends Fragment
         et_name.setText("                ");
 
         textStatusUSB = (TextView) v.findViewById(R.id.textStatusUSB);
-        textInfo = (TextView) v.findViewById(R.id.textInfo);
-        textInfoInterface = (TextView) v.findViewById(R.id.textInfoInterface);
-        textEndPoint = (TextView) v.findViewById(R.id.textInfoEndPoint);
 
-        spInterface = (Spinner) v.findViewById(R.id.spInterface);
-        spEndPoint = (Spinner) v.findViewById(R.id.spEndPoint);
+
 
 
         //final InputMethodManager imm =(InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -865,7 +849,7 @@ public class FragmentConnection extends Fragment
     public void onResume() {
         super.onResume();
 
-        status.setText(statusStr);
+        //status.setText(statusStr);
 
         /*
 //        updateAllControlsAccordingToOptionList();
@@ -1049,6 +1033,7 @@ public class FragmentConnection extends Fragment
         bt.queryMode = Bluetooth.QueryMode.NONE;
 
         switch (v.getId()) {
+            /*
             case R.id.connection_button_btTest:
 
                 IntermediateFragment.setColorToAllControls();
@@ -1060,6 +1045,7 @@ public class FragmentConnection extends Fragment
                 dialog.showAddress(true);
                 dialog.show();
                 break;
+                */
             case  R.id.connection_button_readVersion:
                 //bluetoothSerial.getConnectedDeviceName().
 
@@ -1268,16 +1254,16 @@ public class FragmentConnection extends Fragment
 
         if(optionList.getOptions() != null) {
             optionList.encodeOptions();
-            tv_receivedBt.setText("size of opTions = " + optionList.getOptions().length);
+            //tv_receivedBt.setText("size of opTions = " + optionList.getOptions().length);
         }else {
-            tv_receivedBt.setText("optins = null");
+            //tv_receivedBt.setText("optins = null");
             return;
         }
 
         byte [] optionsFull = new byte[381];
         optionsFull[0] = 'p';
         //optionsFull[380] = 'e'; // i tak nadpisane, dla testu
-        tv_receivedBt.append("oko");
+
         byte [] optionsWrite = new byte [125*2 + 128 ];
         for(int ii = 0; ii < 125*2 + 128 ; ii++){
 
@@ -1295,7 +1281,7 @@ public class FragmentConnection extends Fragment
         optionsFull[379] = crcArray2[0];
         optionsFull[380] = crcArray2[1];
 
-        tv_receivedBt.append("crc=" + String.format("%01X",crcArray2[0])  + "," + String.format("%01X",crcArray2[1]));
+        //tv_receivedBt.append("crc=" + String.format("%01X",crcArray2[0])  + "," + String.format("%01X",crcArray2[1]));
 
 
         if( connectionType == ConnectionType.CONNECTION_BT) {
@@ -1318,16 +1304,20 @@ public class FragmentConnection extends Fragment
     @Override
     public void onBluetoothNotSupported() {
 
-        new AlertDialog.Builder(getActivity())
-                .setMessage("ni ma BT")
-                .setPositiveButton("boo", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //finish();
-                    }
-                })
-                .setCancelable(false)
-                .show();
+        if(!noBTAvailableWarningShown) {
+
+            noBTAvailableWarningShown = true;
+            new AlertDialog.Builder(getActivity())
+                    .setMessage("no BT available")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //finish();
+                        }
+                    })
+                    .setCancelable(false)
+                    .show();
+        }
 
     }
 
@@ -1466,7 +1456,7 @@ public class FragmentConnection extends Fragment
         //bluetoothSerial.connect(device);
 
         try {
-            status.setText("Connecting...");
+            //status.setText("Connecting...");
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             if (bluetoothAdapter.isEnabled()) {
                 bt.start();
@@ -1476,15 +1466,15 @@ public class FragmentConnection extends Fragment
 
 
                 Log.d(TAG, "Btservice started - listening");
-                status.setText("Connected2");
+              //  status.setText("Connected2");
                 //setControlsBTConnected();
             } else {
                 Log.w(TAG, "Btservice started - bluetooth is not enabled");
-                status.setText("Bluetooth Not enabled");
+                //status.setText("Bluetooth Not enabled");
             }
         } catch(Exception e){
             Log.e(TAG, "Unable to start bt ",e);
-            status.setText("Unable to connect " +e);
+            //status.setText("Unable to connect " +e);
         }
 
     }
@@ -1571,7 +1561,7 @@ public class FragmentConnection extends Fragment
                             statusStr = "??";
                             break;
                     }
-                    status.setText(statusStr);
+                    //status.setText(statusStr);
 
                     /*
 

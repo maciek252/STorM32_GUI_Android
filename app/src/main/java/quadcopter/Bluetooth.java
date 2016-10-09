@@ -93,7 +93,8 @@ public class Bluetooth {
 	 */
 	public Bluetooth(Context context, Handler handler) {
 		mAdapter = BluetoothAdapter.getDefaultAdapter();
-		if (D)
+
+		if (mAdapter != null && D)
 			for (BluetoothDevice bd: mAdapter.getBondedDevices()) Log.d(TAG, "Bounded device "+bd);
 		mState = STATE_NONE;
 		mHandler = handler;

@@ -3,24 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.0"
-        sha1="8ff38ed6a041b1c65d6218db950a054b7c0efc50">
-        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_8dc8544d3a938563cc815cffc388f143552288ce/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.0"
-        sha1="251a415f52a4d89b2b821c77ee07dbc15f463447">
-        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_63428cd4b8f4856a4bdb40278a0eb84f4c1bc9b4/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -39,39 +21,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/design/23.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.0"
-        sha1="72961d8b453b46e277702f18de9d210bc019e36e">
-        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.2.1_216edc39caa2f1c67750cd6c9d04ac23a8776a60/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.2.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
         sha1="e3885783ff8926ed9e2fdcd16816c2e1e73e7aee">
         <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-23.2.1_63007394da281051b401f5ae7b9d8a2ac9777253/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.0"
-        sha1="e4d0cbb0b999604b349062f0214a0a228a7fd151">
-        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.2.1_59876ae7912eb4675aa0774be0ef948db4155985/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/jars/libs/internal_impl-23.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.0"
-        sha1="607a3d0b8013b4ccbfeb0b7cb293351994e021fb">
-        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.2.1_60d6082f54a71e3357f0519b0e650a797942f5de/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -93,12 +48,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.1/jars/classes.jar"
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
-        sha1="3469cb457f10f74c28cbc05f069b6c894f6cbdd0">
-        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.2.1_18583ddfae30bea89505fb7b9f7365ba114366ba/classes.dex" />
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-multidex-1.0.1_00e148a8425f6ff4a3861144a3320bea74317a77/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -106,8 +61,62 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
-        sha1="8afb179b336929501bc0b6a71803cf2df0c47b10">
+        sha1="4177d84d92a48d2279f250ec5185fedbcee29449">
         <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/2/mu-0.1.1_13f5f18b352708728521f2953954835c3e3905ab/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="dbe777baa2d6670e1c85728c296276754f5e3003">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_8dc8544d3a938563cc815cffc388f143552288ce/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="5e867108f817129e5e747fa0e008cb0e04313dfc">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_63428cd4b8f4856a4bdb40278a0eb84f4c1bc9b4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/design/23.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="72961d8b453b46e277702f18de9d210bc019e36e">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.2.1_216edc39caa2f1c67750cd6c9d04ac23a8776a60/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="e4d0cbb0b999604b349062f0214a0a228a7fd151">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.2.1_59876ae7912eb4675aa0774be0ef948db4155985/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/jars/libs/internal_impl-23.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="607a3d0b8013b4ccbfeb0b7cb293351994e021fb">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.2.1_60d6082f54a71e3357f0519b0e650a797942f5de/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="3469cb457f10f74c28cbc05f069b6c894f6cbdd0">
+        <dex dex="/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/STorM32_GUI_Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.2.1_18583ddfae30bea89505fb7b9f7365ba114366ba/classes.dex" />
     </item>
 
 </items>
