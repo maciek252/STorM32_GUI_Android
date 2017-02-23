@@ -1,0 +1,33 @@
+[0m[[0mdebug[0m] [0m[naha] [0m
+[0m[[0mdebug[0m] [0m[naha] Initial source changes: [0m
+[0m[[0mdebug[0m] [0m[naha] 	removed:Set()[0m
+[0m[[0mdebug[0m] [0m[naha] 	added: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] 	modified: Set(/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/parsers/fastparse-test/src/main/scala/hw.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated products: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] External API changes: API Changes: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] Modified binary dependencies: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] Initial directly invalidated sources: Set(/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/parsers/fastparse-test/src/main/scala/hw.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] [0m
+[0m[[0mdebug[0m] [0m[naha] Sources indirectly invalidated by:[0m
+[0m[[0mdebug[0m] [0m[naha] 	product: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] 	binary dep: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] 	external source: Set()[0m
+[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set(/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/parsers/fastparse-test/src/main/scala/hw.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/parsers/fastparse-test/src/main/scala/hw.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Recompiling all 1 sources: invalidated sources (1) exceeded 50.0% of all sources[0m
+[0m[[0minfo[0m] [0mCompiling 1 Scala source to /home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/parsers/fastparse-test/target/scala-2.11/classes...[0m
+[0m[[0mdebug[0m] [0mGetting org.scala-sbt:compiler-interface:0.13.13:component from component compiler for Scala 2.11.7[0m
+[0m[[0mdebug[0m] [0mGetting org.scala-sbt:compiler-interface:0.13.13:component from component compiler for Scala 2.11.7[0m
+[0m[[0mdebug[0m] [0mRunning cached compiler 65ebb6f1, interfacing (CompilerInterface) with Scala compiler version 2.11.7[0m
+[0m[[0mdebug[0m] [0mCalling Scala compiler with arguments  (CompilerInterface):[0m
+[0m[[0mdebug[0m] [0m	-bootclasspath[0m
+[0m[[0mdebug[0m] [0m	/opt/java/jdk1.8.0_112/jre/lib/resources.jar:/opt/java/jdk1.8.0_112/jre/lib/rt.jar:/opt/java/jdk1.8.0_112/jre/lib/sunrsasign.jar:/opt/java/jdk1.8.0_112/jre/lib/jsse.jar:/opt/java/jdk1.8.0_112/jre/lib/jce.jar:/opt/java/jdk1.8.0_112/jre/lib/charsets.jar:/opt/java/jdk1.8.0_112/jre/lib/jfr.jar:/opt/java/jdk1.8.0_112/jre/classes:/home/maciek/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar[0m
+[0m[[0mdebug[0m] [0m	-classpath[0m
+[0m[[0mdebug[0m] [0m	/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/parsers/fastparse-test/target/scala-2.11/classes:/home/maciek/.ivy2/cache/com.lihaoyi/fastparse_2.11/jars/fastparse_2.11-0.4.1.jar:/home/maciek/.ivy2/cache/com.lihaoyi/fastparse-utils_2.11/jars/fastparse-utils_2.11-0.4.1.jar:/home/maciek/.ivy2/cache/com.lihaoyi/sourcecode_2.11/jars/sourcecode_2.11-0.1.1.jar[0m
+[0m[[0mdebug[0m] [0mScala compilation took 13.72850239 s[0m
+[0m[[0mdebug[0m] [0m[naha] New invalidations:[0m
+[0m[[0mdebug[0m] [0m[naha] 	Set()[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] Previously invalidated, but (transitively) depend on new invalidations:[0m
+[0m[[0mdebug[0m] [0m[naha] 	Set()[0m
+[0m[[0mdebug[0m] [0m[naha] All newly invalidated sources after taking into account (previously) recompiled sources:Set()[0m

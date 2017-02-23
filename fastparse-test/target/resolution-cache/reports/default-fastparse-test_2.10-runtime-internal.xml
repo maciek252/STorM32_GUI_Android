@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ivy-report.xsl"?>
+<ivy-report version="1.0">
+	<info
+		organisation="default"
+		module="fastparse-test_2.10"
+		revision="0.1-SNAPSHOT"
+		conf="runtime-internal"
+		confs="compile, runtime, test, provided, optional, androidTest, android-internal, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
+		date="20170128174553"/>
+	<dependencies>
+		<module organisation="org.scala-lang" name="scala-reflect">
+			<revision name="2.10.6" status="release" pubdate="20150918113538" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scala-lang.org/" extra-info.apiURL="http://www.scala-lang.org/api/2.10.6/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="4">
+				<license name="BSD-like" url="http://www.scala-lang.org/downloads/license.html    "/>
+				<metadata-artifact status="no" details="" size="2647" time="0" location="/home/maciek/.ivy2/cache/org.scala-lang/scala-reflect/ivy-2.10.6.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.10.6/scala-reflect-2.10.6.pom"/>
+				<caller organisation="org.scalamacros" name="quasiquotes_2.10" conf="compile, runtime" rev="2.10.6" rev-constraint-default="2.10.6" rev-constraint-dynamic="2.10.6" callerrev="2.0.0"/>
+				<artifacts>
+					<artifact name="scala-reflect" type="jar" ext="jar" status="no" details="" size="3206180" time="0" location="/home/maciek/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.10.6.jar">
+						<origin-location is-local="false" location="UNKNOWN"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="com.lihaoyi" name="fastparse_2.10">
+			<revision name="0.4.1" status="release" pubdate="20160916085013" resolver="public" artresolver="public" homepage="https://github.com/lihaoyi/scala-parser" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="1">
+				<license name="MIT license" url="http://www.opensource.org/licenses/mit-license.php"/>
+				<metadata-artifact status="successful" details="" size="3041" time="164" location="/home/maciek/.ivy2/cache/com.lihaoyi/fastparse_2.10/ivy-0.4.1.xml" searched="true" original-local-location="/home/maciek/.ivy2/cache/com.lihaoyi/fastparse_2.10/ivy-0.4.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/lihaoyi/fastparse_2.10/0.4.1/fastparse_2.10-0.4.1.pom"/>
+				<caller organisation="default" name="fastparse-test_2.10" conf="compile, runtime-internal, runtime, optional" rev="0.4.1" rev-constraint-default="0.4.1" rev-constraint-dynamic="0.4.1" callerrev="0.1-SNAPSHOT"/>
+				<artifacts>
+					<artifact name="fastparse_2.10" type="jar" ext="jar" status="successful" details="" size="332812" time="412" location="/home/maciek/.ivy2/cache/com.lihaoyi/fastparse_2.10/jars/fastparse_2.10-0.4.1.jar">
+						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/lihaoyi/fastparse_2.10/0.4.1/fastparse_2.10-0.4.1.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="com.lihaoyi" name="fastparse-utils_2.10">
+			<revision name="0.4.1" status="release" pubdate="20160916084952" resolver="public" artresolver="public" homepage="https://github.com/lihaoyi/scala-parser" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="2">
+				<license name="MIT license" url="http://www.opensource.org/licenses/mit-license.php"/>
+				<metadata-artifact status="successful" details="" size="2878" time="153" location="/home/maciek/.ivy2/cache/com.lihaoyi/fastparse-utils_2.10/ivy-0.4.1.xml" searched="true" original-local-location="/home/maciek/.ivy2/cache/com.lihaoyi/fastparse-utils_2.10/ivy-0.4.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/lihaoyi/fastparse-utils_2.10/0.4.1/fastparse-utils_2.10-0.4.1.pom"/>
+				<caller organisation="com.lihaoyi" name="fastparse_2.10" conf="default, compile, runtime, master" rev="0.4.1" rev-constraint-default="0.4.1" rev-constraint-dynamic="0.4.1" callerrev="0.4.1"/>
+				<artifacts>
+					<artifact name="fastparse-utils_2.10" type="jar" ext="jar" status="successful" details="" size="77502" time="254" location="/home/maciek/.ivy2/cache/com.lihaoyi/fastparse-utils_2.10/jars/fastparse-utils_2.10-0.4.1.jar">
+						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/lihaoyi/fastparse-utils_2.10/0.4.1/fastparse-utils_2.10-0.4.1.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="com.lihaoyi" name="sourcecode_2.10">
+			<revision name="0.1.1" status="release" pubdate="20160307052756" resolver="public" artresolver="public" homepage="https://github.com/lihaoyi/sourcecode" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="5">
+				<license name="MIT license" url="http://www.opensource.org/licenses/mit-license.php"/>
+				<metadata-artifact status="successful" details="" size="1980" time="159" location="/home/maciek/.ivy2/cache/com.lihaoyi/sourcecode_2.10/ivy-0.1.1.xml" searched="true" original-local-location="/home/maciek/.ivy2/cache/com.lihaoyi/sourcecode_2.10/ivy-0.1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/lihaoyi/sourcecode_2.10/0.1.1/sourcecode_2.10-0.1.1.pom"/>
+				<caller organisation="com.lihaoyi" name="fastparse_2.10" conf="default, compile, runtime, master" rev="0.1.1" rev-constraint-default="0.1.1" rev-constraint-dynamic="0.1.1" callerrev="0.4.1"/>
+				<caller organisation="com.lihaoyi" name="fastparse-utils_2.10" conf="compile, runtime" rev="0.1.1" rev-constraint-default="0.1.1" rev-constraint-dynamic="0.1.1" callerrev="0.4.1"/>
+				<artifacts>
+					<artifact name="sourcecode_2.10" type="jar" ext="jar" status="successful" details="" size="97122" time="163" location="/home/maciek/.ivy2/cache/com.lihaoyi/sourcecode_2.10/jars/sourcecode_2.10-0.1.1.jar">
+						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/lihaoyi/sourcecode_2.10/0.1.1/sourcecode_2.10-0.1.1.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="org.scalamacros" name="quasiquotes_2.10">
+			<revision name="2.0.0" status="release" pubdate="20140417110710" resolver="public" artresolver="public" homepage="https://github.com/scalamacros/paradise" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="3">
+				<license name="BSD-like" url="http://www.scala-lang.org/downloads/license.html"/>
+				<metadata-artifact status="successful" details="" size="1841" time="158" location="/home/maciek/.ivy2/cache/org.scalamacros/quasiquotes_2.10/ivy-2.0.0.xml" searched="true" original-local-location="/home/maciek/.ivy2/cache/org.scalamacros/quasiquotes_2.10/ivy-2.0.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalamacros/quasiquotes_2.10/2.0.0/quasiquotes_2.10-2.0.0.pom"/>
+				<caller organisation="com.lihaoyi" name="sourcecode_2.10" conf="compile, runtime" rev="2.0.0" rev-constraint-default="2.0.0" rev-constraint-dynamic="2.0.0" callerrev="0.1.1"/>
+				<caller organisation="com.lihaoyi" name="fastparse_2.10" conf="default, compile, runtime, master" rev="2.0.0" rev-constraint-default="2.0.0" rev-constraint-dynamic="2.0.0" callerrev="0.4.1"/>
+				<caller organisation="com.lihaoyi" name="fastparse-utils_2.10" conf="compile, runtime" rev="2.0.0" rev-constraint-default="2.0.0" rev-constraint-dynamic="2.0.0" callerrev="0.4.1"/>
+				<artifacts>
+					<artifact name="quasiquotes_2.10" type="jar" ext="jar" status="successful" details="" size="720997" time="235" location="/home/maciek/.ivy2/cache/org.scalamacros/quasiquotes_2.10/jars/quasiquotes_2.10-2.0.0.jar">
+						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scalamacros/quasiquotes_2.10/2.0.0/quasiquotes_2.10-2.0.0.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="org.scala-lang" name="scala-library">
+			<revision name="2.10.6" status="release" pubdate="20150918113528" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scala-lang.org/" extra-info.apiURL="http://www.scala-lang.org/api/2.10.6/" downloaded="false" searched="false" default="false" conf="default, master(*), compile, runtime(*), master(compile), runtime, default(compile), compile(*), master" position="0">
+				<license name="BSD-like" url="http://www.scala-lang.org/downloads/license.html          "/>
+				<metadata-artifact status="no" details="" size="2487" time="0" location="/home/maciek/.ivy2/cache/org.scala-lang/scala-library/ivy-2.10.6.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.10.6/scala-library-2.10.6.pom"/>
+				<caller organisation="com.lihaoyi" name="sourcecode_2.10" conf="compile, runtime" rev="2.10.6" rev-constraint-default="2.10.6" rev-constraint-dynamic="2.10.6" callerrev="0.1.1"/>
+				<caller organisation="default" name="fastparse-test_2.10" conf="compile, runtime-internal, runtime, optional" rev="2.10.6" rev-constraint-default="2.10.6" rev-constraint-dynamic="2.10.6" callerrev="0.1-SNAPSHOT"/>
+				<caller organisation="org.scalamacros" name="quasiquotes_2.10" conf="compile, runtime" rev="2.10.6" rev-constraint-default="2.10.6" rev-constraint-dynamic="2.10.6" callerrev="2.0.0"/>
+				<caller organisation="com.lihaoyi" name="fastparse_2.10" conf="default, compile, runtime, master" rev="2.10.6" rev-constraint-default="2.10.6" rev-constraint-dynamic="2.10.6" callerrev="0.4.1"/>
+				<caller organisation="org.scala-lang" name="scala-reflect" conf="compile, runtime" rev="2.10.6" rev-constraint-default="2.10.6" rev-constraint-dynamic="2.10.6" callerrev="2.10.6"/>
+				<caller organisation="com.lihaoyi" name="fastparse-utils_2.10" conf="compile, runtime" rev="2.10.6" rev-constraint-default="2.10.6" rev-constraint-dynamic="2.10.6" callerrev="0.4.1"/>
+				<artifacts>
+					<artifact name="scala-library" type="jar" ext="jar" status="no" details="" size="7132001" time="0" location="/home/maciek/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.6.jar">
+						<origin-location is-local="false" location="UNKNOWN"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+	</dependencies>
+</ivy-report>

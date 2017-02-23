@@ -1,0 +1,13 @@
+[0m[[0minfo[0m] [0mRunning Hi [0m
+[0m[[0mdebug[0m] [0mWaiting for threads to exit or System.exit to be called.[0m
+[0m[[0mdebug[0m] [0m  Classpath:[0m
+[0m[[0mdebug[0m] [0m	/home/maciek/REPOS/svn/mackowe/drony/Gimbale/STorM32/parsers/fastparse-test/target/scala-2.11/classes[0m
+[0m[[0mdebug[0m] [0m	/home/maciek/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar[0m
+[0m[[0mdebug[0m] [0m	/home/maciek/.ivy2/cache/com.lihaoyi/fastparse_2.11/jars/fastparse_2.11-0.4.1.jar[0m
+[0m[[0mdebug[0m] [0m	/home/maciek/.ivy2/cache/com.lihaoyi/fastparse-utils_2.11/jars/fastparse-utils_2.11-0.4.1.jar[0m
+[0m[[0mdebug[0m] [0m	/home/maciek/.ivy2/cache/com.lihaoyi/sourcecode_2.11/jars/sourcecode_2.11-0.1.1.jar[0m
+[0m[[0mdebug[0m] [0mWaiting for thread run-main-0 to terminate.[0m
+[0m[[0mdebug[0m] [0m	Thread run-main-0 exited.[0m
+[0m[[0mdebug[0m] [0mInterrupting remaining threads (should be all daemons).[0m
+[0m[[0mdebug[0m] [0mSandboxed run complete..[0m
+[0m[[0mdebug[0m] [0mExited with code 0[0m
